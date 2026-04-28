@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WEBVAZ — Criação de Sites Profissionais em Portugal</title>
+  <meta name="description" content="Criamos sites profissionais para pequenos negócios em Portugal. Rápidos, modernos e que aparecem no Google.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav__container">
+      <a href="#inicio" class="nav__logo">WEB<span>VAZ</span></a>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#portfolio">Portfólio</a></li>
+        <li><a href="#precos">Preços</a></li>
+        <li><a href="#contacto" class="nav__cta">Pedir Orçamento</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero__bg"></div>
+    <div class="hero__container">
+      <span class="hero__tag">Agência de Criação de Sites</span>
+      <h1 class="hero__title">O teu negócio merece<br>um site que <span>vende.</span></h1>
+      <p class="hero__sub">Criamos sites profissionais para pequenos negócios em Portugal — rápidos, modernos e que aparecem no Google.</p>
+      <div class="hero__ctas">
+        <a href="#contacto" class="btn btn--primary">Pedir Orçamento Grátis</a>
+        <a href="#portfolio" class="btn btn--ghost">Ver Portfólio</a>
+      </div>
+      <div class="hero__stat">
+        <strong>10+</strong>
+        <span>clientes satisfeitos</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section class="services" id="servicos">
+    <div class="container">
+      <h2 data-aos="fade-up">O que fazemos</h2>
+      <div class="services__grid">
+        <div class="service-card" data-aos="fade-up" data-aos-delay="0">
+          <div class="service-card__icon">🌐</div>
+          <h3>Sites Institucionais</h3>
+          <p>Presença online profissional para a tua empresa. Design moderno, rápido e adaptado a todos os dispositivos.</p>
+        </div>
+        <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="service-card__icon">🛒</div>
+          <h3>Lojas Online</h3>
+          <p>Vende os teus produtos 24h por dia, todos os dias. Pagamentos seguros e gestão simples.</p>
+        </div>
+        <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="service-card__icon">🔧</div>
+          <h3>Manutenção Mensal</h3>
+          <p>Nós tratamos do teu site, tu tratas do teu negócio. Atualizações, segurança e suporte incluídos.</p>
+        </div>
+        <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="service-card__icon">📈</div>
+          <h3>SEO</h3>
+          <p>Aparece no Google quando os teus clientes pesquisam. Mais visibilidade, mais clientes, mais vendas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFÓLIO -->
+  <section class="portfolio" id="portfolio">
+    <div class="container">
+      <h2 data-aos="fade-up">Trabalhos recentes</h2>
+      <div class="portfolio__grid">
+        <div class="portfolio-card" data-aos="fade-up">
+          <div class="portfolio-card__img portfolio-card__img--1"></div>
+          <div class="portfolio-card__body">
+            <span class="portfolio-card__tag">Site Institucional</span>
+            <h3>Restaurante O Tasqueiro</h3>
+            <a href="#" class="btn btn--ghost btn--sm">Ver projeto →</a>
+          </div>
+        </div>
+        <div class="portfolio-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="portfolio-card__img portfolio-card__img--2"></div>
+          <div class="portfolio-card__body">
+            <span class="portfolio-card__tag">Site + Marcações Online</span>
+            <h3>Salão Prestige</h3>
+            <a href="#" class="btn btn--ghost btn--sm">Ver projeto →</a>
+          </div>
+        </div>
+        <div class="portfolio-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="portfolio-card__img portfolio-card__img--3"></div>
+          <div class="portfolio-card__body">
+            <span class="portfolio-card__tag">E-commerce</span>
+            <h3>Loja Artesanato Local</h3>
+            <a href="#" class="btn btn--ghost btn--sm">Ver projeto →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section class="process" id="processo">
+    <div class="container">
+      <h2 data-aos="fade-up">Do briefing ao lançamento</h2>
+      <div class="process__steps">
+        <div class="process-step" data-aos="fade-up">
+          <span class="process-step__num">01</span>
+          <h3>Briefing</h3>
+          <p>Contamos sobre o teu negócio e o que precisas.</p>
+        </div>
+        <div class="process-step" data-aos="fade-up" data-aos-delay="100">
+          <span class="process-step__num">02</span>
+          <h3>Design</h3>
+          <p>Criamos o visual personalizado em 48 horas.</p>
+        </div>
+        <div class="process-step" data-aos="fade-up" data-aos-delay="200">
+          <span class="process-step__num">03</span>
+          <h3>Desenvolvimento</h3>
+          <p>Construímos e testamos cada detalhe do site.</p>
+        </div>
+        <div class="process-step" data-aos="fade-up" data-aos-delay="300">
+          <span class="process-step__num">04</span>
+          <h3>Entrega</h3>
+          <p>Site no ar em menos de 7 dias.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPOIMENTOS -->
+  <section class="testimonials" id="depoimentos">
+    <div class="container">
+      <h2 data-aos="fade-up">O que dizem os clientes</h2>
+      <div class="testimonials__grid">
+        <div class="testimonial-card" data-aos="fade-up">
+          <p>"O Davi entregou o site em menos de uma semana e os clientes adoram! As reservas online dispararam."</p>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar">JS</div>
+            <div>
+              <strong>João Silva</strong>
+              <span>Restaurante O Tasqueiro</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="150">
+          <p>"As marcações online triplicaram depois do novo site. Recomendo a 100%! Serviço profissional e rápido."</p>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar">AF</div>
+            <div>
+              <strong>Ana Ferreira</strong>
+              <span>Salão Prestige</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREÇOS -->
+  <section class="pricing" id="precos">
+    <div class="container">
+      <h2 data-aos="fade-up">Investimento transparente</h2>
+      <p class="section-sub" data-aos="fade-up">Sem surpresas. Preços fixos, entrega garantida.</p>
+      <div class="pricing__grid">
+        <div class="pricing-card" data-aos="fade-up">
+          <h3>Landing Page</h3>
+          <div class="pricing-card__price"><span>300€</span></div>
+          <ul>
+            <li>✓ 1 página profissional</li>
+            <li>✓ Formulário de contacto</li>
+            <li>✓ Adaptado a mobile</li>
+            <li>✓ Entrega em 3 dias</li>
+          </ul>
+          <a href="#contacto" class="btn btn--ghost">Escolher</a>
+        </div>
+        <div class="pricing-card pricing-card--featured" data-aos="fade-up" data-aos-delay="100">
+          <span class="pricing-card__badge">Mais popular</span>
+          <h3>Site Completo</h3>
+          <div class="pricing-card__price"><span>600€</span></div>
+          <ul>
+            <li>✓ Até 5 páginas</li>
+            <li>✓ SEO básico incluído</li>
+            <li>✓ Blog opcional</li>
+            <li>✓ Entrega em 7 dias</li>
+          </ul>
+          <a href="#contacto" class="btn btn--primary">Escolher</a>
+        </div>
+        <div class="pricing-card" data-aos="fade-up" data-aos-delay="200">
+          <h3>Loja Online</h3>
+          <div class="pricing-card__price"><span>1.200€</span></div>
+          <ul>
+            <li>✓ E-commerce completo</li>
+            <li>✓ Pagamentos online</li>
+            <li>✓ Gestão de produtos</li>
+            <li>✓ Entrega em 14 dias</li>
+          </ul>
+          <a href="#contacto" class="btn btn--ghost">Escolher</a>
+        </div>
+      </div>
+      <p class="pricing__note" data-aos="fade-up">Manutenção mensal disponível a partir de <strong>30€/mês</strong></p>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-final" id="contacto">
+    <div class="container">
+      <h2 data-aos="fade-up">Pronto para ter um site que trabalha por ti?</h2>
+      <p data-aos="fade-up">Respondo em menos de 24 horas.</p>
+      <div class="cta-final__btns" data-aos="fade-up">
+        <a href="https://wa.me/351XXXXXXXXX" class="btn btn--dark" target="_blank" rel="noopener">💬 WhatsApp</a>
+        <a href="mailto:davimachadovaz@gmail.com" class="btn btn--dark">✉️ Enviar Email</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <a href="#inicio" class="nav__logo">WEB<span>VAZ</span></a>
+      <ul class="footer__links">
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#portfolio">Portfólio</a></li>
+        <li><a href="#precos">Preços</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+      <p>© 2026 WEBVAZ. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
