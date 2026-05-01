@@ -71,6 +71,41 @@
   });
 })();
 
+// Gallery4 carousel
+(function initGalleryCarousel() {
+  document.querySelectorAll('.g4-wrap').forEach(wrap => {
+    const section  = wrap.closest('section');
+    const slides   = wrap.querySelectorAll('.g4-slide');
+    const dots     = section ? section.querySelectorAll('.g4-dot') : [];
+    const prevBtn  = section ? section.querySelector('.g4-btn--prev') : null;
+    const nextBtn  = section ? section.querySelector('.g4-btn--next') : null;
+    if (!slides.length) return;
+
+    const gap      = () => 20;
+    const slideW   = () => slides[0].offsetWidth + gap();
+
+    function sync() {
+      const sl  = wrap.scrollLeft;
+      const max = wrap.scrollWidth - wrap.clientWidth;
+      const idx = Math.min(Math.round(sl / slideW()), slides.length - 1);
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      if (prevBtn) prevBtn.disabled = sl < 4;
+      if (nextBtn) nextBtn.disabled = sl > max - 4;
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', () =>
+      wrap.scrollBy({ left: -slideW(), behavior: 'smooth' }));
+    if (nextBtn) nextBtn.addEventListener('click', () =>
+      wrap.scrollBy({ left:  slideW(), behavior: 'smooth' }));
+    dots.forEach((dot, i) => dot.addEventListener('click', () =>
+      wrap.scrollTo({ left: i * slideW(), behavior: 'smooth' })));
+
+    wrap.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync, { passive: true });
+    sync();
+  });
+})();
+
 // Glow card expand/collapse
 (function initGlowCardExpand() {
   const cards = document.querySelectorAll('.glow-card');
