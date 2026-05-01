@@ -7,7 +7,7 @@
   <meta name="description" content="Criamos sites profissionais para pequenos negócios em Portugal. Rápidos, modernos e que aparecem no Google.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -18,9 +18,9 @@
     <div class="nav__container">
       <a href="#inicio" class="nav__logo">WEB<span>VAZ</span></a>
       <ul class="nav__links" id="navLinks">
-        <li><a href="#servicos">Serviços</a></li>
-        <li><a href="#portfolio">Portfólio</a></li>
-        <li><a href="#precos">Preços</a></li>
+        <li><a href="servicos.html">Serviços</a></li>
+        <li><a href="portfolio.html">Portfólio</a></li>
+        <li><a href="precos.html">Preços</a></li>
         <li><a href="#contacto" class="nav__cta">Pedir Orçamento</a></li>
       </ul>
       <button class="nav__hamburger" id="hamburger" aria-label="Abrir menu">
@@ -31,18 +31,22 @@
 
   <!-- HERO -->
   <section class="hero" id="inicio">
+    <div class="hero-grid-container" id="heroGrid" aria-hidden="true"></div>
     <div class="hero__bg"></div>
     <div class="hero__container">
-      <span class="hero__tag">Agência de Criação de Sites</span>
-      <h1 class="hero__title">O teu negócio merece<br>um site que <span>vende.</span></h1>
-      <p class="hero__sub">Criamos sites profissionais para pequenos negócios em Portugal — rápidos, modernos e que aparecem no Google.</p>
+      <span class="hero__tag">Agência de Criação de Sites · Portugal</span>
+      <h1 class="hero__title">O site que o teu<br>negócio <span>merecia.</span></h1>
+      <p class="hero__sub">Websites profissionais, rápidos e pensados para vender — entregues em menos de 7 dias.</p>
       <div class="hero__ctas">
         <a href="#contacto" class="btn btn--primary">Pedir Orçamento Grátis</a>
-        <a href="#portfolio" class="btn btn--ghost">Ver Portfólio</a>
+        <a href="portfolio.html" class="btn btn--ghost">Ver Portfólio</a>
       </div>
-      <div class="hero__stat">
-        <strong>10+</strong>
-        <span>clientes satisfeitos</span>
+      <div class="hero__trust">
+        <div class="hero__trust-item"><strong>10+</strong><span>Clientes</span></div>
+        <div class="hero__trust-divider"></div>
+        <div class="hero__trust-item"><strong>7 dias</strong><span>Entrega</span></div>
+        <div class="hero__trust-divider"></div>
+        <div class="hero__trust-item"><strong>SEO</strong><span>Incluído</span></div>
       </div>
     </div>
   </section>
@@ -50,28 +54,63 @@
   <!-- SERVIÇOS -->
   <section class="services" id="servicos">
     <div class="container">
-      <h2 data-aos="fade-up">O que fazemos</h2>
-      <div class="services__grid">
-        <div class="service-card" data-aos="fade-up" data-aos-delay="0">
-          <div class="service-card__icon">🌐</div>
-          <h3>Sites Institucionais</h3>
-          <p>Presença online profissional para a tua empresa. Design moderno, rápido e adaptado a todos os dispositivos.</p>
-        </div>
-        <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="service-card__icon">🛒</div>
-          <h3>Lojas Online</h3>
-          <p>Vende os teus produtos 24h por dia, todos os dias. Pagamentos seguros e gestão simples.</p>
-        </div>
-        <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-          <div class="service-card__icon">🔧</div>
-          <h3>Manutenção Mensal</h3>
-          <p>Nós tratamos do teu site, tu tratas do teu negócio. Atualizações, segurança e suporte incluídos.</p>
-        </div>
-        <div class="service-card" data-aos="fade-up" data-aos-delay="300">
-          <div class="service-card__icon">📈</div>
-          <h3>SEO</h3>
-          <p>Aparece no Google quando os teus clientes pesquisam. Mais visibilidade, mais clientes, mais vendas.</p>
-        </div>
+      <div class="section-header" data-aos="fade-up">
+        <span class="services-tag">O que fazemos</span>
+        <h2>Soluções digitais<br>para crescer.</h2>
+        <p class="section-sub">Desde a criação do site à manutenção mensal — cuidamos de tudo para que te focuses no teu negócio.</p>
+      </div>
+      <div class="service-hcards" data-aos="fade-up">
+        <a href="servicos.html" class="service-hcard">
+          <div class="service-hcard__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div class="service-hcard__info">
+            <span class="service-hcard__name">Sites Institucionais</span>
+            <span class="service-hcard__desc">Design moderno, rápido e adaptado a todos os dispositivos.</span>
+          </div>
+          <div class="service-hcard__arrow">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+        </a>
+        <a href="servicos.html" class="service-hcard">
+          <div class="service-hcard__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          </div>
+          <div class="service-hcard__info">
+            <span class="service-hcard__name">Lojas Online</span>
+            <span class="service-hcard__desc">Vende os teus produtos 24h por dia. Pagamentos seguros incluídos.</span>
+          </div>
+          <div class="service-hcard__arrow">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+        </a>
+        <a href="servicos.html" class="service-hcard">
+          <div class="service-hcard__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <div class="service-hcard__info">
+            <span class="service-hcard__name">Manutenção Mensal</span>
+            <span class="service-hcard__desc">Nós tratamos do teu site, tu tratas do teu negócio.</span>
+          </div>
+          <div class="service-hcard__arrow">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+        </a>
+        <a href="servicos.html" class="service-hcard">
+          <div class="service-hcard__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          </div>
+          <div class="service-hcard__info">
+            <span class="service-hcard__name">SEO & Google</span>
+            <span class="service-hcard__desc">Aparece no Google quando os teus clientes pesquisam.</span>
+          </div>
+          <div class="service-hcard__arrow">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+        </a>
+      </div>
+      <div class="services-cta" data-aos="fade-up">
+        <a href="servicos.html" class="btn btn--primary">Ver todos os serviços</a>
       </div>
     </div>
   </section>
@@ -82,25 +121,31 @@
       <h2 data-aos="fade-up">Trabalhos recentes</h2>
       <div class="portfolio__grid">
         <div class="portfolio-card" data-aos="fade-up">
-          <div class="portfolio-card__img portfolio-card__img--1"></div>
+          <div class="portfolio-card__img portfolio-card__img--1">
+            <span class="portfolio-card__img-name">Restaurante O Tasqueiro</span>
+          </div>
           <div class="portfolio-card__body">
-            <span class="portfolio-card__tag">Site Institucional</span>
+            <span class="portfolio-card__tag portfolio-card__tag--institucional">Site Institucional</span>
             <h3>Restaurante O Tasqueiro</h3>
             <a href="projects/tasqueiro/index.html" class="btn btn--ghost btn--sm" target="_blank">Ver projeto →</a>
           </div>
         </div>
         <div class="portfolio-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="portfolio-card__img portfolio-card__img--2"></div>
+          <div class="portfolio-card__img portfolio-card__img--2">
+            <span class="portfolio-card__img-name">Salão Prestige</span>
+          </div>
           <div class="portfolio-card__body">
-            <span class="portfolio-card__tag">Site + Marcações Online</span>
+            <span class="portfolio-card__tag portfolio-card__tag--marcacoes">Site + Marcações Online</span>
             <h3>Salão Prestige</h3>
             <a href="projects/salao-prestige/index.html" class="btn btn--ghost btn--sm" target="_blank">Ver projeto →</a>
           </div>
         </div>
         <div class="portfolio-card" data-aos="fade-up" data-aos-delay="200">
-          <div class="portfolio-card__img portfolio-card__img--3"></div>
+          <div class="portfolio-card__img portfolio-card__img--3">
+            <span class="portfolio-card__img-name">Loja Artesanato Local</span>
+          </div>
           <div class="portfolio-card__body">
-            <span class="portfolio-card__tag">E-commerce</span>
+            <span class="portfolio-card__tag portfolio-card__tag--ecommerce">E-commerce</span>
             <h3>Loja Artesanato Local</h3>
             <a href="projects/artesanato/index.html" class="btn btn--ghost btn--sm" target="_blank">Ver projeto →</a>
           </div>
@@ -229,9 +274,9 @@
     <div class="container">
       <a href="#inicio" class="nav__logo">WEB<span>VAZ</span></a>
       <ul class="footer__links">
-        <li><a href="#servicos">Serviços</a></li>
-        <li><a href="#portfolio">Portfólio</a></li>
-        <li><a href="#precos">Preços</a></li>
+        <li><a href="servicos.html">Serviços</a></li>
+        <li><a href="portfolio.html">Portfólio</a></li>
+        <li><a href="precos.html">Preços</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
       <p>© 2026 WEBVAZ. Todos os direitos reservados.</p>
