@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ementa — Café Pastelaria Aurora · Lisboa</title>
+  <meta name="description" content="A ementa completa do Café Aurora. Pastelaria artesanal, cafés, pequenos-almoços, almoços e bolos de encomenda.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Nunito:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --amarelo: #E8A838;
+      --amarelo-light: #F2C060;
+      --castanho: #3D1F0D;
+      --castanho-mid: #6B3C1E;
+      --creme: #FDF6E3;
+      --creme-dark: #F5E9C8;
+      --vermelho: #C0392B;
+      --vermelho-light: #E74C3C;
+      --text: #2C1105;
+      --text-soft: #7A5230;
+      --serif: 'Abril Fatface', cursive;
+      --sans: 'Nunito', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--creme); color: var(--text); overflow-x: hidden; }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+
+    /* NAV */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(61,31,13,0.97); backdrop-filter: blur(8px);
+      padding: 18px 0; transition: padding 0.3s;
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-family: var(--serif); font-size: 1.5rem; color: var(--amarelo); letter-spacing: -0.01em; }
+    .nav-logo em { color: rgba(255,255,255,0.4); font-style: normal; font-family: var(--sans); font-size: 0.65rem; display: block; letter-spacing: 0.2em; font-weight: 300; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
+    .nav-links a { font-size: 0.88rem; font-weight: 600; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--amarelo); }
+    .nav-links a.active { color: var(--amarelo); }
+    .nav-cta {
+      background: var(--vermelho) !important; color: #fff !important;
+      padding: 10px 22px; border-radius: 100px; font-size: 0.82rem !important;
+      font-weight: 700 !important; letter-spacing: 0.06em !important; transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--vermelho-light) !important; }
+    .nav-ham { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
+    .nav-ham span { width: 24px; height: 2px; background: var(--amarelo); border-radius: 2px; display: block; }
+
+    /* HERO PEQUENO */
+    .page-hero {
+      min-height: 60vh; position: relative; display: flex; align-items: flex-end;
+      overflow: hidden; padding-bottom: 80px;
+    }
+    .page-hero-bg { position: absolute; inset: 0; background: var(--castanho); }
+    .page-hero-bg img { width: 100%; height: 100%; object-fit: cover; opacity: 0.4; }
+    .page-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(61,31,13,0.95) 20%, rgba(61,31,13,0.3) 100%);
+    }
+    .page-hero-content {
+      position: relative; z-index: 2; max-width: 1200px; margin: 0 auto;
+      padding: 0 24px; width: 100%;
+    }
+    .page-hero-tag { font-size: 0.78rem; font-weight: 700; color: var(--amarelo); text-transform: uppercase; letter-spacing: 0.25em; margin-bottom: 16px; display: block; }
+    .page-hero-title { font-family: var(--serif); font-size: clamp(48px, 7vw, 90px); color: #fff; line-height: 1; margin-bottom: 20px; }
+    .page-hero-title span { color: var(--amarelo); }
+    .page-hero-sub { font-size: 1.05rem; font-weight: 300; color: rgba(255,255,255,0.7); font-style: italic; max-width: 500px; line-height: 1.7; }
+    .breadcrumb { display: flex; align-items: center; gap: 10px; margin-bottom: 32px; }
+    .breadcrumb a { font-size: 0.82rem; color: rgba(255,255,255,0.5); transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--amarelo); }
+    .breadcrumb span { color: rgba(255,255,255,0.25); font-size: 0.82rem; }
+
+    /* LAYOUT */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section-label { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: var(--amarelo); margin-bottom: 16px; display: block; }
+    .section-title-serif { font-family: var(--serif); font-size: clamp(28px, 3.5vw, 48px); margin-bottom: 12px; }
+
+    /* CATEGORIA NAV */
+    .cat-nav { background: var(--castanho); position: sticky; top: 62px; z-index: 80; }
+    .cat-nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; gap: 4px; overflow-x: auto; }
+    .cat-nav-inner::-webkit-scrollbar { display: none; }
+    .cat-link { padding: 16px 22px; font-size: 0.82rem; font-weight: 700; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.1em; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; cursor: pointer; }
+    .cat-link:hover { color: var(--amarelo-light); }
+    .cat-link.active { color: var(--amarelo); border-bottom-color: var(--amarelo); }
+
+    /* SECÇÃO DE CATEGORIA */
+    .menu-section { padding: 80px 0; }
+    .menu-section:nth-child(even) { background: var(--creme-dark); }
+    .menu-section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 52px; padding-bottom: 24px; border-bottom: 1px solid rgba(61,31,13,0.12); }
+    .menu-section-header-left { }
+    .menu-section-count { font-size: 0.75rem; font-weight: 700; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.12em; }
+
+    /* CARDS DE PRODUTO */
+    .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .product-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 16px rgba(61,31,13,0.07); transition: transform 0.25s, box-shadow 0.25s; }
+    .product-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(61,31,13,0.13); }
+    .product-img { width: 100%; height: 180px; object-fit: cover; }
+    .product-body { padding: 20px; }
+    .product-badge { display: inline-block; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; padding: 3px 10px; border-radius: 100px; background: var(--creme-dark); color: var(--text-soft); margin-bottom: 10px; }
+    .product-badge.destaque { background: rgba(232,168,56,0.2); color: var(--castanho-mid); }
+    .product-name { font-family: var(--serif); font-size: 1rem; color: var(--castanho); margin-bottom: 8px; line-height: 1.3; }
+    .product-desc { font-size: 0.82rem; color: var(--text-soft); line-height: 1.6; font-style: italic; margin-bottom: 14px; }
+    .product-footer { display: flex; align-items: center; justify-content: space-between; }
+    .product-price { font-family: var(--serif); font-size: 1.15rem; color: var(--vermelho); }
+    .product-price small { font-family: var(--sans); font-size: 0.7rem; font-weight: 600; color: var(--text-soft); }
+
+    /* GRID ESPECIAL 3 COLUNAS para cafés */
+    .products-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+    /* GRID 2 COLUNAS para almoços */
+    .products-grid-lunch { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .lunch-card { background: #fff; border-radius: 12px; overflow: hidden; display: flex; box-shadow: 0 2px 16px rgba(61,31,13,0.07); transition: transform 0.25s; }
+    .lunch-card:hover { transform: translateY(-3px); }
+    .lunch-img { width: 200px; height: 160px; object-fit: cover; flex-shrink: 0; }
+    .lunch-body { padding: 22px; display: flex; flex-direction: column; justify-content: center; }
+    .lunch-day { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; color: var(--vermelho); margin-bottom: 8px; }
+    .lunch-name { font-family: var(--serif); font-size: 1.1rem; color: var(--castanho); margin-bottom: 8px; line-height: 1.3; }
+    .lunch-desc { font-size: 0.84rem; color: var(--text-soft); line-height: 1.6; font-style: italic; margin-bottom: 14px; }
+    .lunch-price { font-family: var(--serif); font-size: 1.2rem; color: var(--vermelho); }
+
+    /* GRID BOLOS DE ENCOMENDA */
+    .products-grid-cakes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    .cake-card { background: var(--castanho); border-radius: 16px; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; box-shadow: 0 4px 24px rgba(0,0,0,0.15); transition: transform 0.25s; }
+    .cake-card:hover { transform: translateY(-4px); }
+    .cake-img { width: 100%; height: 260px; object-fit: cover; }
+    .cake-body { padding: 28px; display: flex; flex-direction: column; justify-content: center; }
+    .cake-tag { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; color: var(--amarelo-light); margin-bottom: 12px; }
+    .cake-name { font-family: var(--serif); font-size: 1.2rem; color: #fff; margin-bottom: 10px; line-height: 1.3; }
+    .cake-desc { font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.65; font-style: italic; margin-bottom: 18px; }
+    .cake-price { font-family: var(--serif); font-size: 1.3rem; color: var(--amarelo); }
+    .cake-price small { font-family: var(--sans); font-size: 0.72rem; color: rgba(255,255,255,0.4); font-weight: 600; }
+    .cake-cta { margin-top: 14px; display: inline-block; background: var(--amarelo); color: var(--castanho); padding: 10px 20px; border-radius: 8px; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; transition: background 0.2s; }
+    .cake-cta:hover { background: var(--amarelo-light); }
+
+    /* NOTA ALERGÉNIOS */
+    .alergenos { background: var(--castanho); padding: 60px 0; }
+    .alergenos-box { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 40px 48px; display: flex; gap: 32px; align-items: flex-start; }
+    .alergenos-icon { width: 52px; height: 52px; border-radius: 50%; background: var(--amarelo); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.4rem; }
+    .alergenos-title { font-family: var(--serif); font-size: 1.3rem; color: var(--amarelo); margin-bottom: 10px; }
+    .alergenos-text { font-size: 0.9rem; color: rgba(255,255,255,0.6); line-height: 1.8; }
+    .alergenos-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .alergenos-tag { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.65); padding: 5px 14px; border-radius: 100px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    /* FOOTER */
+    .footer { background: var(--castanho); color: rgba(255,255,255,0.6); padding: 64px 0 32px; }
+    .footer-deco { text-align: center; margin-bottom: 48px; }
+    .footer-deco-line { width: 80px; height: 2px; background: var(--amarelo); margin: 0 auto 20px; }
+    .footer-logo-big { font-family: var(--serif); font-size: 3rem; color: var(--amarelo); }
+    .footer-tagline { font-size: 0.85rem; font-style: italic; color: rgba(255,255,255,0.4); margin-top: 6px; }
+    .footer-top { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-col-title { font-size: 0.78rem; font-weight: 800; color: var(--amarelo-light); text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 20px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { font-size: 0.88rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--amarelo); }
+    .footer-hours { font-size: 0.88rem; line-height: 2; }
+    .footer-hours strong { color: rgba(255,255,255,0.85); font-weight: 700; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; text-align: center; font-size: 0.8rem; }
+    .footer-webvaz { color: var(--amarelo-light); transition: color 0.2s; }
+    .footer-webvaz:hover { color: var(--amarelo); }
+
+    .back-link {
+      position: fixed; top: 50%; left: 20px; transform: translateY(-50%) rotate(-90deg);
+      background: var(--amarelo); color: var(--castanho); padding: 8px 16px; border-radius: 100px;
+      font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; z-index: 200;
+    }
+    .back-link:hover { background: var(--amarelo-light); }
+
+    @media (max-width: 1024px) {
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .products-grid-3 { grid-template-columns: repeat(2, 1fr); }
+      .products-grid-lunch { grid-template-columns: 1fr; }
+      .products-grid-cakes { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: fixed; top: 68px; left: 0; right: 0; background: var(--castanho); padding: 24px; border-bottom: 1px solid rgba(255,255,255,0.1); gap: 16px; }
+      .nav-links.open { display: flex; }
+      .nav-ham { display: flex; }
+      .products-grid { grid-template-columns: 1fr; }
+      .products-grid-3 { grid-template-columns: 1fr; }
+      .lunch-card { flex-direction: column; }
+      .lunch-img { width: 100%; height: 200px; }
+      .cake-card { grid-template-columns: 1fr; }
+      .cake-img { height: 220px; }
+      .menu-section-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .alergenos-box { flex-direction: column; padding: 28px; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .back-link { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="../../portfolio.html" class="back-link">← Portfólio</a>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      Aurora
+      <em>Café & Pastelaria · Desde 1952</em>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="ementa.html" class="active">Ementa</a></li>
+      <li><a href="index.html#galeria">Galeria</a></li>
+      <li><a href="index.html#pedidos">Encomendas</a></li>
+      <li><a href="index.html#eventos">Eventos</a></li>
+      <li><a href="reservas.html" class="nav-cta">Reservar Mesa</a></li>
+    </ul>
+    <button class="nav-ham" id="ham" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-bg">
+    <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=1400&auto=format&fit=crop" alt="Pastéis variados">
+  </div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <div class="breadcrumb">
+      <a href="index.html">Início</a>
+      <span>/</span>
+      <a href="ementa.html" style="color:rgba(255,255,255,0.8);">Ementa</a>
+    </div>
+    <span class="page-hero-tag">Feito todos os dias com amor</span>
+    <h1 class="page-hero-title">A nossa<br><span>Ementa</span></h1>
+    <p class="page-hero-sub">Pastelaria artesanal, cafés de especialidade, pequenos-almoços, almoços portugueses e bolos de encomenda.</p>
+  </div>
+</section>
+
+<nav class="cat-nav">
+  <div class="cat-nav-inner">
+    <a href="#pastelaria" class="cat-link active">Pastelaria</a>
+    <a href="#cafes" class="cat-link">Cafés & Bebidas</a>
+    <a href="#pequeno-almoco" class="cat-link">Pequeno-Almoço</a>
+    <a href="#almoco" class="cat-link">Almoço</a>
+    <a href="#encomendas" class="cat-link">Bolos de Encomenda</a>
+  </div>
+</nav>
+
+<section class="menu-section" id="pastelaria">
+  <div class="container">
+    <div class="menu-section-header">
+      <div class="menu-section-header-left">
+        <span class="section-label">Feitos de manhã cedo</span>
+        <h2 class="section-title-serif" style="color:var(--castanho);">Pastelaria</h2>
+        <p style="font-size:0.92rem;color:var(--text-soft);font-style:italic;margin-top:6px;">Cada peça preparada artesanalmente com as receitas originais da Aurora.</p>
+      </div>
+      <div class="menu-section-count">8 produtos</div>
+    </div>
+    <div class="products-grid">
+      <div class="product-card">
+        <img class="product-img" src="https://images.unsplash.com/photo-1587314168485-3236d6710814?w=500&auto=format&fit=crop" alt="Pastel de Nata">
+        <div class="product-body">
+          <span class="product-badge destaque">Clássico · Mais vendido</span>
+          <div class="product-name">Pastel de Nata da Aurora</div>
+          <div class="product-desc">A receita original de 1952. Massa folhada crocante com creme de ovos perfumado com canela e limão do Algarve.</div>
+          <div class="product-footer">
+            <div class="product-price">1,40€</div>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <img class="product-img" src="https://images.unsplash.com/photo-1519996529931-28324d5a630e?w=500&auto=format&fit=crop" alt="Queijada de Sintra">
+        <div class="product-body">
+          <span class="product-badge">Tradicional</span>
+          <div class="product-name">Queijada de Sintra</div>
+          <div class="product-desc">Queijadas artesanais com queijo fresco da serra, canela e açúcar. Receita tradicional de Sintra.</div>
+          <div class="product-footer">
+            <div class="product-price">2,20€</div>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <img class="product-img" src="https://images.unsplash.com/photo-1517093602195-b40af9f1a571?w=500&auto=format&fit=crop" alt="Croissant de Manteiga">
+        <div class="product-body">
+          <span class="product-badge">Manhã</span>
+          <div class="product-name">Croissant de Manteiga</div>
+          <div class="product-desc">Folhado com 27 camadas de manteiga francesa. Crocante por fora, macio e amanteigado por dentro.</div>
+          <div class="product-footer">
+            <div class="product-price">1,80€</div>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <img class="product-img" src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=500&auto=format&fit=crop" alt="Bolo de Mel da Madeira">
+        <div class="product-body">
+          <span class="product-badge">Tradicional</span>
+          <div class="product-name">Bolo de Mel da Madeira</div>
+          <div class="product-desc">Receita madeirense com melaço, cravinho, canela, erva-doce e frutos secos. Textura densa e perfumada.</div>
+          <div class="product-footer">
+            <div class="product-price">2,80€</div>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <img class="product-img" src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=500&auto=format&fit=crop" alt="Tarte de Amêndoa">
+        <div class="product-body">
+          <span class="product-badge destaque">Especial</span>
+          <div class="product-name">Tarte de Amêndoa Alentejana</div>
+          <div class="product-desc">Base de massa amanteigada com recheio cremoso de amêndoa torrada e mel do Alentejo. Servida morna.</div>
+          <div class="product-footer">
+            <div class="product-price">3,50€</div>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <img class="product-img" src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500&auto=format&fit=crop" alt="Berlinde de Doce de Leite">
+        <div class="product-body">
+          <span class="product-badge">Favorito</span>
+          <div class="product-name">Berlinde de Doce de Leite</div>
+          <div class="product-desc">Massa leve e fofa recheada com doce de leite artesanal. Polvilhado com açúcar em pó e canela.</div>
+          <div class="product-footer">
+            <div class="product-price">2,60€</div>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <img class="product-img" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500&auto=format&fit=crop" alt="Bolo de Cenoura com Laranja">
+        <div class="product-body">
+          <span class="product-badge">Sazonal</span>
+          <div class="product-name">Bolo de Cenoura com Laranja</div>
+          <div class="product-desc">Bolo húmido de cenoura com cobertura de cream cheese e raspa de laranja fresca. Sem glúten disponível.</div>
+          <div class="product-footer">
+            <div class="product-price">3,20€</div>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <img class="product-img" src="https://images.unsplash.com/photo-1528137871618-79d2761e3fd5?w=500&auto=format&fit=crop" alt="Mil-Folhas de Creme">
+        <div class="product-body">
+          <span class="product-badge">Clássico</span>
+          <div class="product-name">Mil-Folhas de Creme</div>
+          <div class="product-desc">Camadas de massa folhada crocante intercaladas com creme de pasteleiro baunilhado. Acabado na hora.</div>
+          <div class="product-footer">
+            <div class="product-price">3,80€</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="menu-section" id="cafes">
+  <div class="container">
+    <div class="menu-section-header">
+      <div class="menu-section-header-left">
+        <span class="section-label">Blend exclusivo Aurora</span>
+        <h2 class="section-title-serif" style="color:var(--castanho);">Cafés & Bebidas Quentes</h2>
+        <p style="font-size:0.92rem;color:var(--text-soft);font-style:italic;margin-top:6px;">Torrado localmente para nós. Cada chávena é uma cerimónia.</p>
+      </div>
+      <div class="menu-section-count">6 produtos</div>
+    </div>
+    <div class="products-grid-3">
+      <div class="product-card">
+        <img class="product-img" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500&auto=format&fit=crop" alt="Bica da Aurora">
+        <div class="product-body">
+          <span class="product-badge destaque">O nosso café</span>
+          <div class="product-name">Bica da Aurora</div>
+          <div class="product-desc">Blend exclusivo torrado a cada semana. Notas de chocolate negro, frutos vermelhos e caramelo. Intensidade média-alta.</div>
+          <div class="product-footer">
+            <div class="product-price">0,90€</div>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <img class="product-img" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=500&auto=format&fit=crop" alt="Galão">
+        <div class="product-body">
+          <span class="product-badge">Favorito</span>
+          <div class="product-name">Galão</div>
+          <div class="product-desc">Espresso com leite vaporizado em proporção 1:3. Servido em copo alto. O clássico português por excelência.</div>
+          <div class="product-footer">
+            <div class="product-price">1,40€</div>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <img class="product-img" src="https://images.unsplash.com/photo-1442975631134-77fd7f82ddba?w=500&auto=format&fit=crop" alt="Cappuccino">
+        <div class="product-body">
+          <span class="product-badge">Artesanal</span>
+          <div class="product-name">Cappuccino da Casa</div>
+          <div class="product-desc">Duplo espresso com leite vaporizado e espuma cremosa. Arte latte ao toque. Opcional com canela ou cacau.</div>
+          <div class="product-footer">
+            <div class="product-price">2,00€</div>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <img class="product-img" src="https://images.unsplash.com/photo-1528137871618-79d2761e3fd5?w=500&auto=format&fit=crop" alt="Meia de Leite">
+        <div class="product-body">
+          <span class="product-badge">Clássico</span>
+          <div class="product-name">Meia de Leite</div>
+          <div class="product-desc">Café expresso com metade de leite quente vaporizado. Suave e reconfortante, ideal ao pequeno-almoço.</div>
+          <div class="product-footer">
+            <div class="product-price">1,20€</div>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <img class="product-img" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500&auto=format&fit=crop" alt="Chocolate Quente">
+        <div class="product-body">
+          <span class="product-badge">Inverno</span>
+          <div class="product-name">Chocolate Quente</div>
+          <div class="product-desc">Chocolate negro 70% Valrhona com leite integral. Espessura à escolha: fino ou cremoso. Marshmallows opcionais.</div>
+          <div class="product-footer">
+            <div class="product-price">2,50€</div>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <img class="product-img" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=500&auto=format&fit=crop" alt="Chá da Aurora">
+        <div class="product-body">
+          <span class="product-badge">Biológico</span>
+          <div class="product-name">Chá da Aurora</div>
+          <div class="product-desc">Seleção de chás orgânicos: camomila, hortelã do campo, gengibre com limão e chá verde sencha japonês.</div>
+          <div class="product-footer">
+            <div class="product-price">1,80€</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="menu-section" id="pequeno-almoco">
+  <div class="container">
+    <div class="menu-section-header">
+      <div class="menu-section-header-left">
+        <span class="section-label">Das 7h30 às 11h00</span>
+        <h2 class="section-title-serif" style="color:var(--castanho);">Pequeno-Almoço</h2>
+        <p style="font-size:0.92rem;color:var(--text-soft);font-style:italic;margin-top:6px;">Combinados completos para começar o dia com energia. Servidos todos os dias.</p>
+      </div>
+      <div class="menu-section-count">4 combinados</div>
+    </div>
+    <div class="products-grid" style="grid-template-columns:repeat(2,1fr);">
+      <div class="product-card" style="display:flex;flex-direction:row;">
+        <img class="product-img" src="https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=400&auto=format&fit=crop" alt="Pequeno-Almoço Completo" style="width:180px;height:auto;flex-shrink:0;border-radius:12px 0 0 12px;">
+        <div class="product-body" style="display:flex;flex-direction:column;justify-content:center;">
+          <span class="product-badge destaque">Mais popular</span>
+          <div class="product-name">Pequeno-Almoço Completo</div>
+          <div class="product-desc">Café ou chá + torrada com manteiga e doce de laranja + sumo natural de laranja espremida + 1 pastel de nata.</div>
+          <div class="product-footer"><div class="product-price">6,50€</div></div>
+        </div>
+      </div>
+      <div class="product-card" style="display:flex;flex-direction:row;">
+        <img class="product-img" src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=400&auto=format&fit=crop" alt="Brunch da Aurora" style="width:180px;height:auto;flex-shrink:0;border-radius:12px 0 0 12px;">
+        <div class="product-body" style="display:flex;flex-direction:column;justify-content:center;">
+          <span class="product-badge destaque">Brunch</span>
+          <div class="product-name">Brunch da Aurora</div>
+          <div class="product-desc">Ovos mexidos com queijo da ilha + croissant amanteigado + galão + taça de fruta da época + iogurte grego com granola.</div>
+          <div class="product-footer"><div class="product-price">9,80€</div></div>
+        </div>
+      </div>
+      <div class="product-card" style="display:flex;flex-direction:row;">
+        <img class="product-img" src="https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=400&auto=format&fit=crop" alt="Pequeno-Almoço Saudável" style="width:180px;height:auto;flex-shrink:0;border-radius:12px 0 0 12px;">
+        <div class="product-body" style="display:flex;flex-direction:column;justify-content:center;">
+          <span class="product-badge">Saudável</span>
+          <div class="product-name">Pequeno-Almoço Saudável</div>
+          <div class="product-desc">Iogurte grego com granola artesanal e fruta fresca + chá verde + torrada integral com abacate e sementes.</div>
+          <div class="product-footer"><div class="product-price">7,90€</div></div>
+        </div>
+      </div>
+      <div class="product-card" style="display:flex;flex-direction:row;">
+        <img class="product-img" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&auto=format&fit=crop" alt="Mini Pequeno-Almoço" style="width:180px;height:auto;flex-shrink:0;border-radius:12px 0 0 12px;">
+        <div class="product-body" style="display:flex;flex-direction:column;justify-content:center;">
+          <span class="product-badge">Rápido</span>
+          <div class="product-name">Mini Pequeno-Almoço</div>
+          <div class="product-desc">Café ou meia de leite + torrada simples com manteiga e mel. Para os dias em que o tempo é pouco mas o sabor é muito.</div>
+          <div class="product-footer"><div class="product-price">3,20€</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="menu-section" id="almoco">
+  <div class="container">
+    <div class="menu-section-header">
+      <div class="menu-section-header-left">
+        <span class="section-label">Das 12h00 às 15h00</span>
+        <h2 class="section-title-serif" style="color:var(--castanho);">Almoço</h2>
+        <p style="font-size:0.92rem;color:var(--text-soft);font-style:italic;margin-top:6px;">Pratos portugueses tradicionais, feitos com ingredientes de mercado. Prato do dia muda diariamente.</p>
+      </div>
+      <div class="menu-section-count">5 pratos</div>
+    </div>
+    <div class="products-grid-lunch">
+      <div class="lunch-card">
+        <img class="lunch-img" src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=500&auto=format&fit=crop" alt="Bacalhau à Brás">
+        <div class="lunch-body">
+          <div class="lunch-day">Segunda & Quarta</div>
+          <div class="lunch-name">Bacalhau à Brás</div>
+          <div class="lunch-desc">Bacalhau desfiado com ovos mexidos, batata palha crocante, azeitonas pretas e salsa fresca. Prato português por excelência. Inclui pão da Aurora.</div>
+          <div class="lunch-price">11,50€</div>
+        </div>
+      </div>
+      <div class="lunch-card">
+        <img class="lunch-img" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&auto=format&fit=crop" alt="Cozido à Portuguesa">
+        <div class="lunch-body">
+          <div class="lunch-day">Quinta-Feira</div>
+          <div class="lunch-name">Cozido à Portuguesa</div>
+          <div class="lunch-desc">Carnes de porco e vaca, chouriço de sangue, morcela, farinheira e legumes cozidos lentamente desde a manhã. Porção generosa. Reservas recomendadas.</div>
+          <div class="lunch-price">12,50€</div>
+        </div>
+      </div>
+      <div class="lunch-card">
+        <img class="lunch-img" src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=500&auto=format&fit=crop" alt="Frango no Churrasco">
+        <div class="lunch-body">
+          <div class="lunch-day">Terça & Sexta</div>
+          <div class="lunch-name">Frango no Churrasco com Piri-Piri</div>
+          <div class="lunch-desc">Meio frango marinado 24 horas em piri-piri e ervas aromáticas. Grelhado na brasa. Acompanha arroz de tomate e salada verde da época.</div>
+          <div class="lunch-price">10,80€</div>
+        </div>
+      </div>
+      <div class="lunch-card">
+        <img class="lunch-img" src="https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=500&auto=format&fit=crop" alt="Menu Sopa + Prato">
+        <div class="lunch-body">
+          <div class="lunch-day">Todos os dias</div>
+          <div class="lunch-name">Menu Sopa + Prato do Dia</div>
+          <div class="lunch-desc">Sopa caseira do dia (caldo verde, sopa de legumes ou canja) + prato do dia à escolha + pão da Aurora + água. O menu mais completo e económico.</div>
+          <div class="lunch-price">9,50€</div>
+        </div>
+      </div>
+      <div class="lunch-card">
+        <img class="lunch-img" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&auto=format&fit=crop" alt="Bifanas da Aurora">
+        <div class="lunch-body">
+          <div class="lunch-day">Todos os dias</div>
+          <div class="lunch-name">Bifanas da Aurora</div>
+          <div class="lunch-desc">Bifanas de porco marinadas em vinho branco, alho e louro. Servidas em pão de centeio quente com mostarda da casa e pickles artesanais.</div>
+          <div class="lunch-price">8,90€</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="menu-section" id="encomendas" style="background:var(--creme-dark);">
+  <div class="container">
+    <div class="menu-section-header">
+      <div class="menu-section-header-left">
+        <span class="section-label">Com antecedência mínima de 48h</span>
+        <h2 class="section-title-serif" style="color:var(--castanho);">Bolos de Encomenda</h2>
+        <p style="font-size:0.92rem;color:var(--text-soft);font-style:italic;margin-top:6px;">Criações especiais para as suas ocasiões. Cada bolo é feito com dedicação e personalizado ao seu gosto.</p>
+      </div>
+      <div class="menu-section-count">4 bolos especiais</div>
+    </div>
+    <div class="products-grid-cakes">
+      <div class="cake-card">
+        <img class="cake-img" src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=600&auto=format&fit=crop" alt="Bolo de Aniversário">
+        <div class="cake-body">
+          <div class="cake-tag">Aniversários & Celebrações</div>
+          <div class="cake-name">Bolo de Aniversário Personalizado</div>
+          <div class="cake-desc">Bolo de baunilha ou chocolate com recheio à escolha: mousse de frutos vermelhos, creme de manteiga, ganache de chocolate ou doce de leite. Decoração personalizada com nome e mensagem. Disponível em 6, 10, 15 ou 20 doses.</div>
+          <div class="cake-price">A partir de 28€ <small>/ 6 doses</small></div>
+          <a href="reservas.html" class="cake-cta">Encomendar</a>
+        </div>
+      </div>
+      <div class="cake-card">
+        <img class="cake-img" src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600&auto=format&fit=crop" alt="Tabuleiro de Pastéis">
+        <div class="cake-body">
+          <div class="cake-tag">Eventos & Empresas</div>
+          <div class="cake-name">Tabuleiro de Pastéis de Nata</div>
+          <div class="cake-desc">Tabuleiros com os pastéis de nata originais da Aurora, frescos e acabados de sair do forno. Ideais para reuniões, eventos corporativos e festividades. Mínimo 12 unidades. Embalagem especial disponível.</div>
+          <div class="cake-price">A partir de 16,80€ <small>/ 12 un.</small></div>
+          <a href="reservas.html" class="cake-cta">Encomendar</a>
+        </div>
+      </div>
+      <div class="cake-card">
+        <img class="cake-img" src="https://images.unsplash.com/photo-1517093602195-b40af9f1a571?w=600&auto=format&fit=crop" alt="Tarte de Noiva">
+        <div class="cake-body">
+          <div class="cake-tag">Casamentos & Batizados</div>
+          <div class="cake-name">Bolo de Casamento Aurora</div>
+          <div class="cake-desc">Bolo de múltiplos andares para os momentos mais especiais. Consulta personalizada com a Chef Maria Aurora. Escolha de sabores, recheios, coberturas e decoração floral artesanal. Montagem no local incluída.</div>
+          <div class="cake-price">A partir de 120€ <small>/ 30 doses</small></div>
+          <a href="reservas.html" class="cake-cta">Encomendar</a>
+        </div>
+      </div>
+      <div class="cake-card">
+        <img class="cake-img" src="https://images.unsplash.com/photo-1519996529931-28324d5a630e?w=600&auto=format&fit=crop" alt="Caixa de Doces">
+        <div class="cake-body">
+          <div class="cake-tag">Presentes & Ofertas</div>
+          <div class="cake-name">Caixa de Doces Tradicionais</div>
+          <div class="cake-desc">Caixa artesanal com uma seleção dos melhores doces da Aurora: pastéis de nata, queijadas, amêndoas cobertas e bolo de mel da Madeira. Presenteie com o melhor de Lisboa. Embrulho com fita e cartão personalizado.</div>
+          <div class="cake-price">A partir de 22€ <small>/ caixa 16 un.</small></div>
+          <a href="reservas.html" class="cake-cta">Encomendar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alergenos">
+  <div class="container">
+    <div class="alergenos-box">
+      <div class="alergenos-icon">⚠</div>
+      <div>
+        <div class="alergenos-title">Informação sobre Alergénios</div>
+        <p class="alergenos-text">Todos os nossos produtos são preparados em ambiente que pode conter traços de glúten, lactose, ovos, frutos secos e soja. Se tiver alergias alimentares, por favor informe a nossa equipa antes de fazer o pedido — teremos todo o prazer em ajudá-lo a escolher com segurança. Disponibilizamos ficha técnica completa com alergénios para todos os produtos mediante pedido.</p>
+        <div class="alergenos-tags">
+          <span class="alergenos-tag">Glúten</span>
+          <span class="alergenos-tag">Lactose</span>
+          <span class="alergenos-tag">Ovos</span>
+          <span class="alergenos-tag">Frutos secos</span>
+          <span class="alergenos-tag">Soja</span>
+          <span class="alergenos-tag">Mostarda</span>
+          <span class="alergenos-tag">Sulfitos</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-deco">
+      <div class="footer-deco-line"></div>
+      <div class="footer-logo-big">Aurora</div>
+      <div class="footer-tagline">"Desde 1952, o sabor de Lisboa."</div>
+    </div>
+    <div class="footer-top">
+      <div class="footer-col">
+        <div class="footer-col-title">Informação</div>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="ementa.html">Ementa completa</a></li>
+          <li><a href="index.html#galeria">Galeria</a></li>
+          <li><a href="index.html#eventos">Eventos</a></li>
+          <li><a href="reservas.html">Reservas</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Horário</div>
+        <div class="footer-hours">
+          <strong>Segunda a Sexta</strong><br>7h30 – 20h00<br>
+          <strong>Sábado</strong><br>8h00 – 22h00<br>
+          <strong>Domingo</strong><br>9h00 – 18h00
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Contacto</div>
+        <ul>
+          <li><a href="#">Rua do Intendente, 42, Lisboa</a></li>
+          <li><a href="#">+351 21 800 0000</a></li>
+          <li><a href="#">reservas@cafeaurora.pt</a></li>
+          <li style="margin-top:16px;display:flex;gap:10px;">
+            <a href="#" style="background:rgba(255,255,255,0.08);padding:8px;border-radius:6px;display:flex;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="#" style="background:rgba(255,255,255,0.08);padding:8px;border-radius:6px;display:flex;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Café Pastelaria Aurora. Todos os direitos reservados. · Rua do Intendente, 42, Lisboa<br>
+      <span style="margin-top:8px;display:block;">Site desenvolvido por <a href="../../index.html" class="footer-webvaz">WEBVAZ</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').style.padding = window.scrollY > 60 ? '12px 0' : '18px 0';
+  });
+
+  document.getElementById('ham').addEventListener('click', () => {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+  document.querySelectorAll('#navLinks a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+  });
+
+  const sections = ['pastelaria','cafes','pequeno-almoco','almoco','encomendas'];
+  const catLinks = document.querySelectorAll('.cat-link');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 200) current = id;
+    });
+    catLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

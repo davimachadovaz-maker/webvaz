@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Especialidades — Clínica Médica Lisboa</title>
+  <meta name="description" content="Conheça todas as especialidades médicas da Clínica Lisboa. Cardiologia, ortopedia, dermatologia, pediatria e muito mais.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --royal: #1C3A6E;
+      --royal-mid: #2851A3;
+      --royal-light: #EDF2FB;
+      --branco: #F8FBFF;
+      --verde: #2ECC71;
+      --verde-dark: #22A55C;
+      --cinza: #6B7280;
+      --cinza-light: #F1F5F9;
+      --text: #111827;
+      --text-soft: #4B5563;
+      --border: #E2E8F0;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--branco); color: var(--text); overflow-x: hidden; }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(248,251,255,0.97); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); padding: 0;
+    }
+    .nav-top { background: var(--royal); padding: 7px 0; }
+    .nav-top-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-top-left { display: flex; gap: 24px; }
+    .nav-top-item { display: flex; align-items: center; gap: 7px; font-size: 0.78rem; color: rgba(255,255,255,0.8); }
+    .nav-top-phone { font-size: 0.82rem; font-weight: 700; color: var(--verde); letter-spacing: 0.02em; }
+    .nav-main { padding: 14px 0; }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; }
+    .nav-logo-icon {
+      width: 40px; height: 40px; background: var(--royal); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-logo-icon svg { stroke: #fff; }
+    .nav-logo-text { line-height: 1; }
+    .nav-logo-name { font-family: var(--serif); font-size: 1.2rem; color: var(--royal); }
+    .nav-logo-sub { font-size: 0.68rem; color: var(--cinza); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
+    .nav-links { display: flex; align-items: center; gap: 6px; list-style: none; }
+    .nav-links li a { font-size: 0.88rem; font-weight: 500; color: var(--text-soft); padding: 8px 14px; border-radius: 6px; transition: background 0.2s, color 0.2s; display: block; }
+    .nav-links li a:hover { background: var(--royal-light); color: var(--royal); }
+    .nav-links li a.active { background: var(--royal-light); color: var(--royal); font-weight: 600; }
+    .nav-cta {
+      background: var(--verde) !important; color: #fff !important;
+      padding: 10px 22px !important; border-radius: 8px !important;
+      font-weight: 600 !important; transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--verde-dark) !important; }
+    .nav-ham { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
+    .nav-ham span { width: 24px; height: 2px; background: var(--royal); border-radius: 2px; display: block; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section-eyebrow { font-size: 0.78rem; font-weight: 700; color: var(--verde-dark); text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 14px; display: block; }
+    .section-title { font-family: var(--serif); font-size: clamp(28px, 3vw, 44px); color: var(--royal); line-height: 1.25; }
+    .section-title em { font-style: italic; }
+    .btn-green { background: var(--verde); color: #fff; padding: 14px 32px; border-radius: 8px; font-size: 0.92rem; font-weight: 600; border: none; cursor: pointer; transition: background 0.2s, transform 0.1s; display: inline-block; }
+    .btn-green:hover { background: var(--verde-dark); transform: translateY(-2px); }
+
+    .page-hero {
+      padding-top: 108px; position: relative; overflow: hidden;
+      min-height: 420px; display: flex; align-items: center;
+    }
+    .page-hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+    }
+    .page-hero-bg img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .page-hero-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(100deg, rgba(13,32,64,0.88) 50%, rgba(13,32,64,0.4) 100%);
+    }
+    .page-hero-content {
+      position: relative; z-index: 2;
+      max-width: 1200px; margin: 0 auto; padding: 72px 24px;
+    }
+    .breadcrumb {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-bottom: 20px;
+    }
+    .breadcrumb a { color: rgba(255,255,255,0.6); transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--verde); }
+    .breadcrumb span { color: rgba(255,255,255,0.35); }
+    .page-hero-title { font-family: var(--serif); font-size: clamp(32px, 4vw, 56px); color: #fff; line-height: 1.15; margin-bottom: 18px; }
+    .page-hero-title em { font-style: italic; color: var(--verde); }
+    .page-hero-sub { font-size: 1rem; color: rgba(255,255,255,0.75); line-height: 1.7; max-width: 520px; }
+
+    .spec-intro { padding: 72px 0 0; }
+    .spec-intro-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .spec-intro-card {
+      background: #fff; border-radius: 16px; padding: 32px;
+      border: 1.5px solid var(--border); display: flex; gap: 18px; align-items: flex-start;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .spec-intro-card:hover { border-color: var(--royal); box-shadow: 0 8px 32px rgba(28,58,110,0.08); }
+    .spec-intro-icon {
+      width: 52px; height: 52px; border-radius: 12px; background: var(--royal-light);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .spec-intro-icon svg { stroke: var(--royal); }
+    .spec-intro-title { font-family: var(--serif); font-size: 1rem; color: var(--royal); margin-bottom: 6px; }
+    .spec-intro-text { font-size: 0.85rem; color: var(--text-soft); line-height: 1.6; }
+
+    .spec-full { padding: 80px 0; }
+    .spec-full-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .spec-full-card {
+      background: #fff; border-radius: 20px; overflow: hidden;
+      border: 1.5px solid var(--border); transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    }
+    .spec-full-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(28,58,110,0.12); border-color: var(--royal); }
+    .spec-full-img { width: 100%; height: 200px; object-fit: cover; }
+    .spec-full-body { padding: 28px; }
+    .spec-full-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.72rem; font-weight: 700; color: var(--verde-dark);
+      text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 12px;
+    }
+    .spec-full-tag span { width: 6px; height: 6px; border-radius: 50%; background: var(--verde); display: inline-block; }
+    .spec-full-name { font-family: var(--serif); font-size: 1.2rem; color: var(--royal); margin-bottom: 10px; }
+    .spec-full-desc { font-size: 0.88rem; color: var(--text-soft); line-height: 1.65; margin-bottom: 16px; }
+    .spec-full-meta { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid var(--border); }
+    .spec-full-wait { font-size: 0.8rem; color: var(--verde-dark); font-weight: 600; }
+    .spec-full-btn {
+      background: var(--royal-light); color: var(--royal); padding: 9px 18px;
+      border-radius: 8px; font-size: 0.82rem; font-weight: 600; border: none;
+      cursor: pointer; transition: background 0.2s; white-space: nowrap;
+    }
+    .spec-full-btn:hover { background: var(--royal); color: #fff; }
+
+    .spec-cta { padding: 80px 0; background: var(--royal); }
+    .spec-cta-inner {
+      display: grid; grid-template-columns: 1fr auto; gap: 80px; align-items: center;
+    }
+    .spec-cta-title { font-family: var(--serif); font-size: clamp(24px, 2.8vw, 40px); color: #fff; line-height: 1.25; margin-bottom: 16px; }
+    .spec-cta-title em { font-style: italic; color: var(--verde); }
+    .spec-cta-sub { font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.7; max-width: 520px; }
+    .spec-cta-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; }
+    .btn-white { background: #fff; color: var(--royal); padding: 14px 32px; border-radius: 8px; font-size: 0.92rem; font-weight: 700; border: none; cursor: pointer; transition: opacity 0.2s, transform 0.1s; display: inline-block; }
+    .btn-white:hover { opacity: 0.92; transform: translateY(-2px); }
+    .btn-outline-white { background: transparent; color: #fff; padding: 14px 32px; border-radius: 8px; font-size: 0.92rem; font-weight: 500; border: 1.5px solid rgba(255,255,255,0.35); cursor: pointer; transition: background 0.2s; display: inline-block; }
+    .btn-outline-white:hover { background: rgba(255,255,255,0.1); }
+    .spec-cta-img { width: 340px; height: 320px; object-fit: cover; border-radius: 16px; flex-shrink: 0; }
+
+    .footer { background: #0D2040; color: rgba(255,255,255,0.65); padding: 64px 0 32px; }
+    .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-logo-name { font-family: var(--serif); font-size: 1.3rem; color: #fff; margin-bottom: 6px; }
+    .footer-logo-sub { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; }
+    .footer-desc { font-size: 0.87rem; line-height: 1.7; margin-bottom: 20px; }
+    .footer-contact-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; margin-bottom: 8px; }
+    .footer-contact-item svg { stroke: var(--verde); flex-shrink: 0; }
+    .footer-col-title { font-size: 0.78rem; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 18px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { font-size: 0.87rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--verde); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; }
+    .footer-legal { display: flex; gap: 20px; }
+    .footer-legal a { transition: color 0.2s; }
+    .footer-legal a:hover { color: var(--verde); }
+    .footer-webvaz { color: rgba(255,255,255,0.4); font-size: 0.78rem; margin-top: 6px; }
+    .footer-webvaz a { color: var(--verde); font-weight: 600; transition: opacity 0.2s; }
+    .footer-webvaz a:hover { opacity: 0.8; }
+
+    .back-link {
+      position: fixed; top: 50%; left: 20px; transform: translateY(-50%) rotate(-90deg);
+      background: var(--verde); color: #fff; padding: 8px 16px; border-radius: 100px;
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em;
+      z-index: 200;
+    }
+    .back-link:hover { background: var(--royal); }
+
+    @media (max-width: 1024px) {
+      .spec-intro-grid { grid-template-columns: 1fr 1fr; }
+      .spec-full-grid { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .spec-cta-inner { grid-template-columns: 1fr; gap: 40px; }
+      .spec-cta-img { width: 100%; height: 240px; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: fixed; top: 108px; left: 0; right: 0; background: var(--branco); padding: 24px; border-bottom: 1px solid var(--border); gap: 8px; }
+      .nav-links.open { display: flex; }
+      .nav-ham { display: flex; }
+      .nav-top-left { display: none; }
+      .spec-intro-grid { grid-template-columns: 1fr; }
+      .spec-full-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .back-link { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="../../portfolio.html" class="back-link">← Portfólio</a>
+
+<nav class="nav" id="nav">
+  <div class="nav-top">
+    <div class="nav-top-inner">
+      <div class="nav-top-left">
+        <span class="nav-top-item">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Av. da Liberdade 220, Lisboa
+        </span>
+        <span class="nav-top-item">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Seg–Sex: 8h–20h · Sáb: 9h–13h
+        </span>
+      </div>
+      <span class="nav-top-phone">+351 21 000 0000</span>
+    </div>
+  </div>
+  <div class="nav-main">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div class="nav-logo-text">
+          <div class="nav-logo-name">Clínica Lisboa</div>
+          <div class="nav-logo-sub">Medicina Privada</div>
+        </div>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="especialidades.html" class="active">Especialidades</a></li>
+        <li><a href="index.html#medicos">Médicos</a></li>
+        <li><a href="index.html#convenios">Convénios</a></li>
+        <li><a href="index.html#blog">Saúde</a></li>
+        <li><a href="marcacoes.html" class="nav-cta">Marcar Consulta</a></li>
+      </ul>
+      <button class="nav-ham" id="ham" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-bg">
+    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&auto=format&fit=crop" alt="Especialidades médicas">
+  </div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <div class="breadcrumb">
+      <a href="index.html">Início</a>
+      <span>›</span>
+      <span style="color:rgba(255,255,255,0.9)">Especialidades</span>
+    </div>
+    <h1 class="page-hero-title">As nossas <em>especialidades</em></h1>
+    <p class="page-hero-sub">12 especialidades médicas, 28 especialistas e a tecnologia de diagnóstico mais avançada de Lisboa. Tudo sob o mesmo tecto, para que a sua saúde nunca espere.</p>
+  </div>
+</div>
+
+<section class="spec-intro">
+  <div class="container">
+    <div class="spec-intro-grid">
+      <div class="spec-intro-card">
+        <div class="spec-intro-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <div class="spec-intro-title">Marcação em menos de 48h</div>
+          <div class="spec-intro-text">Para a maioria das especialidades, garantimos consulta disponível em menos de dois dias úteis.</div>
+        </div>
+      </div>
+      <div class="spec-intro-card">
+        <div class="spec-intro-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <div class="spec-intro-title">Todos os seguros aceites</div>
+          <div class="spec-intro-text">Trabalhamos com ADSE, Multicare, AdvanceCare, GNB Saúde, Fidelidade e mais de 15 subsistemas.</div>
+        </div>
+      </div>
+      <div class="spec-intro-card">
+        <div class="spec-intro-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div>
+          <div class="spec-intro-title">Resultados digitais</div>
+          <div class="spec-intro-text">Análises clínicas, exames de imagem e relatórios médicos disponíveis no portal do doente em 24h.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="spec-full">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px;">
+      <span class="section-eyebrow">12 especialidades disponíveis</span>
+      <h2 class="section-title">Encontre a especialidade <em>que precisa</em></h2>
+    </div>
+    <div class="spec-full-grid">
+
+      <div class="spec-full-card">
+        <img class="spec-full-img" src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&auto=format&fit=crop" alt="Cardiologia">
+        <div class="spec-full-body">
+          <div class="spec-full-tag"><span></span> Coração &amp; Vasos</div>
+          <div class="spec-full-name">Cardiologia</div>
+          <div class="spec-full-desc">Avaliação completa do sistema cardiovascular com ecocardiograma, holter de 24h, prova de esforço e consulta de prevenção. A nossa equipa trata arritmias, insuficiência cardíaca, hipertensão e doença coronária.</div>
+          <div class="spec-full-meta">
+            <div class="spec-full-wait">● Disponível em 3 dias</div>
+            <a href="marcacoes.html" class="spec-full-btn">Marcar Consulta</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-full-card">
+        <img class="spec-full-img" src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&auto=format&fit=crop" alt="Medicina Geral">
+        <div class="spec-full-body">
+          <div class="spec-full-tag"><span></span> Saúde Geral</div>
+          <div class="spec-full-name">Medicina Geral e Familiar</div>
+          <div class="spec-full-desc">Ponto de entrada para todos os cuidados de saúde. Realizamos check-up anual completo, rastreios oncológicos, gestão de doenças crónicas e prescrição de análises e exames complementares.</div>
+          <div class="spec-full-meta">
+            <div class="spec-full-wait">● Disponível amanhã</div>
+            <a href="marcacoes.html" class="spec-full-btn">Marcar Consulta</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-full-card">
+        <img class="spec-full-img" src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&auto=format&fit=crop" alt="Dermatologia">
+        <div class="spec-full-body">
+          <div class="spec-full-tag"><span></span> Pele &amp; Anexos</div>
+          <div class="spec-full-name">Dermatologia</div>
+          <div class="spec-full-desc">Diagnóstico e tratamento de acne, eczema, psoríase, rosácea e outras patologias. Rastreio de melanoma com dermatoscopia digital de alta resolução. Consulta de dermatologia estética.</div>
+          <div class="spec-full-meta">
+            <div class="spec-full-wait">● Disponível em 5 dias</div>
+            <a href="marcacoes.html" class="spec-full-btn">Marcar Consulta</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-full-card">
+        <img class="spec-full-img" src="https://images.unsplash.com/photo-1504439468489-c8920d796a29?w=800&auto=format&fit=crop" alt="Ortopedia">
+        <div class="spec-full-body">
+          <div class="spec-full-tag"><span></span> Ossos &amp; Articulações</div>
+          <div class="spec-full-name">Ortopedia e Traumatologia</div>
+          <div class="spec-full-desc">Tratamento de fracturas, lesões ligamentares e tendinosas, artrite e patologia degenerativa. Cirurgia artroscópica do joelho, ombro e tornozelo. Medicina desportiva e reabilitação.</div>
+          <div class="spec-full-meta">
+            <div class="spec-full-wait">● Disponível em 4 dias</div>
+            <a href="marcacoes.html" class="spec-full-btn">Marcar Consulta</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-full-card">
+        <img class="spec-full-img" src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&auto=format&fit=crop" alt="Pediatria">
+        <div class="spec-full-body">
+          <div class="spec-full-tag"><span></span> Saúde Infantil</div>
+          <div class="spec-full-name">Pediatria</div>
+          <div class="spec-full-desc">Acompanhamento desde o recém-nascido até aos 18 anos. Vigilância do crescimento e desenvolvimento, vacinação, consultas de urgência e gestão de doenças crónicas como asma e diabetes tipo 1.</div>
+          <div class="spec-full-meta">
+            <div class="spec-full-wait">● Disponível amanhã</div>
+            <a href="marcacoes.html" class="spec-full-btn">Marcar Consulta</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-full-card">
+        <img class="spec-full-img" src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=800&auto=format&fit=crop" alt="Neurologia">
+        <div class="spec-full-body">
+          <div class="spec-full-tag"><span></span> Sistema Nervoso</div>
+          <div class="spec-full-name">Neurologia</div>
+          <div class="spec-full-desc">Diagnóstico e tratamento de cefaleias crónicas e enxaqueca, epilepsia, doença de Parkinson, esclerose múltipla e sequelas de AVC. Realização de EEG e potenciais evocados.</div>
+          <div class="spec-full-meta">
+            <div class="spec-full-wait">● Disponível em 7 dias</div>
+            <a href="marcacoes.html" class="spec-full-btn">Marcar Consulta</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-full-card">
+        <img class="spec-full-img" src="https://images.unsplash.com/photo-1551076805-e1869033e561?w=800&auto=format&fit=crop" alt="Ginecologia">
+        <div class="spec-full-body">
+          <div class="spec-full-tag"><span></span> Saúde da Mulher</div>
+          <div class="spec-full-name">Ginecologia e Obstetrícia</div>
+          <div class="spec-full-desc">Rastreio cervical e mamário, ecografia ginecológica, colposcopia, gestão da menopausa e vigilância da gravidez. A nossa equipa acompanha a mulher em todas as fases da vida.</div>
+          <div class="spec-full-meta">
+            <div class="spec-full-wait">● Disponível em 2 dias</div>
+            <a href="marcacoes.html" class="spec-full-btn">Marcar Consulta</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-full-card">
+        <img class="spec-full-img" src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&auto=format&fit=crop" alt="Endocrinologia">
+        <div class="spec-full-body">
+          <div class="spec-full-tag"><span></span> Metabolismo &amp; Hormonas</div>
+          <div class="spec-full-name">Endocrinologia</div>
+          <div class="spec-full-desc">Tratamento de diabetes tipo 1 e 2, doenças da tireoide, obesidade, síndrome do ovário poliquístico e outras patologias endócrinas. Seguimento multidisciplinar com nutrição e psicologia.</div>
+          <div class="spec-full-meta">
+            <div class="spec-full-wait">● Disponível em 6 dias</div>
+            <a href="marcacoes.html" class="spec-full-btn">Marcar Consulta</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-full-card">
+        <img class="spec-full-img" src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&auto=format&fit=crop" alt="Oftalmologia">
+        <div class="spec-full-body">
+          <div class="spec-full-tag"><span></span> Visão &amp; Olhos</div>
+          <div class="spec-full-name">Oftalmologia</div>
+          <div class="spec-full-desc">Avaliação completa da acuidade visual, tratamento de glaucoma, catarata e degenerescência macular. Exame de retina com OCT e angiografia. Consulta de adaptação a lentes de contacto.</div>
+          <div class="spec-full-meta">
+            <div class="spec-full-wait">● Disponível em 5 dias</div>
+            <a href="marcacoes.html" class="spec-full-btn">Marcar Consulta</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-full-card">
+        <img class="spec-full-img" src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?w=600&auto=format&fit=crop" alt="Psiquiatria">
+        <div class="spec-full-body">
+          <div class="spec-full-tag"><span></span> Saúde Mental</div>
+          <div class="spec-full-name">Psiquiatria</div>
+          <div class="spec-full-desc">Diagnóstico e tratamento de depressão, ansiedade, perturbação bipolar, perturbações de sono e burnout. Abordagem integrada com psicoterapia e farmacoterapia. Consultas presenciais e por videochamada.</div>
+          <div class="spec-full-meta">
+            <div class="spec-full-wait">● Disponível em 10 dias</div>
+            <a href="marcacoes.html" class="spec-full-btn">Marcar Consulta</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-full-card">
+        <img class="spec-full-img" src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&auto=format&fit=crop" alt="Otorrinolaringologia">
+        <div class="spec-full-body">
+          <div class="spec-full-tag"><span></span> Ouvido · Nariz · Garganta</div>
+          <div class="spec-full-name">Otorrinolaringologia</div>
+          <div class="spec-full-desc">Tratamento de sinusite, otite, amigdalite e patologia da voz. Audiometria, timpanometria e endoscopia nasal. Cirurgia ambulatória de adenóides, amígdalas e septo nasal.</div>
+          <div class="spec-full-meta">
+            <div class="spec-full-wait">● Disponível em 4 dias</div>
+            <a href="marcacoes.html" class="spec-full-btn">Marcar Consulta</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-full-card">
+        <img class="spec-full-img" src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&auto=format&fit=crop" alt="Urologia">
+        <div class="spec-full-body">
+          <div class="spec-full-tag"><span></span> Aparelho Urinário</div>
+          <div class="spec-full-name">Urologia</div>
+          <div class="spec-full-desc">Rastreio e tratamento do cancro da próstata, litíase renal, incontinência urinária e infeções do trato urinário. Ecografia renal e vesical. Urofluxometria e consulta de andrologia.</div>
+          <div class="spec-full-meta">
+            <div class="spec-full-wait">● Disponível em 5 dias</div>
+            <a href="marcacoes.html" class="spec-full-btn">Marcar Consulta</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="spec-cta">
+  <div class="container">
+    <div class="spec-cta-inner">
+      <div>
+        <span class="section-eyebrow" style="color:var(--verde)">Pronto para começar?</span>
+        <h2 class="spec-cta-title">Marque a sua consulta <em>hoje mesmo</em></h2>
+        <p class="spec-cta-sub">O processo é simples: escolha a especialidade, selecione um médico e reserve o horário que lhe é mais conveniente. Temos disponibilidade em menos de 48 horas para a maioria das especialidades.</p>
+        <div class="spec-cta-actions">
+          <a href="marcacoes.html" class="btn-white">Marcar Consulta Online</a>
+          <a href="index.html" class="btn-outline-white">Voltar à página inicial</a>
+        </div>
+      </div>
+      <img class="spec-cta-img" src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=600&auto=format&fit=crop" alt="Médica da Clínica Lisboa">
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo-name">Clínica Lisboa</div>
+        <div class="footer-logo-sub">Medicina Privada · Lisboa</div>
+        <div class="footer-desc">Mais de 20 anos a cuidar da saúde dos lisboetas com rigor, tecnologia e humanidade.</div>
+        <div>
+          <div class="footer-contact-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Av. da Liberdade 220, Lisboa
+          </div>
+          <div class="footer-contact-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.64 2.5h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 17z"/></svg>
+            +351 21 000 0000
+          </div>
+          <div class="footer-contact-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            marcacoes@clinicalisboa.pt
+          </div>
+        </div>
+        <div class="footer-webvaz">Site desenvolvido por <a href="../../index.html">WEBVAZ</a></div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Especialidades</div>
+        <ul>
+          <li><a href="especialidades.html">Cardiologia</a></li>
+          <li><a href="especialidades.html">Medicina Geral</a></li>
+          <li><a href="especialidades.html">Dermatologia</a></li>
+          <li><a href="especialidades.html">Ortopedia</a></li>
+          <li><a href="especialidades.html">Ver todas →</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Clínica</div>
+        <ul>
+          <li><a href="#">Sobre Nós</a></li>
+          <li><a href="#">A nossa equipa</a></li>
+          <li><a href="#">Instalações</a></li>
+          <li><a href="#">Convénios</a></li>
+          <li><a href="#">Carreiras</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Informação</div>
+        <ul>
+          <li><a href="marcacoes.html">Marcações Online</a></li>
+          <li><a href="#">Resultados Digitais</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Blog de Saúde</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Clínica Médica Lisboa. Todos os direitos reservados.</div>
+      <div class="footer-legal">
+        <a href="#">Política de Privacidade</a>
+        <a href="#">Termos de Uso</a>
+        <a href="#">RGPD</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').style.boxShadow = window.scrollY > 20 ? '0 2px 20px rgba(28,58,110,0.08)' : '';
+  });
+  document.getElementById('ham').addEventListener('click', () => {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+  document.querySelectorAll('#navLinks a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+  });
+</script>
+</body>
+</html>
