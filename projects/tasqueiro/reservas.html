@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reservas — Restaurante O Tasqueiro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg: #1A0F0A; --accent: #D4912A; --accent2: #B07020; --card: #2A1A10; --text: #F5ECD7; --muted: #A89880; --radius: 12px; --transition: 0.3s ease; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    .btn { display: inline-block; padding: 14px 28px; border-radius: var(--radius); font-weight: 600; font-size: 15px; transition: var(--transition); cursor: pointer; border: 2px solid transparent; }
+    .btn--primary { background: var(--accent); color: #1A0F0A; }
+    .btn--primary:hover { background: var(--accent2); transform: translateY(-2px); }
+    .btn--ghost { border-color: var(--accent); color: var(--accent); }
+    .btn--ghost:hover { background: var(--accent); color: #1A0F0A; transform: translateY(-2px); }
+
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 0; background: rgba(26,15,10,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(212,145,42,0.15); }
+    .nav__container { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+    .nav__logo { font-size: 22px; font-weight: 800; }
+    .nav__logo span { color: var(--accent); }
+    .nav__links { display: flex; align-items: center; gap: 32px; }
+    .nav__links a { color: var(--muted); font-weight: 500; transition: color var(--transition); }
+    .nav__links a:hover, .nav__links a.active { color: var(--accent); }
+    .nav__cta { background: var(--accent) !important; color: #1A0F0A !important; padding: 10px 20px; border-radius: var(--radius); font-weight: 600 !important; }
+    .nav__cta:hover { background: var(--accent2) !important; }
+    .nav__hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
+    .nav__hamburger span { display: block; width: 24px; height: 2px; background: var(--text); }
+
+    .page-hero { padding: 140px 0 60px; background: linear-gradient(180deg, rgba(42,26,16,0.6) 0%, transparent 100%); border-bottom: 1px solid rgba(212,145,42,0.1); }
+    .page-hero h1 { font-size: clamp(36px, 6vw, 60px); font-weight: 800; letter-spacing: -1px; margin-bottom: 12px; }
+    .page-hero p { color: var(--muted); font-size: 17px; }
+
+    .reservas-section { padding: 80px 0; }
+    .reservas-grid { display: grid; grid-template-columns: 1fr 380px; gap: 60px; align-items: start; }
+
+    /* FORM */
+    .form-card { background: var(--card); border: 1px solid rgba(212,145,42,0.15); border-radius: var(--radius); padding: 40px; }
+    .form-card h2 { font-size: 24px; margin-bottom: 8px; }
+    .form-card > p { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 12px 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(212,145,42,0.2);
+      border-radius: 8px; color: var(--text); font-family: 'Inter', sans-serif; font-size: 15px; transition: border-color var(--transition);
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); }
+    .form-group select option { background: #2A1A10; }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-submit { width: 100%; padding: 16px; background: var(--accent); color: #1A0F0A; border: none; border-radius: var(--radius); font-size: 16px; font-weight: 700; cursor: pointer; transition: var(--transition); margin-top: 8px; }
+    .form-submit:hover { background: var(--accent2); transform: translateY(-2px); }
+
+    .success-msg { display: none; text-align: center; padding: 40px; }
+    .success-msg .success-icon { font-size: 60px; margin-bottom: 16px; }
+    .success-msg h3 { font-size: 24px; margin-bottom: 12px; }
+    .success-msg p { color: var(--muted); }
+
+    /* INFO CARDS */
+    .info-cards { display: flex; flex-direction: column; gap: 20px; }
+    .info-card { background: var(--card); border: 1px solid rgba(212,145,42,0.12); border-radius: var(--radius); padding: 24px; }
+    .info-card__icon { font-size: 28px; margin-bottom: 12px; }
+    .info-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--accent); }
+    .info-card p, .info-card li { color: var(--muted); font-size: 14px; line-height: 1.7; }
+    .info-card ul { display: flex; flex-direction: column; gap: 6px; }
+    .info-card__note { margin-top: 12px; font-size: 13px; font-style: italic; color: var(--muted); border-top: 1px solid rgba(212,145,42,0.1); padding-top: 12px; }
+
+    footer { background: rgba(0,0,0,0.4); padding: 48px 0 32px; border-top: 1px solid rgba(212,145,42,0.1); }
+    .footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .footer__logo { font-size: 22px; font-weight: 800; margin-bottom: 12px; }
+    .footer__logo span { color: var(--accent); }
+    .footer__about { color: var(--muted); font-size: 14px; line-height: 1.7; }
+    .footer__col h4 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 16px; }
+    .footer__col ul { display: flex; flex-direction: column; gap: 10px; }
+    .footer__col li { color: var(--muted); font-size: 14px; }
+    .footer__bottom { border-top: 1px solid rgba(212,145,42,0.1); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer__bottom p { color: var(--muted); font-size: 13px; }
+    .footer__bottom a { color: var(--accent); }
+
+    @media (max-width: 768px) {
+      .nav__links { display: none; position: fixed; top: 65px; left: 0; right: 0; background: var(--bg); flex-direction: column; padding: 24px; gap: 24px; border-bottom: 1px solid rgba(212,145,42,0.15); z-index: 99; }
+      .nav__links.open { display: flex; }
+      .nav__hamburger { display: flex; }
+      .reservas-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer__grid { grid-template-columns: 1fr; }
+      .footer__bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav__container">
+      <a href="index.html" class="nav__logo">O <span>Tasqueiro</span></a>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="reservas.html" class="active">Reservas</a></li>
+        <li><a href="reservas.html" class="nav__cta">Reservar Mesa</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <div class="container">
+      <h1>Reservar <span style="color: var(--accent)">Mesa</span></h1>
+      <p>Garanta o seu lugar e prepare-se para uma experiência inesquecível.</p>
+    </div>
+  </div>
+
+  <section class="reservas-section">
+    <div class="container">
+      <div class="reservas-grid">
+        <div class="form-card">
+          <div id="formContent">
+            <h2>Fazer Reserva</h2>
+            <p>Preencha o formulário e confirmamos a sua reserva em menos de 2 horas.</p>
+            <form id="reservaForm" onsubmit="handleSubmit(event)">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="nome">Nome Completo *</label>
+                  <input type="text" id="nome" placeholder="João Silva" required>
+                </div>
+                <div class="form-group">
+                  <label for="telefone">Telefone *</label>
+                  <input type="tel" id="telefone" placeholder="+351 912 345 678" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" placeholder="joao@email.pt" required>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="data">Data *</label>
+                  <input type="date" id="data" required>
+                </div>
+                <div class="form-group">
+                  <label for="hora">Hora *</label>
+                  <select id="hora" required>
+                    <option value="">Selecionar hora</option>
+                    <optgroup label="Almoço">
+                      <option>12:00</option>
+                      <option>12:30</option>
+                      <option>13:00</option>
+                      <option>13:30</option>
+                      <option>14:00</option>
+                      <option>14:30</option>
+                    </optgroup>
+                    <optgroup label="Jantar">
+                      <option>19:00</option>
+                      <option>19:30</option>
+                      <option>20:00</option>
+                      <option>20:30</option>
+                      <option>21:00</option>
+                      <option>21:30</option>
+                      <option>22:00</option>
+                    </optgroup>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="pessoas">Número de Pessoas *</label>
+                  <select id="pessoas" required>
+                    <option value="">Selecionar</option>
+                    <option>1–2 pessoas</option>
+                    <option>3–4 pessoas</option>
+                    <option>5–6 pessoas</option>
+                    <option>7–8 pessoas</option>
+                    <option>Mais de 8 pessoas</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="ocasiao">Ocasião Especial</label>
+                  <select id="ocasiao">
+                    <option>Nenhuma</option>
+                    <option>Aniversário</option>
+                    <option>Jantar Romântico</option>
+                    <option>Reunião de Negócios</option>
+                    <option>Celebração de Família</option>
+                    <option>Outro</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="obs">Observações</label>
+                <textarea id="obs" placeholder="Alergias, preferências de lugar, pedidos especiais..."></textarea>
+              </div>
+              <button type="submit" class="form-submit">Confirmar Reserva</button>
+            </form>
+          </div>
+          <div class="success-msg" id="successMsg">
+            <div class="success-icon">✅</div>
+            <h3>Reserva Recebida!</h3>
+            <p>Obrigado! Confirmamos a sua reserva por email ou telefone em menos de 2 horas.</p>
+            <a href="index.html" class="btn btn--ghost" style="margin-top: 24px;">Voltar ao Início</a>
+          </div>
+        </div>
+
+        <div class="info-cards">
+          <div class="info-card">
+            <div class="info-card__icon">🕐</div>
+            <h3>Horário</h3>
+            <ul>
+              <li>Terça a Sexta: 12h–15h | 19h–23h</li>
+              <li>Sábado e Domingo: 12h–23h</li>
+              <li>Segunda-feira: Encerrado</li>
+            </ul>
+          </div>
+          <div class="info-card">
+            <div class="info-card__icon">📍</div>
+            <h3>Localização</h3>
+            <p>Rua das Flores 45<br>1200-192 Lisboa<br>(Perto do Chiado)</p>
+          </div>
+          <div class="info-card">
+            <div class="info-card__icon">📞</div>
+            <h3>Contacto Direto</h3>
+            <p>+351 21 345 6789<br>tasqueiro@email.pt</p>
+            <div class="info-card__note">Para grupos com mais de 8 pessoas, contacte-nos diretamente.</div>
+          </div>
+          <div class="info-card">
+            <div class="info-card__icon">ℹ️</div>
+            <h3>Política de Reservas</h3>
+            <p>Confirmamos em 2 horas. A reserva é mantida até 15 minutos após a hora marcada.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__logo">O <span>Tasqueiro</span></div>
+          <p class="footer__about">Restaurante de cozinha portuguesa tradicional, no coração de Lisboa desde 1987.</p>
+        </div>
+        <div class="footer__col">
+          <h4>Horário</h4>
+          <ul>
+            <li>Ter – Sex: 12h–15h | 19h–23h</li>
+            <li>Sáb – Dom: 12h–23h</li>
+            <li>Segunda: Encerrado</li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Contactos</h4>
+          <ul>
+            <li>Rua das Flores 45, Lisboa</li>
+            <li>+351 21 345 6789</li>
+            <li>tasqueiro@email.pt</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2024 Restaurante O Tasqueiro. Todos os direitos reservados.</p>
+        <p>Site desenvolvido por <a href="../../index.html">WEBVAZ</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      document.getElementById('formContent').style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Salão Prestige — Lisboa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #12080F;
+      --card-bg: #1E1018;
+      --accent: #E8A0B0;
+      --accent2: #C4758A;
+      --text: #F8F0F4;
+      --muted: #A88090;
+      --nav-height: 72px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-height);
+      background: rgba(18, 8, 15, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(232, 160, 176, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      z-index: 1000;
+    }
+
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .nav-logo .logo-main {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+    }
+    .nav-logo .logo-sub {
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      transition: color 0.25s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--text); }
+    .nav-links a.active { color: var(--accent); }
+
+    .nav-cta {
+      background: var(--accent);
+      color: #12080F !important;
+      padding: 0.5rem 1.25rem;
+      border-radius: 6px;
+      font-weight: 700 !important;
+      font-size: 0.83rem !important;
+      letter-spacing: 0.04em;
+      transition: background 0.25s, transform 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--accent2) !important; transform: translateY(-1px); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-height);
+      left: 0; right: 0;
+      background: rgba(18, 8, 15, 0.98);
+      border-bottom: 1px solid rgba(232, 160, 176, 0.12);
+      padding: 1.5rem 5%;
+      flex-direction: column;
+      gap: 1.25rem;
+      z-index: 999;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 0.4rem 0;
+      border-bottom: 1px solid rgba(232, 160, 176, 0.08);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover,
+    .mobile-menu a.active { color: var(--accent); }
+    .mobile-menu .nav-cta-mobile {
+      display: inline-block;
+      background: var(--accent);
+      color: #12080F;
+      padding: 0.7rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: calc(var(--nav-height) + 4rem) 5% 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 55%;
+      height: 100%;
+      background: radial-gradient(ellipse, rgba(232, 160, 176, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -10%;
+      left: -5%;
+      width: 40%;
+      height: 60%;
+      background: radial-gradient(ellipse, rgba(196, 117, 138, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content { max-width: 660px; position: relative; z-index: 1; }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(232, 160, 176, 0.3);
+      padding: 0.35rem 0.9rem;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 span { color: var(--accent); }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 2.25rem;
+      line-height: 1.7;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #12080F;
+      padding: 0.8rem 1.8rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      letter-spacing: 0.03em;
+      transition: background 0.25s, transform 0.2s, box-shadow 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover {
+      background: var(--accent2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(232, 160, 176, 0.25);
+    }
+
+    .btn-outline {
+      border: 1.5px solid rgba(232, 160, 176, 0.4);
+      color: var(--text);
+      padding: 0.78rem 1.8rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      letter-spacing: 0.03em;
+      transition: border-color 0.25s, background 0.25s, transform 0.2s;
+      display: inline-block;
+    }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      background: rgba(232, 160, 176, 0.06);
+      transform: translateY(-2px);
+    }
+
+    .hero-stat {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+    .hero-stat::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+    .hero-stat strong { color: var(--text); }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 5%; }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .section-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 500px;
+      line-height: 1.7;
+    }
+    .section-header { margin-bottom: 3rem; }
+
+    /* ── SERVICE CARDS ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .service-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(232, 160, 176, 0.1);
+      border-radius: 14px;
+      padding: 1.8rem;
+      transition: border-color 0.3s, transform 0.25s, box-shadow 0.3s;
+    }
+    .service-card:hover {
+      border-color: rgba(232, 160, 176, 0.35);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+    }
+    .service-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.9rem;
+    }
+    .service-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.45rem;
+    }
+    .service-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 0.85rem;
+    }
+    .service-price {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .services-cta { text-align: center; margin-top: 0.5rem; }
+
+    /* ── GALLERY ── */
+    .gallery-section { background: var(--card-bg); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .gallery-item {
+      border-radius: 12px;
+      height: 180px;
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .gallery-item:hover { transform: scale(1.02); }
+    .gallery-item span {
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.9);
+      text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+      position: relative;
+      z-index: 1;
+    }
+
+    .g1 { background: linear-gradient(135deg, #C4758A 0%, #E8A0B0 100%); }
+    .g2 { background: linear-gradient(135deg, #7A4060 0%, #C4758A 100%); }
+    .g3 { background: linear-gradient(135deg, #B8860B 0%, #E8A0B0 100%); }
+    .g4 { background: linear-gradient(135deg, #E8A0B0 0%, #F4C2D0 100%); }
+    .g5 { background: linear-gradient(135deg, #8B2252 0%, #C4758A 100%); }
+    .g6 { background: linear-gradient(135deg, #9C7AAA 0%, #E8A0B0 100%); }
+
+    /* ── TEAM ── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .team-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(232, 160, 176, 0.1);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.25s;
+    }
+    .team-card:hover {
+      border-color: rgba(232, 160, 176, 0.3);
+      transform: translateY(-4px);
+    }
+    .team-avatar {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+    .ta1 { background: linear-gradient(160deg, #2A1020 0%, #C4758A 100%); }
+    .ta2 { background: linear-gradient(160deg, #1A1030 0%, #9C7AAA 100%); }
+    .ta3 { background: linear-gradient(160deg, #200A18 0%, #E8A0B0 100%); }
+    .team-info { padding: 1.4rem; }
+    .team-info h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .team-role {
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+    .team-exp {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-section { background: var(--card-bg); }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .testimonial-card {
+      background: var(--bg);
+      border: 1px solid rgba(232, 160, 176, 0.1);
+      border-radius: 14px;
+      padding: 2rem;
+      transition: border-color 0.3s;
+    }
+    .testimonial-card:hover { border-color: rgba(232, 160, 176, 0.3); }
+    .stars {
+      color: var(--accent);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      letter-spacing: 0.1em;
+    }
+    .testimonial-text {
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+      font-style: italic;
+    }
+    .testimonial-author {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      background: linear-gradient(135deg, #1E1018 0%, #2A0F1E 50%, #1E1018 100%);
+      border: 1px solid rgba(232, 160, 176, 0.15);
+      border-radius: 20px;
+      text-align: center;
+      padding: 4rem 5%;
+      margin: 5rem 5%;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60%;
+      height: 100%;
+      background: radial-gradient(ellipse, rgba(232, 160, 176, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-banner h2 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      position: relative;
+    }
+    .cta-banner p {
+      color: var(--muted);
+      margin-bottom: 2rem;
+      font-size: 1rem;
+      position: relative;
+    }
+    .cta-banner .btn-primary { position: relative; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0D060B;
+      border-top: 1px solid rgba(232, 160, 176, 0.1);
+      padding: 3.5rem 5% 1.5rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 2.5rem;
+    }
+    .footer-brand .logo-main {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .footer-brand .logo-sub {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 260px;
+    }
+    .footer-col h4 {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.1rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.55rem;
+    }
+    .footer-col ul li strong { color: var(--text); }
+
+    .social-icons {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+    .social-icon {
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(232, 160, 176, 0.2);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: var(--muted);
+      transition: border-color 0.25s, color 0.25s, background 0.25s;
+    }
+    .social-icon:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(232, 160, 176, 0.06);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(232, 160, 176, 0.08);
+      padding-top: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .footer-bottom p {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .footer-bottom a {
+      color: var(--accent);
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .footer-bottom a:hover { color: var(--text); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .services-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .team-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    @media (max-width: 560px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .hero-ctas { flex-direction: column; }
+      .btn-primary, .btn-outline { text-align: center; }
+      .cta-banner { margin: 3rem 0; border-radius: 0; }
+      section { padding: 3.5rem 5%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <span class="logo-main">Prestige</span>
+      <span class="logo-sub">Salão de Beleza</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Início</a></li>
+      <li><a href="servicos.html">Serviços</a></li>
+      <li><a href="marcacoes.html">Marcações</a></li>
+      <li><a href="marcacoes.html" class="nav-cta">Marcar Agora</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="active">Início</a>
+    <a href="servicos.html">Serviços</a>
+    <a href="marcacoes.html">Marcações</a>
+    <a href="marcacoes.html" class="nav-cta-mobile">Marcar Agora</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-tag">Salão de Beleza Premium</div>
+      <h1>A tua beleza,<br>o nosso <span>talento.</span></h1>
+      <p class="hero-subtitle">Experiências únicas de beleza no coração de Lisboa. Especialistas em corte, cor e tratamentos capilares.</p>
+      <div class="hero-ctas">
+        <a href="servicos.html" class="btn-outline">Ver Serviços</a>
+        <a href="marcacoes.html" class="btn-primary">Marcar Agora</a>
+      </div>
+      <div class="hero-stat"><strong>500+ clientes satisfeitas</strong></div>
+    </div>
+  </section>
+
+  <!-- SERVICES PREVIEW -->
+  <section>
+    <div class="section-header">
+      <div class="section-label">O que fazemos</div>
+      <h2 class="section-title">Os nossos serviços</h2>
+      <p class="section-sub">Do corte ao tratamento mais exclusivo — cuidamos de si com dedicação e profissionalismo.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">✂️</div>
+        <h3>Corte &amp; Styling</h3>
+        <p>Cortes modernos e clássicos adaptados ao seu estilo e estrutura facial. Inclui lavagem e secagem profissional.</p>
+        <div class="service-price">A partir de 25€</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🎨</div>
+        <h3>Coloração &amp; Mechas</h3>
+        <p>Técnicas de cor avançadas: coloração total, mechas, balayage e muito mais com produtos de alta qualidade.</p>
+        <div class="service-price">A partir de 45€</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💅</div>
+        <h3>Manicure &amp; Pedicure</h3>
+        <p>Tratamento completo das mãos e pés. Clássica, gel ou spa — escolha a opção perfeita para si.</p>
+        <div class="service-price">A partir de 20€</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">✨</div>
+        <h3>Tratamentos Capilares</h3>
+        <p>Botox capilar, keratina e hidratação intensiva para cabelos nutridos, fortes e com brilho de salão.</p>
+        <div class="service-price">A partir de 35€</div>
+      </div>
+    </div>
+    <div class="services-cta">
+      <a href="servicos.html" class="btn-outline">Ver todos os serviços</a>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery-section">
+    <div class="section-header">
+      <div class="section-label">Galeria</div>
+      <h2 class="section-title">O nosso trabalho</h2>
+      <p class="section-sub">Uma seleção dos resultados que orgulhosamente criamos para as nossas clientes.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item g1"><span>Coloração</span></div>
+      <div class="gallery-item g2"><span>Cortes</span></div>
+      <div class="gallery-item g3"><span>Casamentos</span></div>
+      <div class="gallery-item g4"><span>Mechas</span></div>
+      <div class="gallery-item g5"><span>Tratamentos</span></div>
+      <div class="gallery-item g6"><span>Penteados</span></div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section>
+    <div class="section-header">
+      <div class="section-label">A nossa equipa</div>
+      <h2 class="section-title">Conheça as especialistas</h2>
+      <p class="section-sub">Profissionais apaixonadas pela arte da beleza, com anos de experiência e formação contínua.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-avatar ta1">👩‍🎨</div>
+        <div class="team-info">
+          <h3>Ana Costa</h3>
+          <div class="team-role">Diretora &amp; Especialista em Cor</div>
+          <div class="team-exp">15 anos de experiência</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar ta2">👩‍💼</div>
+        <div class="team-info">
+          <h3>Maria Santos</h3>
+          <div class="team-role">Cabeleireira Sénior</div>
+          <div class="team-exp">Especialista em penteados de noiva</div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar ta3">💇‍♀️</div>
+        <div class="team-info">
+          <h3>Joana Lima</h3>
+          <div class="team-role">Estilista</div>
+          <div class="team-exp">Especialista em cortes modernos</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section">
+    <div class="section-header">
+      <div class="section-label">Testemunhos</div>
+      <h2 class="section-title">O que dizem as nossas clientes</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"Finalmente encontrei o meu salão! A Ana é uma artista com a cor. O resultado ficou incrível — exatamente o que eu queria, ainda melhor do que imaginava."</p>
+        <div class="testimonial-author">— Beatriz Alves</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"Vim para o meu casamento e fiquei absolutamente deslumbrante. A Maria teve uma paciência enorme e o penteado ficou perfeito. Recomendo a 100%!"</p>
+        <div class="testimonial-author">— Rita Neves</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <div class="cta-banner">
+    <h2>Pronta para te transformar?</h2>
+    <p>Marque a sua consulta hoje e deixe-nos cuidar de si com toda a dedicação que merece.</p>
+    <a href="marcacoes.html" class="btn-primary">Marcar Agora</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo-main">Prestige</span>
+        <span class="logo-sub">Salão de Beleza</span>
+        <p>O seu salão de referência em Lisboa. Beleza, cuidado e sofisticação num só lugar.</p>
+        <div class="social-icons">
+          <div class="social-icon">IG</div>
+          <div class="social-icon">FB</div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Informação</h4>
+        <ul>
+          <li><strong>Morada</strong></li>
+          <li>Av. da Liberdade 112</li>
+          <li>1269-038 Lisboa</li>
+          <li style="margin-top:0.8rem"><strong>Telefone</strong></li>
+          <li>+351 21 456 7890</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Horário</h4>
+        <ul>
+          <li><strong>Segunda a Sábado</strong></li>
+          <li>09h00 – 20h00</li>
+          <li style="margin-top:0.8rem"><strong>Domingo</strong></li>
+          <li>Encerrado</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Salão Prestige. Todos os direitos reservados.</p>
+      <p>Site desenvolvido por <a href="../../index.html">WEBVAZ</a></p>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+  </script>
+</body>
+</html>

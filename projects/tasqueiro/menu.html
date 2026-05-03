@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu — Restaurante O Tasqueiro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg: #1A0F0A; --accent: #D4912A; --accent2: #B07020; --card: #2A1A10; --text: #F5ECD7; --muted: #A89880; --radius: 12px; --transition: 0.3s ease; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    h2 { font-size: clamp(24px, 4vw, 36px); font-weight: 800; margin-bottom: 32px; }
+
+    .btn { display: inline-block; padding: 14px 28px; border-radius: var(--radius); font-weight: 600; font-size: 15px; transition: var(--transition); cursor: pointer; border: 2px solid transparent; }
+    .btn--primary { background: var(--accent); color: #1A0F0A; }
+    .btn--primary:hover { background: var(--accent2); transform: translateY(-2px); }
+    .btn--ghost { border-color: var(--accent); color: var(--accent); }
+    .btn--ghost:hover { background: var(--accent); color: #1A0F0A; transform: translateY(-2px); }
+
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 0; background: rgba(26,15,10,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(212,145,42,0.15); }
+    .nav__container { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+    .nav__logo { font-size: 22px; font-weight: 800; }
+    .nav__logo span { color: var(--accent); }
+    .nav__links { display: flex; align-items: center; gap: 32px; }
+    .nav__links a { color: var(--muted); font-weight: 500; transition: color var(--transition); }
+    .nav__links a:hover, .nav__links a.active { color: var(--accent); }
+    .nav__cta { background: var(--accent) !important; color: #1A0F0A !important; padding: 10px 20px; border-radius: var(--radius); font-weight: 600 !important; }
+    .nav__cta:hover { background: var(--accent2) !important; }
+    .nav__hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
+    .nav__hamburger span { display: block; width: 24px; height: 2px; background: var(--text); }
+
+    .page-hero { padding: 140px 0 60px; background: linear-gradient(180deg, rgba(42,26,16,0.6) 0%, transparent 100%); border-bottom: 1px solid rgba(212,145,42,0.1); }
+    .page-hero h1 { font-size: clamp(36px, 6vw, 60px); font-weight: 800; letter-spacing: -1px; margin-bottom: 12px; }
+    .page-hero p { color: var(--muted); font-size: 17px; }
+
+    .menu-section { padding: 60px 0; }
+    .menu-section:nth-child(even) { background: rgba(42,26,16,0.3); }
+    .menu-section__header { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid rgba(212,145,42,0.2); }
+    .menu-section__icon { font-size: 32px; }
+    .menu-section__header h2 { margin-bottom: 0; font-size: 26px; }
+    .menu-items { display: flex; flex-direction: column; gap: 0; }
+    .menu-item { display: flex; justify-content: space-between; align-items: start; padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.05); gap: 20px; transition: var(--transition); }
+    .menu-item:last-child { border-bottom: none; }
+    .menu-item:hover { padding-left: 8px; }
+    .menu-item__info { flex: 1; }
+    .menu-item__name { font-size: 17px; font-weight: 600; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+    .menu-item__badge { font-size: 11px; font-weight: 700; color: #1A0F0A; background: var(--accent); padding: 2px 8px; border-radius: 50px; }
+    .menu-item__desc { color: var(--muted); font-size: 14px; }
+    .menu-item__price { font-size: 18px; font-weight: 800; color: var(--accent); white-space: nowrap; }
+
+    .menu-note { background: var(--card); border: 1px solid rgba(212,145,42,0.15); border-radius: var(--radius); padding: 20px 24px; margin: 40px 0; color: var(--muted); font-size: 14px; }
+    .menu-note strong { color: var(--accent); }
+
+    .menu-cta { text-align: center; padding: 60px 0; }
+    .menu-cta h2 { margin-bottom: 12px; }
+    .menu-cta p { color: var(--muted); margin-bottom: 32px; }
+
+    footer { background: rgba(0,0,0,0.4); padding: 48px 0 32px; border-top: 1px solid rgba(212,145,42,0.1); }
+    .footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .footer__logo { font-size: 22px; font-weight: 800; margin-bottom: 12px; }
+    .footer__logo span { color: var(--accent); }
+    .footer__about { color: var(--muted); font-size: 14px; line-height: 1.7; }
+    .footer__col h4 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 16px; }
+    .footer__col ul { display: flex; flex-direction: column; gap: 10px; }
+    .footer__col li { color: var(--muted); font-size: 14px; }
+    .footer__bottom { border-top: 1px solid rgba(212,145,42,0.1); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer__bottom p { color: var(--muted); font-size: 13px; }
+    .footer__bottom a { color: var(--accent); }
+
+    @media (max-width: 768px) {
+      .nav__links { display: none; position: fixed; top: 65px; left: 0; right: 0; background: var(--bg); flex-direction: column; padding: 24px; gap: 24px; border-bottom: 1px solid rgba(212,145,42,0.15); z-index: 99; }
+      .nav__links.open { display: flex; }
+      .nav__hamburger { display: flex; }
+      .footer__grid { grid-template-columns: 1fr; }
+      .footer__bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav__container">
+      <a href="index.html" class="nav__logo">O <span>Tasqueiro</span></a>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="menu.html" class="active">Menu</a></li>
+        <li><a href="reservas.html">Reservas</a></li>
+        <li><a href="reservas.html" class="nav__cta">Reservar Mesa</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <div class="container">
+      <h1>O Nosso <span style="color: var(--accent)">Menu</span></h1>
+      <p>Pratos tradicionais portugueses preparados diariamente com ingredientes frescos.</p>
+    </div>
+  </div>
+
+  <section class="menu-section">
+    <div class="container">
+      <div class="menu-section__header">
+        <span class="menu-section__icon">🍲</span>
+        <h2>Entradas & Sopas</h2>
+      </div>
+      <div class="menu-items">
+        <div class="menu-item">
+          <div class="menu-item__info">
+            <div class="menu-item__name">Caldo Verde</div>
+            <div class="menu-item__desc">Sopa de couve-galega com chouriço de qualidade e azeite virgem extra</div>
+          </div>
+          <div class="menu-item__price">4,50€</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__info">
+            <div class="menu-item__name">Pataniscas de Bacalhau</div>
+            <div class="menu-item__desc">Frituras de bacalhau servidas com arroz de feijão fradinho</div>
+          </div>
+          <div class="menu-item__price">8,90€</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__info">
+            <div class="menu-item__name">Tábua de Enchidos Regionais</div>
+            <div class="menu-item__desc">Seleção de chouriços, paio e presunto alentejano com pão artesanal</div>
+          </div>
+          <div class="menu-item__price">12,00€</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__info">
+            <div class="menu-item__name">Sopa do Dia</div>
+            <div class="menu-item__desc">Pergunta ao empregado — varia diariamente com os melhores legumes da época</div>
+          </div>
+          <div class="menu-item__price">3,50€</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="menu-section">
+    <div class="container">
+      <div class="menu-section__header">
+        <span class="menu-section__icon">🍽️</span>
+        <h2>Pratos Principais</h2>
+      </div>
+      <div class="menu-items">
+        <div class="menu-item">
+          <div class="menu-item__info">
+            <div class="menu-item__name">Bacalhau à Brás <span class="menu-item__badge">Especialidade</span></div>
+            <div class="menu-item__desc">Bacalhau desfiado com batata palha, ovos mexidos, cebola e azeitonas pretas</div>
+          </div>
+          <div class="menu-item__price">14,50€</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__info">
+            <div class="menu-item__name">Arroz de Pato <span class="menu-item__badge">Especialidade</span></div>
+            <div class="menu-item__desc">Arroz cremoso de pato assado com chouriço, gratinado no forno</div>
+          </div>
+          <div class="menu-item__price">13,90€</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__info">
+            <div class="menu-item__name">Polvo à Lagareiro</div>
+            <div class="menu-item__desc">Polvo assado com batatas a murro, alho e azeite generoso</div>
+          </div>
+          <div class="menu-item__price">16,50€</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__info">
+            <div class="menu-item__name">Bitoque Especial</div>
+            <div class="menu-item__desc">Bife de vaca com ovo estrelado, batatas fritas e salada mista</div>
+          </div>
+          <div class="menu-item__price">11,50€</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__info">
+            <div class="menu-item__name">Grelhado Misto de Peixe</div>
+            <div class="menu-item__desc">Pescada, dourada e camarão grelhados com arroz e salada</div>
+          </div>
+          <div class="menu-item__price">18,90€</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__info">
+            <div class="menu-item__name">Francesinha à Moda do Tasqueiro</div>
+            <div class="menu-item__desc">Com molho especial da casa, fiambre, linguiça e queijo derretido</div>
+          </div>
+          <div class="menu-item__price">13,00€</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="menu-section">
+    <div class="container">
+      <div class="menu-section__header">
+        <span class="menu-section__icon">🍮</span>
+        <h2>Sobremesas</h2>
+      </div>
+      <div class="menu-items">
+        <div class="menu-item">
+          <div class="menu-item__info">
+            <div class="menu-item__name">Pastel de Nata</div>
+            <div class="menu-item__desc">Receita original, crocante por fora e cremoso por dentro, com canela</div>
+          </div>
+          <div class="menu-item__price">2,50€</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__info">
+            <div class="menu-item__name">Arroz Doce</div>
+            <div class="menu-item__desc">Feito em casa com leite gordo, canela e casca de limão</div>
+          </div>
+          <div class="menu-item__price">3,50€</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__info">
+            <div class="menu-item__name">Mousse de Chocolate</div>
+            <div class="menu-item__desc">Preparada no próprio dia, com chocolate negro 70%</div>
+          </div>
+          <div class="menu-item__price">4,00€</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__info">
+            <div class="menu-item__name">Leite Creme</div>
+            <div class="menu-item__desc">Clássico português queimado na hora com açúcar caramelizado</div>
+          </div>
+          <div class="menu-item__price">3,50€</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="menu-section">
+    <div class="container">
+      <div class="menu-section__header">
+        <span class="menu-section__icon">🍷</span>
+        <h2>Bebidas</h2>
+      </div>
+      <div class="menu-items">
+        <div class="menu-item">
+          <div class="menu-item__info">
+            <div class="menu-item__name">Vinho Tinto — Seleção da Casa (garrafa)</div>
+            <div class="menu-item__desc">Produção regional alentejana</div>
+          </div>
+          <div class="menu-item__price">12,00€</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__info">
+            <div class="menu-item__name">Vinho Verde (garrafa)</div>
+            <div class="menu-item__desc">Branco fresco do Minho</div>
+          </div>
+          <div class="menu-item__price">10,00€</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__info">
+            <div class="menu-item__name">Super Bock / Sagres</div>
+          </div>
+          <div class="menu-item__price">2,00€</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__info">
+            <div class="menu-item__name">Água (0,5L)</div>
+          </div>
+          <div class="menu-item__price">1,00€</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item__info">
+            <div class="menu-item__name">Café Expresso</div>
+          </div>
+          <div class="menu-item__price">0,80€</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="menu-note">
+      <strong>Nota:</strong> O menu pode variar consoante a disponibilidade dos produtos frescos. Informe-nos de alergias ou intolerâncias alimentares. Preços incluem IVA à taxa legal em vigor.
+    </div>
+  </div>
+
+  <div class="menu-cta">
+    <div class="container">
+      <h2>Pronto para saborear?</h2>
+      <p>Reserve a sua mesa e venha experienciar a verdadeira cozinha portuguesa.</p>
+      <a href="reservas.html" class="btn btn--primary">Reservar Mesa</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__logo">O <span>Tasqueiro</span></div>
+          <p class="footer__about">Restaurante de cozinha portuguesa tradicional, no coração de Lisboa desde 1987.</p>
+        </div>
+        <div class="footer__col">
+          <h4>Horário</h4>
+          <ul>
+            <li>Ter – Sex: 12h–15h | 19h–23h</li>
+            <li>Sáb – Dom: 12h–23h</li>
+            <li>Segunda: Encerrado</li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Contactos</h4>
+          <ul>
+            <li>Rua das Flores 45, Lisboa</li>
+            <li>+351 21 345 6789</li>
+            <li>tasqueiro@email.pt</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>© 2024 Restaurante O Tasqueiro. Todos os direitos reservados.</p>
+        <p>Site desenvolvido por <a href="../../index.html">WEBVAZ</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  </script>
+</body>
+</html>

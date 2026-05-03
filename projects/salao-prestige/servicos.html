@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Serviços — Salão Prestige</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #12080F;
+      --card-bg: #1E1018;
+      --accent: #E8A0B0;
+      --accent2: #C4758A;
+      --text: #F8F0F4;
+      --muted: #A88090;
+      --nav-height: 72px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-height);
+      background: rgba(18, 8, 15, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(232, 160, 176, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      z-index: 1000;
+    }
+
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .nav-logo .logo-main {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+    }
+    .nav-logo .logo-sub {
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--accent); }
+
+    .nav-cta {
+      background: var(--accent);
+      color: #12080F !important;
+      padding: 0.5rem 1.25rem;
+      border-radius: 6px;
+      font-weight: 700 !important;
+      font-size: 0.83rem !important;
+      letter-spacing: 0.04em;
+      transition: background 0.25s, transform 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--accent2) !important; transform: translateY(-1px); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-height);
+      left: 0; right: 0;
+      background: rgba(18, 8, 15, 0.98);
+      border-bottom: 1px solid rgba(232, 160, 176, 0.12);
+      padding: 1.5rem 5%;
+      flex-direction: column;
+      gap: 1.25rem;
+      z-index: 999;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 0.4rem 0;
+      border-bottom: 1px solid rgba(232, 160, 176, 0.08);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover,
+    .mobile-menu a.active { color: var(--accent); }
+    .mobile-menu .nav-cta-mobile {
+      display: inline-block;
+      background: var(--accent);
+      color: #12080F;
+      padding: 0.7rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding: calc(var(--nav-height) + 3.5rem) 5% 3.5rem;
+      border-bottom: 1px solid rgba(232, 160, 176, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; right: -5%;
+      width: 40%;
+      height: 100%;
+      background: radial-gradient(ellipse, rgba(232, 160, 176, 0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-hero-inner { position: relative; z-index: 1; }
+    .breadcrumb {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+    .breadcrumb a { color: var(--accent); transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--text); }
+    .breadcrumb span { margin: 0 0.4rem; }
+    .page-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+    .page-hero p {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 540px;
+      line-height: 1.7;
+    }
+
+    /* ── MAIN CONTENT ── */
+    main { padding: 4rem 5%; max-width: 1200px; margin: 0 auto; }
+
+    /* ── SERVICE CATEGORY ── */
+    .service-category {
+      margin-bottom: 4rem;
+    }
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(232, 160, 176, 0.12);
+    }
+    .category-icon { font-size: 1.5rem; }
+    .category-header h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+    .category-badge {
+      margin-left: auto;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(232, 160, 176, 0.1);
+      border: 1px solid rgba(232, 160, 176, 0.2);
+      padding: 0.25rem 0.7rem;
+      border-radius: 100px;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .pricing-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(232, 160, 176, 0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      transition: border-color 0.3s, transform 0.25s, box-shadow 0.3s;
+    }
+    .pricing-card:hover {
+      border-color: rgba(232, 160, 176, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.3);
+    }
+
+    .pricing-info { flex: 1; }
+    .pricing-name {
+      font-size: 0.97rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+    .pricing-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .pricing-price {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--accent);
+      white-space: nowrap;
+      padding-top: 0.1rem;
+    }
+
+    /* ── NOTICE ── */
+    .notice {
+      background: var(--card-bg);
+      border: 1px solid rgba(232, 160, 176, 0.15);
+      border-left: 3px solid var(--accent);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 3.5rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .notice strong { color: var(--text); }
+
+    /* ── BOTTOM CTA ── */
+    .bottom-cta {
+      background: linear-gradient(135deg, #1E1018 0%, #2A0F1E 50%, #1E1018 100%);
+      border: 1px solid rgba(232, 160, 176, 0.15);
+      border-radius: 20px;
+      text-align: center;
+      padding: 3.5rem 2rem;
+      margin: 2rem 0 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .bottom-cta::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60%;
+      height: 100%;
+      background: radial-gradient(ellipse, rgba(232, 160, 176, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .bottom-cta h2 {
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      font-weight: 800;
+      margin-bottom: 0.6rem;
+      position: relative;
+    }
+    .bottom-cta p {
+      color: var(--muted);
+      margin-bottom: 1.75rem;
+      font-size: 0.97rem;
+      position: relative;
+    }
+    .bottom-cta .btn-primary { position: relative; }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #12080F;
+      padding: 0.8rem 1.8rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      letter-spacing: 0.03em;
+      transition: background 0.25s, transform 0.2s, box-shadow 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover {
+      background: var(--accent2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(232, 160, 176, 0.25);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0D060B;
+      border-top: 1px solid rgba(232, 160, 176, 0.1);
+      padding: 3.5rem 5% 1.5rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 2.5rem;
+    }
+    .footer-brand .logo-main {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .footer-brand .logo-sub {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 260px;
+    }
+    .footer-col h4 {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.1rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.55rem;
+    }
+    .footer-col ul li strong { color: var(--text); }
+
+    .social-icons {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+    .social-icon {
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(232, 160, 176, 0.2);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: var(--muted);
+      transition: border-color 0.25s, color 0.25s, background 0.25s;
+    }
+    .social-icon:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(232, 160, 176, 0.06);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(232, 160, 176, 0.08);
+      padding-top: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .footer-bottom p {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .footer-bottom a {
+      color: var(--accent);
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .footer-bottom a:hover { color: var(--text); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    @media (max-width: 560px) {
+      main { padding: 3rem 5%; }
+      .category-badge { display: none; }
+      .bottom-cta { border-radius: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <span class="logo-main">Prestige</span>
+      <span class="logo-sub">Salão de Beleza</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Início</a></li>
+      <li><a href="servicos.html" class="active">Serviços</a></li>
+      <li><a href="marcacoes.html">Marcações</a></li>
+      <li><a href="marcacoes.html" class="nav-cta">Marcar Agora</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Início</a>
+    <a href="servicos.html" class="active">Serviços</a>
+    <a href="marcacoes.html">Marcações</a>
+    <a href="marcacoes.html" class="nav-cta-mobile">Marcar Agora</a>
+  </div>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="breadcrumb">
+        <a href="index.html">Início</a>
+        <span>/</span>
+        Serviços
+      </div>
+      <h1>Os Nossos Serviços</h1>
+      <p>Uma lista completa de todos os serviços disponíveis no Salão Prestige, com preços transparentes e sem surpresas.</p>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <main>
+
+    <div class="notice">
+      <strong>Nota:</strong> Preços sujeitos a alteração conforme comprimento e estado do cabelo. Consulta gratuita disponível — contacte-nos para mais informações.
+    </div>
+
+    <!-- CABELO -->
+    <div class="service-category">
+      <div class="category-header">
+        <div class="category-icon">✂️</div>
+        <h2>Cabelo</h2>
+        <div class="category-badge">Corte &amp; Styling</div>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-info">
+            <div class="pricing-name">Corte de Cabelo</div>
+            <div class="pricing-desc">Corte base com lavagem e secagem profissional</div>
+          </div>
+          <div class="pricing-price">25€</div>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-info">
+            <div class="pricing-name">Corte + Brushing</div>
+            <div class="pricing-desc">Inclui tratamento de pontas e secagem modelada</div>
+          </div>
+          <div class="pricing-price">35€</div>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-info">
+            <div class="pricing-name">Brushing</div>
+            <div class="pricing-desc">Com produtos premium de proteção térmica</div>
+          </div>
+          <div class="pricing-price">20€</div>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-info">
+            <div class="pricing-name">Penteado de Festa</div>
+            <div class="pricing-desc">Inclui teste gratuito prévio</div>
+          </div>
+          <div class="pricing-price">50€</div>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-info">
+            <div class="pricing-name">Penteado de Noiva</div>
+            <div class="pricing-desc">Inclui consulta + ensaio + penteado no dia</div>
+          </div>
+          <div class="pricing-price">120€</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLORAÇÃO -->
+    <div class="service-category">
+      <div class="category-header">
+        <div class="category-icon">🎨</div>
+        <h2>Coloração</h2>
+        <div class="category-badge">Cor &amp; Mechas</div>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-info">
+            <div class="pricing-name">Coloração Total</div>
+            <div class="pricing-desc">Cor sólida de raiz às pontas</div>
+          </div>
+          <div class="pricing-price">45€</div>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-info">
+            <div class="pricing-name">Mechas Completas</div>
+            <div class="pricing-desc">Mechas clássicas ou babylights</div>
+          </div>
+          <div class="pricing-price">65€</div>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-info">
+            <div class="pricing-name">Balayage</div>
+            <div class="pricing-desc">Técnica de degradê natural e luminoso</div>
+          </div>
+          <div class="pricing-price">80€</div>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-info">
+            <div class="pricing-name">Toning / Glossing</div>
+            <div class="pricing-desc">Realça o brilho e afina o tom da cor</div>
+          </div>
+          <div class="pricing-price">30€</div>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-info">
+            <div class="pricing-name">Descoloração Total</div>
+            <div class="pricing-desc">Preparação profissional para transformações de cor</div>
+          </div>
+          <div class="pricing-price">55€</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRATAMENTOS -->
+    <div class="service-category">
+      <div class="category-header">
+        <div class="category-icon">✨</div>
+        <h2>Tratamentos</h2>
+        <div class="category-badge">Capilares</div>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-info">
+            <div class="pricing-name">Botox Capilar</div>
+            <div class="pricing-desc">Restauração profunda das fibras capilares</div>
+          </div>
+          <div class="pricing-price">55€</div>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-info">
+            <div class="pricing-name">Keratina</div>
+            <div class="pricing-desc">Alisar e hidratar com efeito prolongado</div>
+          </div>
+          <div class="pricing-price">75€</div>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-info">
+            <div class="pricing-name">Hidratação Intensiva</div>
+            <div class="pricing-desc">Máscara profissional nutritiva de cabine</div>
+          </div>
+          <div class="pricing-price">35€</div>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-info">
+            <div class="pricing-name">Cronograma Capilar</div>
+            <div class="pricing-desc">Programa personalizado de recuperação capilar</div>
+          </div>
+          <div class="pricing-price">40€</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MANICURE & PEDICURE -->
+    <div class="service-category">
+      <div class="category-header">
+        <div class="category-icon">💅</div>
+        <h2>Manicure &amp; Pedicure</h2>
+        <div class="category-badge">Mãos &amp; Pés</div>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-info">
+            <div class="pricing-name">Manicure Clássica</div>
+            <div class="pricing-desc">Tratamento completo das mãos com esmalte normal</div>
+          </div>
+          <div class="pricing-price">20€</div>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-info">
+            <div class="pricing-name">Manicure Gel</div>
+            <div class="pricing-desc">Aplicação de esmalte gel de longa duração</div>
+          </div>
+          <div class="pricing-price">30€</div>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-info">
+            <div class="pricing-name">Pedicure Clássica</div>
+            <div class="pricing-desc">Tratamento completo dos pés com esmalte</div>
+          </div>
+          <div class="pricing-price">25€</div>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-info">
+            <div class="pricing-name">Pedicure Spa</div>
+            <div class="pricing-desc">Inclui banho de imersão, esfoliação e hidratação</div>
+          </div>
+          <div class="pricing-price">35€</div>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-info">
+            <div class="pricing-name">Remoção de Gel</div>
+            <div class="pricing-desc">Remoção cuidadosa sem danificar a unha natural</div>
+          </div>
+          <div class="pricing-price">15€</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTTOM CTA -->
+    <div class="bottom-cta">
+      <h2>Pronta para marcar?</h2>
+      <p>Reserve o seu serviço favorito em segundos. Confirmamos em até 24h.</p>
+      <a href="marcacoes.html" class="btn-primary">Marcar Agora</a>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo-main">Prestige</span>
+        <span class="logo-sub">Salão de Beleza</span>
+        <p>O seu salão de referência em Lisboa. Beleza, cuidado e sofisticação num só lugar.</p>
+        <div class="social-icons">
+          <div class="social-icon">IG</div>
+          <div class="social-icon">FB</div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Informação</h4>
+        <ul>
+          <li><strong>Morada</strong></li>
+          <li>Av. da Liberdade 112</li>
+          <li>1269-038 Lisboa</li>
+          <li style="margin-top:0.8rem"><strong>Telefone</strong></li>
+          <li>+351 21 456 7890</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Horário</h4>
+        <ul>
+          <li><strong>Segunda a Sábado</strong></li>
+          <li>09h00 – 20h00</li>
+          <li style="margin-top:0.8rem"><strong>Domingo</strong></li>
+          <li>Encerrado</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Salão Prestige. Todos os direitos reservados.</p>
+      <p>Site desenvolvido por <a href="../../index.html">WEBVAZ</a></p>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+  </script>
+</body>
+</html>

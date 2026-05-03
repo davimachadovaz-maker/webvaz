@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Produtos — Artesanato Local</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #1A1208;
+      --accent: #C8A050;
+      --secondary: #A07830;
+      --text: #F5ECD7;
+      --muted: #A09070;
+      --card-bg: #2A1E0A;
+      --border: rgba(200, 160, 80, 0.2);
+      --nav-h: 72px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 1000; height: var(--nav-h);
+      background: rgba(26, 18, 8, 0.97);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center;
+      padding: 0 5%; justify-content: space-between;
+    }
+    .nav-logo { font-size: 1.4rem; font-weight: 800; color: var(--accent); letter-spacing: -0.5px; white-space: nowrap; }
+    .nav-logo span { color: var(--muted); font-weight: 300; font-size: 0.85rem; display: block; line-height: 1; margin-top: 1px; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--muted); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-links a.active { border-bottom: 2px solid var(--accent); padding-bottom: 2px; }
+    .nav-cta { background: var(--accent); color: #1A1208 !important; padding: 0.5rem 1.2rem; border-radius: 6px; font-weight: 700; font-size: 0.88rem; transition: background 0.2s, transform 0.1s; }
+    .nav-cta:hover { background: #d9b060 !important; transform: translateY(-1px); border-bottom: none !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; background: rgba(26, 18, 8, 0.98); border-bottom: 1px solid var(--border); padding: 1.5rem 5%; flex-direction: column; gap: 1.2rem; z-index: 999; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: var(--text); font-size: 1rem; font-weight: 500; padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+    .mobile-menu .nav-cta { border: none; text-align: center; color: #1A1208 !important; }
+
+    /* ─── PAGE HERO ─── */
+    .page-hero {
+      padding: calc(var(--nav-h) + 3.5rem) 5% 3rem;
+      background: radial-gradient(ellipse at 70% 50%, rgba(200, 160, 80, 0.06) 0%, transparent 65%), var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .page-hero-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .page-hero h1 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.5px; margin-bottom: 0.5rem; }
+    .page-hero p { color: var(--muted); font-size: 0.95rem; max-width: 500px; }
+
+    /* ─── FILTERS ─── */
+    .filters-bar {
+      padding: 1.8rem 5%;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .filter-btn {
+      padding: 0.45rem 1.1rem;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+    .filter-btn:hover { border-color: var(--accent); color: var(--text); }
+    .filter-btn.active { background: var(--accent); border-color: var(--accent); color: #1A1208; }
+
+    /* ─── PRODUCT GRID ─── */
+    .products-section { padding: 3rem 5% 5rem; }
+    .category-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--accent);
+      margin: 2.5rem 0 1.2rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .category-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.3rem;
+    }
+
+    .product-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    }
+    .product-card:hover { transform: translateY(-4px); border-color: rgba(200,160,80,0.4); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+
+    .product-img {
+      height: 180px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+      position: relative;
+    }
+
+    .product-body { padding: 1rem; }
+    .product-name { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.3rem; line-height: 1.3; }
+    .product-tag {
+      display: inline-block;
+      background: rgba(200, 160, 80, 0.1);
+      color: var(--accent);
+      padding: 0.18rem 0.55rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+    }
+    .product-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 0.5rem; }
+    .product-price { font-size: 1rem; font-weight: 800; color: var(--accent); }
+    .btn-cart {
+      background: rgba(200,160,80,0.1);
+      border: 1px solid rgba(200,160,80,0.3);
+      color: var(--accent);
+      padding: 0.4rem 0.7rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .btn-cart:hover { background: var(--accent); color: #1A1208; }
+    .btn-cart.added { background: #2a6e2a; border-color: #2a6e2a; color: #b0ffb0; }
+
+    /* ─── INFO STRIP ─── */
+    .info-strip {
+      background: var(--card-bg);
+      border-top: 1px solid var(--border);
+      padding: 2rem 5%;
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .info-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--muted); }
+    .info-item span:first-child { color: var(--accent); font-size: 1.1rem; }
+
+    /* ─── FOOTER ─── */
+    footer { background: #120d04; border-top: 1px solid var(--border); padding: 3rem 5% 2rem; }
+    .footer-inner { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 3rem; margin-bottom: 2rem; }
+    .footer-logo { font-size: 1.3rem; font-weight: 800; color: var(--accent); margin-bottom: 0.5rem; }
+    .footer-desc { color: var(--muted); font-size: 0.85rem; line-height: 1.6; margin-bottom: 1rem; }
+    .footer-ship { font-size: 0.8rem; color: var(--accent); font-style: italic; }
+    .footer-col h4 { font-size: 0.85rem; font-weight: 700; color: var(--text); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; }
+    .footer-col p, .footer-col a { color: var(--muted); font-size: 0.85rem; line-height: 1.8; display: block; }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-bottom { border-top: 1px solid var(--border); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-bottom p { font-size: 0.78rem; color: var(--muted); }
+    .footer-bottom a { color: var(--accent); font-weight: 600; }
+    .footer-bottom a:hover { color: #d9b060; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1100px) { .products-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 800px) { .products-grid { grid-template-columns: repeat(2, 1fr); } .footer-inner { grid-template-columns: 1fr; gap: 2rem; } }
+    @media (max-width: 640px) { .nav-links { display: none; } .hamburger { display: flex; } .products-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">
+      Artesanato Local
+      <span>Lisboa, Portugal</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Início</a></li>
+      <li><a href="produtos.html" class="active">Produtos</a></li>
+      <li><a href="sobre.html">A Nossa História</a></li>
+      <li><a href="produtos.html" class="nav-cta">Comprar Agora</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Início</a>
+    <a href="produtos.html">Produtos</a>
+    <a href="sobre.html">A Nossa História</a>
+    <a href="produtos.html" class="nav-cta">Comprar Agora</a>
+  </div>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <p class="page-hero-label">Catálogo Completo</p>
+    <h1>Os Nossos Produtos</h1>
+    <p>Cerâmica, azulejos, têxteis e madeira — peças únicas de artesãos portugueses.</p>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="filters-bar">
+    <button class="filter-btn active">Todos</button>
+    <button class="filter-btn">Cerâmica</button>
+    <button class="filter-btn">Azulejos</button>
+    <button class="filter-btn">Têxteis</button>
+    <button class="filter-btn">Madeira</button>
+  </div>
+
+  <!-- PRODUCTS -->
+  <div class="products-section">
+
+    <!-- CERÂMICA -->
+    <div class="category-label">🏺 Cerâmica</div>
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-img" style="background: linear-gradient(135deg, #6e2a1a 0%, #b04530 60%, #7a3020 100%);">🐓</div>
+        <div class="product-body">
+          <div class="product-name">Galo de Barcelos Grande</div>
+          <div class="product-tag">Cerâmica</div>
+          <div class="product-footer">
+            <span class="product-price">45,00€</span>
+            <button class="btn-cart" onclick="addCart(this)">Adicionar ao Carrinho</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background: linear-gradient(135deg, #7a3020 0%, #c05040 60%, #8a3828 100%);">🐓</div>
+        <div class="product-body">
+          <div class="product-name">Galo de Barcelos Médio</div>
+          <div class="product-tag">Cerâmica</div>
+          <div class="product-footer">
+            <span class="product-price">25,00€</span>
+            <button class="btn-cart" onclick="addCart(this)">Adicionar ao Carrinho</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background: linear-gradient(135deg, #7a5a30 0%, #b08040 60%, #8a6838 100%);">🏺</div>
+        <div class="product-body">
+          <div class="product-name">Prato Decorativo Alentejo</div>
+          <div class="product-tag">Cerâmica</div>
+          <div class="product-footer">
+            <span class="product-price">32,00€</span>
+            <button class="btn-cart" onclick="addCart(this)">Adicionar ao Carrinho</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background: linear-gradient(135deg, #6e4a28 0%, #a07038 60%, #7a5830 100%);">🏺</div>
+        <div class="product-body">
+          <div class="product-name">Jarra Algarvia</div>
+          <div class="product-tag">Cerâmica</div>
+          <div class="product-footer">
+            <span class="product-price">28,00€</span>
+            <button class="btn-cart" onclick="addCart(this)">Adicionar ao Carrinho</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background: linear-gradient(135deg, #5a3a20 0%, #906040 60%, #6a4830 100%);">🫕</div>
+        <div class="product-body">
+          <div class="product-name">Conjunto de Tachos de Barro (3 pcs)</div>
+          <div class="product-tag">Cerâmica</div>
+          <div class="product-footer">
+            <span class="product-price">65,00€</span>
+            <button class="btn-cart" onclick="addCart(this)">Adicionar ao Carrinho</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- AZULEJOS -->
+    <div class="category-label">🖼️ Azulejaria</div>
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-img" style="background: linear-gradient(135deg, #1a3a6e 0%, #2a5aa0 60%, #1e4888 100%);">🏛️</div>
+        <div class="product-body">
+          <div class="product-name">Azulejo Lisboa Clássico (set 4)</div>
+          <div class="product-tag">Azulejaria</div>
+          <div class="product-footer">
+            <span class="product-price">35,00€</span>
+            <button class="btn-cart" onclick="addCart(this)">Adicionar ao Carrinho</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background: linear-gradient(135deg, #1e2a5a 0%, #3040a0 60%, #283870 100%);">🎵</div>
+        <div class="product-body">
+          <div class="product-name">Azulejo Painel Fado</div>
+          <div class="product-tag">Azulejaria</div>
+          <div class="product-footer">
+            <span class="product-price">55,00€</span>
+            <button class="btn-cart" onclick="addCart(this)">Adicionar ao Carrinho</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background: linear-gradient(135deg, #1a4060 0%, #2870a0 60%, #205080 100%);">🐓</div>
+        <div class="product-body">
+          <div class="product-name">Azulejo Barcelos</div>
+          <div class="product-tag">Azulejaria</div>
+          <div class="product-footer">
+            <span class="product-price">18,00€</span>
+            <button class="btn-cart" onclick="addCart(this)">Adicionar ao Carrinho</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background: linear-gradient(135deg, #1a3858 0%, #2a6898 60%, #204878 100%);">🌺</div>
+        <div class="product-body">
+          <div class="product-name">Azulejo Funchal</div>
+          <div class="product-tag">Azulejaria</div>
+          <div class="product-footer">
+            <span class="product-price">22,00€</span>
+            <button class="btn-cart" onclick="addCart(this)">Adicionar ao Carrinho</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TÊXTEIS -->
+    <div class="category-label">🧶 Bordado &amp; Têxteis</div>
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-img" style="background: linear-gradient(135deg, #6e1a1a 0%, #a82828 60%, #7a2020 100%);">💝</div>
+        <div class="product-body">
+          <div class="product-name">Lenço dos Namorados</div>
+          <div class="product-tag">Bordado</div>
+          <div class="product-footer">
+            <span class="product-price">40,00€</span>
+            <button class="btn-cart" onclick="addCart(this)">Adicionar ao Carrinho</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background: linear-gradient(135deg, #6e2a18 0%, #a85030 60%, #7a3820 100%);">🎨</div>
+        <div class="product-body">
+          <div class="product-name">Tapete Arraiolos 50×50cm</div>
+          <div class="product-tag">Bordado</div>
+          <div class="product-footer">
+            <span class="product-price">85,00€</span>
+            <button class="btn-cart" onclick="addCart(this)">Adicionar ao Carrinho</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background: linear-gradient(135deg, #3a1a5a 0%, #6030a0 60%, #4a2878 100%);">🌸</div>
+        <div class="product-body">
+          <div class="product-name">Toalha de Mesa Bordada</div>
+          <div class="product-tag">Bordado</div>
+          <div class="product-footer">
+            <span class="product-price">38,00€</span>
+            <button class="btn-cart" onclick="addCart(this)">Adicionar ao Carrinho</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- MADEIRA -->
+    <div class="category-label">🪵 Madeira Entalhada</div>
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-img" style="background: linear-gradient(135deg, #3a2810 0%, #7a5020 60%, #4a3218 100%);">🪵</div>
+        <div class="product-body">
+          <div class="product-name">Caixa Entalhada Minhota</div>
+          <div class="product-tag">Madeira</div>
+          <div class="product-footer">
+            <span class="product-price">42,00€</span>
+            <button class="btn-cart" onclick="addCart(this)">Adicionar ao Carrinho</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img" style="background: linear-gradient(135deg, #4a3018 0%, #886040 60%, #5a3820 100%);">🖼️</div>
+        <div class="product-body">
+          <div class="product-name">Moldura Talhada à Mão</div>
+          <div class="product-tag">Madeira</div>
+          <div class="product-footer">
+            <span class="product-price">35,00€</span>
+            <button class="btn-cart" onclick="addCart(this)">Adicionar ao Carrinho</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- INFO STRIP -->
+  <div class="info-strip">
+    <div class="info-item"><span>🚚</span> Envios em 3–5 dias úteis</div>
+    <div class="info-item"><span>🎁</span> Embalagem de presente gratuita</div>
+    <div class="info-item"><span>↩️</span> Devoluções em 30 dias</div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div class="footer-logo">Artesanato Local</div>
+        <p class="footer-desc">Preservamos o artesanato português genuíno, ligando os melhores artesãos de norte a sul aos apreciadores da arte tradicional.</p>
+        <p class="footer-ship">✦ Envios para todo Portugal Continental</p>
+      </div>
+      <div class="footer-col">
+        <h4>Visita-nos</h4>
+        <p>Mercado da Ribeira, Loja 14</p>
+        <p>Av. 24 de Julho, Lisboa</p>
+        <p style="margin-top:0.5rem;">+351 21 567 8901</p>
+        <p>geral@artesanatolocal.pt</p>
+      </div>
+      <div class="footer-col">
+        <h4>Horário</h4>
+        <p>Ter–Dom &nbsp;10h–20h</p>
+        <p>Segunda &nbsp;Fechado</p>
+        <h4 style="margin-top:1.2rem;">Navegar</h4>
+        <a href="index.html">Início</a>
+        <a href="sobre.html">A nossa história</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Artesanato Local — Todos os direitos reservados.</p>
+      <p>Site desenvolvido por <a href="../../index.html">WEBVAZ</a></p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const ham = document.getElementById('hamburger');
+      menu.classList.toggle('open');
+      ham.classList.toggle('open');
+    }
+
+    function addCart(btn) {
+      const original = btn.textContent;
+      btn.textContent = '✓ Adicionado!';
+      btn.classList.add('added');
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.classList.remove('added');
+        btn.disabled = false;
+      }, 2000);
+    }
+
+    // Filter tabs (visual only)
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  </script>
+
+</body>
+</html>

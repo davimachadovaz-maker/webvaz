@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marcações — Salão Prestige</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #12080F;
+      --card-bg: #1E1018;
+      --accent: #E8A0B0;
+      --accent2: #C4758A;
+      --text: #F8F0F4;
+      --muted: #A88090;
+      --nav-height: 72px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-height);
+      background: rgba(18, 8, 15, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(232, 160, 176, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      z-index: 1000;
+    }
+
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .nav-logo .logo-main {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+    }
+    .nav-logo .logo-sub {
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--accent); }
+
+    .nav-cta {
+      background: var(--accent);
+      color: #12080F !important;
+      padding: 0.5rem 1.25rem;
+      border-radius: 6px;
+      font-weight: 700 !important;
+      font-size: 0.83rem !important;
+      letter-spacing: 0.04em;
+      transition: background 0.25s, transform 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--accent2) !important; transform: translateY(-1px); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-height);
+      left: 0; right: 0;
+      background: rgba(18, 8, 15, 0.98);
+      border-bottom: 1px solid rgba(232, 160, 176, 0.12);
+      padding: 1.5rem 5%;
+      flex-direction: column;
+      gap: 1.25rem;
+      z-index: 999;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 0.4rem 0;
+      border-bottom: 1px solid rgba(232, 160, 176, 0.08);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover,
+    .mobile-menu a.active { color: var(--accent); }
+    .mobile-menu .nav-cta-mobile {
+      display: inline-block;
+      background: var(--accent);
+      color: #12080F;
+      padding: 0.7rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding: calc(var(--nav-height) + 3.5rem) 5% 3.5rem;
+      border-bottom: 1px solid rgba(232, 160, 176, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; right: -5%;
+      width: 40%;
+      height: 100%;
+      background: radial-gradient(ellipse, rgba(232, 160, 176, 0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-hero-inner { position: relative; z-index: 1; }
+    .breadcrumb {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+    .breadcrumb a { color: var(--accent); transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--text); }
+    .breadcrumb span { margin: 0 0.4rem; }
+    .page-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+    .page-hero p {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 540px;
+      line-height: 1.7;
+    }
+
+    /* ── LAYOUT ── */
+    .booking-layout {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 2.5rem;
+      padding: 4rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    /* ── FORM ── */
+    .form-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(232, 160, 176, 0.12);
+      border-radius: 18px;
+      padding: 2.5rem;
+    }
+    .form-card h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .form-card .form-subtitle {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.45rem;
+      text-transform: uppercase;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid rgba(232, 160, 176, 0.15);
+      border-radius: 9px;
+      padding: 0.75rem 1rem;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      filter: invert(0.6) sepia(0.3) saturate(2) hue-rotate(300deg);
+      cursor: pointer;
+    }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23A88090' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+      cursor: pointer;
+    }
+
+    select option {
+      background: #1E1018;
+      color: var(--text);
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: rgba(232, 160, 176, 0.5);
+      box-shadow: 0 0 0 3px rgba(232, 160, 176, 0.08);
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: rgba(168, 128, 144, 0.5);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+      line-height: 1.6;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--accent);
+      color: #12080F;
+      border: none;
+      border-radius: 9px;
+      padding: 0.95rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.97rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: background 0.25s, transform 0.2s, box-shadow 0.2s;
+      margin-top: 0.5rem;
+    }
+    .submit-btn:hover {
+      background: var(--accent2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(232, 160, 176, 0.25);
+    }
+    .submit-btn:active { transform: translateY(0); }
+
+    /* ── SUCCESS MESSAGE ── */
+    .success-message {
+      display: none;
+      background: var(--card-bg);
+      border: 1px solid rgba(232, 160, 176, 0.25);
+      border-radius: 18px;
+      padding: 3rem 2.5rem;
+      text-align: center;
+    }
+    .success-message.visible { display: block; }
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--accent2), var(--accent));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin: 0 auto 1.5rem;
+    }
+    .success-message h3 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 0.6rem;
+    }
+    .success-message p {
+      color: var(--muted);
+      font-size: 0.93rem;
+      line-height: 1.7;
+      max-width: 340px;
+      margin: 0 auto 1.75rem;
+    }
+    .success-message .btn-back {
+      display: inline-block;
+      background: var(--accent);
+      color: #12080F;
+      padding: 0.75rem 1.75rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.25s;
+      border: none;
+      font-family: 'Inter', sans-serif;
+    }
+    .success-message .btn-back:hover { background: var(--accent2); }
+
+    /* ── SIDEBAR INFO ── */
+    .sidebar { display: flex; flex-direction: column; gap: 1rem; }
+
+    .info-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(232, 160, 176, 0.1);
+      border-radius: 14px;
+      padding: 1.5rem;
+      transition: border-color 0.3s;
+    }
+    .info-card:hover { border-color: rgba(232, 160, 176, 0.25); }
+
+    .info-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.85rem;
+    }
+    .info-card-icon {
+      font-size: 1.1rem;
+    }
+    .info-card-header h3 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .info-card p,
+    .info-card li {
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .info-card strong { color: var(--text); }
+    .info-card ul { list-style: none; }
+    .info-card ul li { margin-bottom: 0.3rem; }
+    .info-card a {
+      color: var(--accent);
+      transition: color 0.2s;
+    }
+    .info-card a:hover { color: var(--text); }
+
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.84rem;
+      padding: 0.3rem 0;
+      border-bottom: 1px solid rgba(232, 160, 176, 0.06);
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row .day { color: var(--muted); }
+    .hours-row .time { color: var(--text); font-weight: 500; }
+    .hours-row .closed { color: var(--accent2); font-weight: 500; }
+
+    .confirmation-note {
+      background: rgba(232, 160, 176, 0.06);
+      border: 1px solid rgba(232, 160, 176, 0.15);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-top: 0.25rem;
+    }
+    .confirmation-note strong { color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0D060B;
+      border-top: 1px solid rgba(232, 160, 176, 0.1);
+      padding: 3.5rem 5% 1.5rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 2.5rem;
+    }
+    .footer-brand .logo-main {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .footer-brand .logo-sub {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 260px;
+    }
+    .footer-col h4 {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.1rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.55rem;
+    }
+    .footer-col ul li strong { color: var(--text); }
+
+    .social-icons {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+    .social-icon {
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(232, 160, 176, 0.2);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: var(--muted);
+      transition: border-color 0.25s, color 0.25s, background 0.25s;
+    }
+    .social-icon:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(232, 160, 176, 0.06);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(232, 160, 176, 0.08);
+      padding-top: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .footer-bottom p {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .footer-bottom a {
+      color: var(--accent);
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .footer-bottom a:hover { color: var(--text); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .booking-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar { order: -1; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .form-card { padding: 1.5rem; }
+      .booking-layout { padding: 2.5rem 5%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <span class="logo-main">Prestige</span>
+      <span class="logo-sub">Salão de Beleza</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Início</a></li>
+      <li><a href="servicos.html">Serviços</a></li>
+      <li><a href="marcacoes.html" class="active">Marcações</a></li>
+      <li><a href="marcacoes.html" class="nav-cta">Marcar Agora</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Início</a>
+    <a href="servicos.html">Serviços</a>
+    <a href="marcacoes.html" class="active">Marcações</a>
+    <a href="marcacoes.html" class="nav-cta-mobile">Marcar Agora</a>
+  </div>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="breadcrumb">
+        <a href="index.html">Início</a>
+        <span>/</span>
+        Marcações
+      </div>
+      <h1>Marcar Consulta</h1>
+      <p>Preencha o formulário abaixo e confirmamos a sua marcação por email ou SMS em até 24 horas.</p>
+    </div>
+  </div>
+
+  <!-- BOOKING LAYOUT -->
+  <div class="booking-layout">
+
+    <!-- FORM -->
+    <div>
+      <!-- FORM CARD -->
+      <div class="form-card" id="formCard">
+        <h2>Dados da Marcação</h2>
+        <p class="form-subtitle">Todos os campos com * são obrigatórios.</p>
+
+        <form id="bookingForm" novalidate>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nome">Nome Completo *</label>
+              <input type="text" id="nome" name="nome" placeholder="Ex: Ana Silva" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" placeholder="ana@email.com" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="telefone">Telefone *</label>
+              <input type="tel" id="telefone" name="telefone" placeholder="+351 91 234 5678" required />
+            </div>
+            <div class="form-group">
+              <label for="servico">Serviço Pretendido *</label>
+              <select id="servico" name="servico" required>
+                <option value="" disabled selected>Selecionar serviço</option>
+                <option>Corte de Cabelo</option>
+                <option>Coloração Total</option>
+                <option>Mechas</option>
+                <option>Balayage</option>
+                <option>Penteado de Festa</option>
+                <option>Penteado de Noiva</option>
+                <option>Tratamento Capilar</option>
+                <option>Manicure</option>
+                <option>Pedicure</option>
+                <option>Outro</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="profissional">Profissional</label>
+              <select id="profissional" name="profissional">
+                <option value="sem-pref">Sem preferência</option>
+                <option>Ana Costa</option>
+                <option>Maria Santos</option>
+                <option>Joana Lima</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="data">Data Preferida *</label>
+              <input type="date" id="data" name="data" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="hora">Hora Preferida *</label>
+            <select id="hora" name="hora" required>
+              <option value="" disabled selected>Selecionar hora</option>
+              <option>09:00</option>
+              <option>09:30</option>
+              <option>10:00</option>
+              <option>10:30</option>
+              <option>11:00</option>
+              <option>11:30</option>
+              <option>14:00</option>
+              <option>14:30</option>
+              <option>15:00</option>
+              <option>15:30</option>
+              <option>16:00</option>
+              <option>16:30</option>
+              <option>17:00</option>
+              <option>17:30</option>
+              <option>18:00</option>
+              <option>18:30</option>
+              <option>19:00</option>
+              <option>19:30</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="observacoes">Observações</label>
+            <textarea id="observacoes" name="observacoes" placeholder="Informações adicionais, alergias, preferências..."></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">Confirmar Marcação</button>
+
+        </form>
+      </div>
+
+      <!-- SUCCESS MESSAGE -->
+      <div class="success-message" id="successMessage">
+        <div class="success-icon">✓</div>
+        <h3>Marcação Recebida!</h3>
+        <p>Obrigada pelo seu pedido de marcação. Vamos confirmar por email ou SMS até 24 horas antes da sua visita.</p>
+        <button class="btn-back" id="btnBack">Fazer Nova Marcação</button>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="info-card">
+        <div class="info-card-header">
+          <span class="info-card-icon">🕐</span>
+          <h3>Horário de Funcionamento</h3>
+        </div>
+        <div class="hours-row">
+          <span class="day">Segunda a Sábado</span>
+          <span class="time">09h00 – 20h00</span>
+        </div>
+        <div class="hours-row">
+          <span class="day">Domingo</span>
+          <span class="closed">Encerrado</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-card-header">
+          <span class="info-card-icon">📍</span>
+          <h3>Localização</h3>
+        </div>
+        <p>Av. da Liberdade 112<br />1269-038 Lisboa</p>
+      </div>
+
+      <div class="info-card">
+        <div class="info-card-header">
+          <span class="info-card-icon">📞</span>
+          <h3>Contacto</h3>
+        </div>
+        <ul>
+          <li><strong>Telefone:</strong> <a href="tel:+351214567890">+351 21 456 7890</a></li>
+          <li><strong>Email:</strong> <a href="mailto:prestige@salao.pt">prestige@salao.pt</a></li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <div class="info-card-header">
+          <span class="info-card-icon">💬</span>
+          <h3>WhatsApp</h3>
+        </div>
+        <p>Prefere falar diretamente connosco?</p>
+        <p style="margin-top:0.4rem"><strong><a href="https://wa.me/351912345678">+351 91 234 5678</a></strong></p>
+      </div>
+
+      <div class="confirmation-note">
+        <strong>Confirmação garantida</strong><br />
+        Confirmamos a sua marcação por email ou SMS até 24h antes da sua visita ao salão.
+      </div>
+
+    </aside>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo-main">Prestige</span>
+        <span class="logo-sub">Salão de Beleza</span>
+        <p>O seu salão de referência em Lisboa. Beleza, cuidado e sofisticação num só lugar.</p>
+        <div class="social-icons">
+          <div class="social-icon">IG</div>
+          <div class="social-icon">FB</div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Informação</h4>
+        <ul>
+          <li><strong>Morada</strong></li>
+          <li>Av. da Liberdade 112</li>
+          <li>1269-038 Lisboa</li>
+          <li style="margin-top:0.8rem"><strong>Telefone</strong></li>
+          <li>+351 21 456 7890</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Horário</h4>
+        <ul>
+          <li><strong>Segunda a Sábado</strong></li>
+          <li>09h00 – 20h00</li>
+          <li style="margin-top:0.8rem"><strong>Domingo</strong></li>
+          <li>Encerrado</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Salão Prestige. Todos os direitos reservados.</p>
+      <p>Site desenvolvido por <a href="../../index.html">WEBVAZ</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    // Set minimum date to today
+    const dateInput = document.getElementById('data');
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', today);
+
+    // Form submission
+    const form = document.getElementById('bookingForm');
+    const formCard = document.getElementById('formCard');
+    const successMessage = document.getElementById('successMessage');
+    const btnBack = document.getElementById('btnBack');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Basic validation
+      const nome = document.getElementById('nome').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const telefone = document.getElementById('telefone').value.trim();
+      const servico = document.getElementById('servico').value;
+      const data = document.getElementById('data').value;
+      const hora = document.getElementById('hora').value;
+
+      if (!nome || !email || !telefone || !servico || !data || !hora) {
+        // Highlight missing fields
+        [document.getElementById('nome'), document.getElementById('email'),
+         document.getElementById('telefone'), document.getElementById('servico'),
+         document.getElementById('data'), document.getElementById('hora')].forEach(field => {
+          if (!field.value.trim()) {
+            field.style.borderColor = 'rgba(232, 100, 130, 0.6)';
+            setTimeout(() => { field.style.borderColor = ''; }, 3000);
+          }
+        });
+        return;
+      }
+
+      // Show success
+      formCard.style.opacity = '0';
+      formCard.style.transform = 'translateY(-10px)';
+      formCard.style.transition = 'opacity 0.3s, transform 0.3s';
+      setTimeout(() => {
+        formCard.style.display = 'none';
+        successMessage.classList.add('visible');
+        successMessage.style.opacity = '0';
+        successMessage.style.transform = 'translateY(10px)';
+        successMessage.style.transition = 'opacity 0.4s, transform 0.4s';
+        requestAnimationFrame(() => {
+          successMessage.style.opacity = '1';
+          successMessage.style.transform = 'translateY(0)';
+        });
+      }, 300);
+    });
+
+    btnBack.addEventListener('click', function() {
+      successMessage.classList.remove('visible');
+      form.reset();
+      formCard.style.display = 'block';
+      formCard.style.opacity = '1';
+      formCard.style.transform = 'translateY(0)';
+    });
+  </script>
+</body>
+</html>
