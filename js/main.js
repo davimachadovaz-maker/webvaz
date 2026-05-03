@@ -55,6 +55,38 @@
   });
 })();
 
+// Shutter text animation (precos.html)
+(function initShutterTitle() {
+  const title = document.getElementById('shutterTitle');
+  if (!title) return;
+  let charIndex = 0;
+  title.querySelectorAll('.shutter-word').forEach(word => {
+    const isSerif = word.dataset.font === 'serif';
+    const chars = [...word.textContent.trim()];
+    word.textContent = '';
+    chars.forEach(char => {
+      const delay = charIndex * 0.04;
+      charIndex++;
+      const wrap = document.createElement('div');
+      wrap.className = 'shutter-char' + (isSerif ? ' shutter-char--serif' : '');
+      const content = char === ' ' ? ' ' : char;
+      [
+        ['shutter-char__main',              delay + 0.3],
+        ['shutter-char__slice shutter-char__slice--top', delay],
+        ['shutter-char__slice shutter-char__slice--mid', delay + 0.1],
+        ['shutter-char__slice shutter-char__slice--bot', delay + 0.2],
+      ].forEach(([cls, d]) => {
+        const s = document.createElement('span');
+        s.className = cls;
+        s.textContent = content;
+        s.style.animationDelay = d + 's';
+        wrap.appendChild(s);
+      });
+      word.appendChild(wrap);
+    });
+  });
+})();
+
 // Glow / spotlight cards
 (function initGlowCards() {
   const cards = document.querySelectorAll('[data-glow]:not([data-glow] [data-glow])');
@@ -84,11 +116,22 @@
     const gap      = () => 20;
     const slideW   = () => slides[0].offsetWidth + gap();
 
+    function centerSlide(i) {
+      const slide = slides[i];
+      const target = slide.offsetLeft - (wrap.clientWidth - slide.offsetWidth) / 2;
+      wrap.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
+    }
+
     function sync() {
-      const sl  = wrap.scrollLeft;
-      const max = wrap.scrollWidth - wrap.clientWidth;
-      const idx = Math.min(Math.round(sl / slideW()), slides.length - 1);
-      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      const sl      = wrap.scrollLeft;
+      const center  = sl + wrap.clientWidth / 2;
+      const max     = wrap.scrollWidth - wrap.clientWidth;
+      let closest = 0, minDist = Infinity;
+      slides.forEach((s, i) => {
+        const dist = Math.abs(s.offsetLeft + s.offsetWidth / 2 - center);
+        if (dist < minDist) { minDist = dist; closest = i; }
+      });
+      dots.forEach((d, i) => d.classList.toggle('active', i === closest));
       if (prevBtn) prevBtn.disabled = sl < 4;
       if (nextBtn) nextBtn.disabled = sl > max - 4;
     }
@@ -97,8 +140,7 @@
       wrap.scrollBy({ left: -slideW(), behavior: 'smooth' }));
     if (nextBtn) nextBtn.addEventListener('click', () =>
       wrap.scrollBy({ left:  slideW(), behavior: 'smooth' }));
-    dots.forEach((dot, i) => dot.addEventListener('click', () =>
-      wrap.scrollTo({ left: i * slideW(), behavior: 'smooth' })));
+    dots.forEach((dot, i) => dot.addEventListener('click', () => centerSlide(i)));
 
     wrap.addEventListener('scroll', sync, { passive: true });
     window.addEventListener('resize', sync, { passive: true });
@@ -213,6 +255,24 @@
 
   resize();
   animate();
+})();
+
+// Nav sliding cursor
+(function initNavCursor() {
+  const navLinks = document.getElementById('navLinks');
+  if (!navLinks) return;
+  const cursor = document.createElement('li');
+  cursor.className = 'nav-cursor';
+  navLinks.appendChild(cursor);
+  navLinks.querySelectorAll('li:not(.nav-cursor)').forEach(item => {
+    if (item.querySelector('.nav__cta')) return;
+    item.addEventListener('mouseenter', () => {
+      cursor.style.left    = item.offsetLeft + 'px';
+      cursor.style.width   = item.offsetWidth + 'px';
+      cursor.style.opacity = '1';
+    });
+  });
+  navLinks.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; });
 })();
 
 // Mobile menu toggle

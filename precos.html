@@ -30,10 +30,14 @@
   </nav>
 
   <!-- PAGE HERO -->
-  <section class="page-hero">
-    <div class="container">
+  <section class="page-hero" id="pageHero">
+    <div class="page-hero__grid" aria-hidden="true"></div>
+    <div class="container" style="position:relative;z-index:1;">
       <span class="hero__tag" data-aos="fade-up">Investimento</span>
-      <h1 data-aos="fade-up" data-aos-delay="100">Preços <span>transparentes</span></h1>
+      <div class="shutter-title" id="shutterTitle" aria-label="Preços transparentes">
+        <div class="shutter-word" data-font="sans">Preços</div>
+        <div class="shutter-word" data-font="serif">transparentes</div>
+      </div>
       <p class="hero__sub" data-aos="fade-up" data-aos-delay="200">Sem surpresas. Preços fixos, entrega garantida. Escolhe o plano que melhor se adapta ao teu negócio.</p>
     </div>
   </section>
@@ -43,7 +47,7 @@
     <div class="container">
       <div class="pricing__grid">
 
-        <div class="pricing-card" data-aos="fade-up">
+        <div class="pricing-card" data-glow data-aos="fade-up">
           <h3>Landing Page</h3>
           <div class="pricing-card__price"><span>300€</span></div>
           <ul>
@@ -56,7 +60,7 @@
           <a href="index.html#contacto" class="btn btn--ghost">Escolher</a>
         </div>
 
-        <div class="pricing-card pricing-card--featured" data-aos="fade-up" data-aos-delay="100">
+        <div class="pricing-card pricing-card--featured" data-glow data-aos="fade-up" data-aos-delay="100">
           <span class="pricing-card__badge">Mais popular</span>
           <h3>Site Completo</h3>
           <div class="pricing-card__price"><span>600€</span></div>
@@ -70,7 +74,7 @@
           <a href="index.html#contacto" class="btn btn--primary">Escolher</a>
         </div>
 
-        <div class="pricing-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="pricing-card" data-glow data-aos="fade-up" data-aos-delay="200">
           <h3>Loja Online</h3>
           <div class="pricing-card__price"><span>1.200€</span></div>
           <ul>
@@ -111,6 +115,7 @@
 
   <!-- CTA -->
   <section class="cta-final" id="contacto">
+    <div class="cta-pattern" aria-hidden="true"></div>
     <div class="container">
       <h2 data-aos="fade-up">Dúvidas sobre qual o plano certo?</h2>
       <p data-aos="fade-up">Fala connosco, ajudamos a escolher o melhor para o teu negócio.</p>
