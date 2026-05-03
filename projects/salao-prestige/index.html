@@ -158,14 +158,22 @@
       position: relative;
       overflow: hidden;
     }
+    .hero-bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.18;
+      z-index: 0;
+    }
     .hero::before {
       content: '';
       position: absolute;
-      top: -20%;
-      right: -10%;
-      width: 55%;
-      height: 100%;
-      background: radial-gradient(ellipse, rgba(232, 160, 176, 0.08) 0%, transparent 70%);
+      inset: 0;
+      background: linear-gradient(to right, rgba(18,8,15,0.92) 45%, rgba(18,8,15,0.4) 100%);
+      z-index: 1;
       pointer-events: none;
     }
     .hero::after {
@@ -177,9 +185,10 @@
       height: 60%;
       background: radial-gradient(ellipse, rgba(196, 117, 138, 0.06) 0%, transparent 70%);
       pointer-events: none;
+      z-index: 1;
     }
 
-    .hero-content { max-width: 660px; position: relative; z-index: 1; }
+    .hero-content { max-width: 660px; position: relative; z-index: 2; }
 
     .hero-tag {
       display: inline-block;
@@ -307,13 +316,22 @@
       background: var(--card-bg);
       border: 1px solid rgba(232, 160, 176, 0.1);
       border-radius: 14px;
-      padding: 1.8rem;
+      overflow: hidden;
       transition: border-color 0.3s, transform 0.25s, box-shadow 0.3s;
     }
     .service-card:hover {
       border-color: rgba(232, 160, 176, 0.35);
       transform: translateY(-4px);
       box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+    }
+    .service-card-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+    .service-card-body {
+      padding: 1.5rem 1.8rem 1.8rem;
     }
     .service-icon {
       font-size: 1.8rem;
@@ -338,7 +356,7 @@
 
     .services-cta { text-align: center; margin-top: 0.5rem; }
 
-    /* ── GALLERY ── */
+    /* ── GALLERY (original) ── */
     .gallery-section { background: var(--card-bg); }
     .gallery-grid {
       display: grid;
@@ -347,32 +365,75 @@
     }
     .gallery-item {
       border-radius: 12px;
-      height: 180px;
-      display: flex;
-      align-items: flex-end;
-      padding: 1rem;
+      height: 200px;
       position: relative;
       overflow: hidden;
       cursor: pointer;
       transition: transform 0.3s;
     }
     .gallery-item:hover { transform: scale(1.02); }
-    .gallery-item span {
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s;
+    }
+    .gallery-item:hover img { transform: scale(1.06); }
+    .gallery-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(18,8,15,0.75) 0%, transparent 55%);
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem;
+    }
+    .gallery-item-overlay span {
       font-size: 0.82rem;
       font-weight: 600;
       letter-spacing: 0.06em;
       color: rgba(255,255,255,0.9);
       text-shadow: 0 1px 4px rgba(0,0,0,0.5);
-      position: relative;
-      z-index: 1;
     }
 
-    .g1 { background: linear-gradient(135deg, #C4758A 0%, #E8A0B0 100%); }
-    .g2 { background: linear-gradient(135deg, #7A4060 0%, #C4758A 100%); }
-    .g3 { background: linear-gradient(135deg, #B8860B 0%, #E8A0B0 100%); }
-    .g4 { background: linear-gradient(135deg, #E8A0B0 0%, #F4C2D0 100%); }
-    .g5 { background: linear-gradient(135deg, #8B2252 0%, #C4758A 100%); }
-    .g6 { background: linear-gradient(135deg, #9C7AAA 0%, #E8A0B0 100%); }
+    /* ── SALON GALLERY (nova secção) ── */
+    .salon-gallery-section {
+      padding: 5rem 5%;
+      background: var(--bg);
+    }
+    .salon-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    .salon-gallery-item {
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .salon-gallery-item:nth-child(1),
+    .salon-gallery-item:nth-child(4) {
+      grid-row: span 1;
+    }
+    .salon-gallery-item img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .salon-gallery-item:hover img { transform: scale(1.05); }
+    .salon-gallery-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(18,8,15,0.8) 0%, transparent 100%);
+      padding: 1.5rem 1.1rem 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.88);
+    }
 
     /* ── TEAM ── */
     .team-grid {
@@ -442,10 +503,27 @@
       margin-bottom: 1.25rem;
       font-style: italic;
     }
+    .testimonial-footer {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .testimonial-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(232,160,176,0.25);
+      flex-shrink: 0;
+    }
     .testimonial-author {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .testimonial-date {
+      font-size: 0.75rem;
+      color: var(--muted);
     }
 
     /* ── CTA BANNER ── */
@@ -584,6 +662,7 @@
 
       .services-grid { grid-template-columns: 1fr; }
       .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .salon-gallery-grid { grid-template-columns: repeat(2, 1fr); }
       .team-grid { grid-template-columns: 1fr; }
       .testimonials-grid { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
@@ -591,6 +670,7 @@
 
     @media (max-width: 560px) {
       .gallery-grid { grid-template-columns: 1fr; }
+      .salon-gallery-grid { grid-template-columns: 1fr; }
       .hero-ctas { flex-direction: column; }
       .btn-primary, .btn-outline { text-align: center; }
       .cta-banner { margin: 3rem 0; border-radius: 0; }
@@ -627,6 +707,12 @@
 
   <!-- HERO -->
   <section class="hero">
+    <img
+      src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1600&auto=format&fit=crop"
+      alt="Interior do Salão Prestige com cadeiras modernas"
+      class="hero-bg-img"
+      loading="eager"
+    />
     <div class="hero-content">
       <div class="hero-tag">Salão de Beleza Premium</div>
       <h1>A tua beleza,<br>o nosso <span>talento.</span></h1>
@@ -648,28 +734,60 @@
     </div>
     <div class="services-grid">
       <div class="service-card">
-        <div class="service-icon">✂️</div>
-        <h3>Corte &amp; Styling</h3>
-        <p>Cortes modernos e clássicos adaptados ao seu estilo e estrutura facial. Inclui lavagem e secagem profissional.</p>
-        <div class="service-price">A partir de 25€</div>
+        <img
+          src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=800&auto=format&fit=crop"
+          alt="Corte de cabelo profissional no salão"
+          class="service-card-img"
+          loading="lazy"
+        />
+        <div class="service-card-body">
+          <div class="service-icon">✂️</div>
+          <h3>Corte &amp; Styling</h3>
+          <p>Cortes modernos e clássicos adaptados ao seu estilo e estrutura facial. Inclui lavagem e secagem profissional.</p>
+          <div class="service-price">A partir de 25€</div>
+        </div>
       </div>
       <div class="service-card">
-        <div class="service-icon">🎨</div>
-        <h3>Coloração &amp; Mechas</h3>
-        <p>Técnicas de cor avançadas: coloração total, mechas, balayage e muito mais com produtos de alta qualidade.</p>
-        <div class="service-price">A partir de 45€</div>
+        <img
+          src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop"
+          alt="Coloração de cabelo com técnica avançada"
+          class="service-card-img"
+          loading="lazy"
+        />
+        <div class="service-card-body">
+          <div class="service-icon">🎨</div>
+          <h3>Coloração &amp; Mechas</h3>
+          <p>Técnicas de cor avançadas: coloração total, mechas, balayage e muito mais com produtos de alta qualidade.</p>
+          <div class="service-price">A partir de 45€</div>
+        </div>
       </div>
       <div class="service-card">
-        <div class="service-icon">💅</div>
-        <h3>Manicure &amp; Pedicure</h3>
-        <p>Tratamento completo das mãos e pés. Clássica, gel ou spa — escolha a opção perfeita para si.</p>
-        <div class="service-price">A partir de 20€</div>
+        <img
+          src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=800&auto=format&fit=crop"
+          alt="Manicura profissional com esmalte"
+          class="service-card-img"
+          loading="lazy"
+        />
+        <div class="service-card-body">
+          <div class="service-icon">💅</div>
+          <h3>Manicure &amp; Pedicure</h3>
+          <p>Tratamento completo das mãos e pés. Clássica, gel ou spa — escolha a opção perfeita para si.</p>
+          <div class="service-price">A partir de 20€</div>
+        </div>
       </div>
       <div class="service-card">
-        <div class="service-icon">✨</div>
-        <h3>Tratamentos Capilares</h3>
-        <p>Botox capilar, keratina e hidratação intensiva para cabelos nutridos, fortes e com brilho de salão.</p>
-        <div class="service-price">A partir de 35€</div>
+        <img
+          src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=800&auto=format&fit=crop"
+          alt="Tratamento capilar intensivo no salão"
+          class="service-card-img"
+          loading="lazy"
+        />
+        <div class="service-card-body">
+          <div class="service-icon">✨</div>
+          <h3>Tratamentos Capilares</h3>
+          <p>Botox capilar, keratina e hidratação intensiva para cabelos nutridos, fortes e com brilho de salão.</p>
+          <div class="service-price">A partir de 35€</div>
+        </div>
       </div>
     </div>
     <div class="services-cta">
@@ -677,7 +795,7 @@
     </div>
   </section>
 
-  <!-- GALLERY -->
+  <!-- GALLERY (trabalho) -->
   <section class="gallery-section">
     <div class="section-header">
       <div class="section-label">Galeria</div>
@@ -685,12 +803,54 @@
       <p class="section-sub">Uma seleção dos resultados que orgulhosamente criamos para as nossas clientes.</p>
     </div>
     <div class="gallery-grid">
-      <div class="gallery-item g1"><span>Coloração</span></div>
-      <div class="gallery-item g2"><span>Cortes</span></div>
-      <div class="gallery-item g3"><span>Casamentos</span></div>
-      <div class="gallery-item g4"><span>Mechas</span></div>
-      <div class="gallery-item g5"><span>Tratamentos</span></div>
-      <div class="gallery-item g6"><span>Penteados</span></div>
+      <div class="gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&auto=format&fit=crop"
+          alt="Resultado de coloração de cabelo"
+          loading="lazy"
+        />
+        <div class="gallery-item-overlay"><span>Coloração</span></div>
+      </div>
+      <div class="gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&auto=format&fit=crop"
+          alt="Corte de cabelo liso e moderno"
+          loading="lazy"
+        />
+        <div class="gallery-item-overlay"><span>Cortes</span></div>
+      </div>
+      <div class="gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1643185539104-3622eb1f494c?w=800&auto=format&fit=crop"
+          alt="Penteado de casamento ondulado"
+          loading="lazy"
+        />
+        <div class="gallery-item-overlay"><span>Casamentos</span></div>
+      </div>
+      <div class="gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=800&auto=format&fit=crop"
+          alt="Mechas e highlights loiros"
+          loading="lazy"
+        />
+        <div class="gallery-item-overlay"><span>Mechas</span></div>
+      </div>
+      <div class="gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=800&auto=format&fit=crop"
+          alt="Tratamento capilar nutritivo"
+          loading="lazy"
+        />
+        <div class="gallery-item-overlay"><span>Tratamentos</span></div>
+      </div>
+      <div class="gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=800&auto=format&fit=crop"
+          alt="Manicura com esmalte colorido"
+          loading="lazy"
+        />
+        <div class="gallery-item-overlay"><span>Manicura</span></div>
+      </div>
     </div>
   </section>
 
@@ -739,12 +899,93 @@
       <div class="testimonial-card">
         <div class="stars">★★★★★</div>
         <p class="testimonial-text">"Finalmente encontrei o meu salão! A Ana é uma artista com a cor. O resultado ficou incrível — exatamente o que eu queria, ainda melhor do que imaginava."</p>
-        <div class="testimonial-author">— Beatriz Alves</div>
+        <div class="testimonial-footer">
+          <img
+            src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&auto=format&fit=crop&crop=face"
+            alt="Foto de Beatriz Alves, cliente satisfeita"
+            class="testimonial-avatar"
+            loading="lazy"
+          />
+          <div>
+            <div class="testimonial-author">Beatriz Alves</div>
+            <div class="testimonial-date">Cliente desde 2022</div>
+          </div>
+        </div>
       </div>
       <div class="testimonial-card">
         <div class="stars">★★★★★</div>
         <p class="testimonial-text">"Vim para o meu casamento e fiquei absolutamente deslumbrante. A Maria teve uma paciência enorme e o penteado ficou perfeito. Recomendo a 100%!"</p>
-        <div class="testimonial-author">— Rita Neves</div>
+        <div class="testimonial-footer">
+          <img
+            src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop&crop=face"
+            alt="Foto de Rita Neves, cliente satisfeita"
+            class="testimonial-avatar"
+            loading="lazy"
+          />
+          <div>
+            <div class="testimonial-author">Rita Neves</div>
+            <div class="testimonial-date">Cliente desde 2023</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIA DO SALÃO (nova secção) -->
+  <section class="salon-gallery-section">
+    <div class="section-header">
+      <div class="section-label">O nosso espaço</div>
+      <h2 class="section-title">Galeria do Salão</h2>
+      <p class="section-sub">Um espaço pensado ao detalhe para que se sinta em casa enquanto cuidamos de si.</p>
+    </div>
+    <div class="salon-gallery-grid">
+      <div class="salon-gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&auto=format&fit=crop"
+          alt="Interior do salão com cadeiras e espelhos"
+          loading="lazy"
+        />
+        <div class="salon-gallery-caption">Interior do Salão</div>
+      </div>
+      <div class="salon-gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800&auto=format&fit=crop"
+          alt="Ambiente acolhedor do salão Prestige"
+          loading="lazy"
+        />
+        <div class="salon-gallery-caption">Ambiente Premium</div>
+      </div>
+      <div class="salon-gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=800&auto=format&fit=crop"
+          alt="Espelho e estação de trabalho do salão"
+          loading="lazy"
+        />
+        <div class="salon-gallery-caption">Estações de Trabalho</div>
+      </div>
+      <div class="salon-gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&auto=format&fit=crop"
+          alt="Resultado de cabelo liso e brilhante"
+          loading="lazy"
+        />
+        <div class="salon-gallery-caption">Resultado Final</div>
+      </div>
+      <div class="salon-gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=800&auto=format&fit=crop"
+          alt="Manicura com unhas perfeitas"
+          loading="lazy"
+        />
+        <div class="salon-gallery-caption">Manicura Perfeita</div>
+      </div>
+      <div class="salon-gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&auto=format&fit=crop"
+          alt="Tratamento facial e cuidados de beleza"
+          loading="lazy"
+        />
+        <div class="salon-gallery-caption">Tratamentos Faciais</div>
       </div>
     </div>
   </section>

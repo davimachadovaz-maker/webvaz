@@ -51,7 +51,15 @@
 
     /* HERO */
     .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 80px; position: relative; overflow: hidden; }
-    .hero__glow { position: absolute; top: -100px; right: -100px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(212,145,42,0.1) 0%, transparent 70%); pointer-events: none; }
+    .hero__bg {
+      position: absolute; inset: 0; z-index: 0;
+    }
+    .hero__bg img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center;
+      filter: brightness(0.35);
+    }
+    .hero__glow { position: absolute; top: -100px; right: -100px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(212,145,42,0.1) 0%, transparent 70%); pointer-events: none; z-index: 1; }
+    .hero__content { position: relative; z-index: 2; }
     .hero__tag { display: inline-block; background: rgba(212,145,42,0.15); color: var(--accent); padding: 6px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 24px; border: 1px solid rgba(212,145,42,0.3); }
     .hero h1 { font-size: clamp(40px, 7vw, 72px); font-weight: 800; line-height: 1.1; letter-spacing: -2px; margin-bottom: 24px; }
     .hero h1 span { color: var(--accent); }
@@ -65,14 +73,33 @@
     .about__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
     .about__text h2 { margin-bottom: 20px; }
     .about__text p { color: var(--muted); font-size: 16px; line-height: 1.8; margin-bottom: 16px; }
-    .about__img { height: 400px; border-radius: var(--radius); background: linear-gradient(135deg, #2A1A10 0%, #4A2A18 50%, #D4912A22 100%); display: flex; align-items: center; justify-content: center; font-size: 80px; }
+    .about__img {
+      height: 420px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+    }
+    .about__img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .about__img:hover img { transform: scale(1.04); }
+    .about__img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(26,15,10,0.6) 0%, transparent 60%);
+      pointer-events: none;
+    }
 
     /* MENU PREVIEW */
     .menu-preview h2 { margin-bottom: 12px; }
     .menu-preview .section-sub { color: var(--muted); font-size: 17px; margin-bottom: 48px; }
     .menu-preview__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-bottom: 48px; }
-    .menu-card { background: var(--card); border: 1px solid rgba(212,145,42,0.12); border-radius: var(--radius); padding: 28px; transition: var(--transition); }
+    .menu-card { background: var(--card); border: 1px solid rgba(212,145,42,0.12); border-radius: var(--radius); overflow: hidden; transition: var(--transition); }
     .menu-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(212,145,42,0.12); }
+    .menu-card__img { height: 180px; overflow: hidden; }
+    .menu-card__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .menu-card:hover .menu-card__img img { transform: scale(1.08); }
+    .menu-card__body { padding: 24px; }
     .menu-card__price { font-size: 22px; font-weight: 800; color: var(--accent); margin-bottom: 8px; }
     .menu-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
     .menu-card p { color: var(--muted); font-size: 14px; }
@@ -86,9 +113,42 @@
     .test-card__stars { color: var(--accent); font-size: 18px; margin-bottom: 16px; }
     .test-card p { color: var(--muted); font-style: italic; font-size: 15px; line-height: 1.7; margin-bottom: 24px; }
     .test-card__author { display: flex; align-items: center; gap: 12px; }
-    .test-card__avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; color: #1A0F0A; flex-shrink: 0; }
+    .test-card__avatar { width: 48px; height: 48px; border-radius: 50%; overflow: hidden; flex-shrink: 0; border: 2px solid rgba(212,145,42,0.4); }
+    .test-card__avatar img { width: 100%; height: 100%; object-fit: cover; }
     .test-card__author strong { display: block; font-size: 15px; }
     .test-card__author span { font-size: 13px; color: var(--muted); }
+
+    /* GALERIA */
+    .galeria { background: rgba(26,15,10,0.8); }
+    .galeria h2 { margin-bottom: 12px; }
+    .galeria .section-sub { color: var(--muted); font-size: 17px; margin-bottom: 48px; }
+    .galeria__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 260px);
+      gap: 16px;
+    }
+    .galeria__item {
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .galeria__item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s ease;
+      display: block;
+    }
+    .galeria__item:hover img { transform: scale(1.1); }
+    .galeria__item-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(26,15,10,0.7) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex; align-items: flex-end; padding: 20px;
+    }
+    .galeria__item:hover .galeria__item-overlay { opacity: 1; }
+    .galeria__item-label { color: var(--text); font-size: 14px; font-weight: 600; }
 
     /* CTA SECTION */
     .cta-section { background: linear-gradient(135deg, #2A1A10, #3A2218); text-align: center; border-top: 1px solid rgba(212,145,42,0.2); border-bottom: 1px solid rgba(212,145,42,0.2); }
@@ -119,6 +179,11 @@
       .about__img { height: 260px; }
       .footer__grid { grid-template-columns: 1fr; }
       .footer__bottom { flex-direction: column; text-align: center; }
+      .galeria__grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, 200px); }
+    }
+    @media (max-width: 480px) {
+      .galeria__grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .galeria__item { height: 220px; }
     }
   </style>
 </head>
@@ -141,8 +206,11 @@
 
   <!-- HERO -->
   <section class="hero">
+    <div class="hero__bg">
+      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&auto=format&fit=crop" alt="Mesa de restaurante português" loading="eager">
+    </div>
     <div class="hero__glow"></div>
-    <div class="container">
+    <div class="container hero__content">
       <span class="hero__tag">Cozinha Portuguesa Tradicional</span>
       <h1>Sabores que<br>contam <span>histórias.</span></h1>
       <p class="hero__sub">Desde 1987 a servir os melhores pratos da nossa terra, no coração de Lisboa. Uma herança de família, um compromisso com a qualidade.</p>
@@ -168,7 +236,10 @@
           <p>Trabalhamos com produtores regionais da Estremadura e do Ribatejo para garantir que cada prato tem a frescura e o sabor autêntico da cozinha portuguesa.</p>
           <a href="menu.html" class="btn btn--ghost" style="margin-top: 16px;">Conhecer o menu</a>
         </div>
-        <div class="about__img">🍽️</div>
+        <div class="about__img">
+          <img src="https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=800&auto=format&fit=crop" alt="Interior do restaurante O Tasqueiro" loading="lazy">
+          <div class="about__img-overlay"></div>
+        </div>
       </div>
     </div>
   </section>
@@ -180,28 +251,48 @@
       <p class="section-sub">Sabores tradicionais preparados com ingredientes frescos todos os dias.</p>
       <div class="menu-preview__grid">
         <div class="menu-card">
-          <span class="menu-card__tag">★ Especialidade da casa</span>
-          <div class="menu-card__price">14,50€</div>
-          <h3>Bacalhau à Brás</h3>
-          <p>Bacalhau desfiado com batata palha, ovos mexidos e azeitonas pretas.</p>
+          <div class="menu-card__img">
+            <img src="https://images.unsplash.com/photo-1544148103-0773bf10d330?w=600&auto=format&fit=crop" alt="Bacalhau à Brás" loading="lazy">
+          </div>
+          <div class="menu-card__body">
+            <span class="menu-card__tag">★ Especialidade da casa</span>
+            <div class="menu-card__price">14,50€</div>
+            <h3>Bacalhau à Brás</h3>
+            <p>Bacalhau desfiado com batata palha, ovos mexidos e azeitonas pretas.</p>
+          </div>
         </div>
         <div class="menu-card">
-          <span class="menu-card__tag">Entrada</span>
-          <div class="menu-card__price">4,50€</div>
-          <h3>Caldo Verde</h3>
-          <p>Sopa de couve-galega com chouriço e azeite, receita da avó Conceição.</p>
+          <div class="menu-card__img">
+            <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=600&auto=format&fit=crop" alt="Caldo Verde com chouriço" loading="lazy">
+          </div>
+          <div class="menu-card__body">
+            <span class="menu-card__tag">Entrada</span>
+            <div class="menu-card__price">4,50€</div>
+            <h3>Caldo Verde</h3>
+            <p>Sopa de couve-galega com chouriço e azeite, receita da avó Conceição.</p>
+          </div>
         </div>
         <div class="menu-card">
-          <span class="menu-card__tag">★ Especialidade da casa</span>
-          <div class="menu-card__price">13,90€</div>
-          <h3>Arroz de Pato</h3>
-          <p>Arroz cremoso com pato assado e rodelas de chouriço, gratinado no forno.</p>
+          <div class="menu-card__img">
+            <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=600&auto=format&fit=crop" alt="Arroz de Pato" loading="lazy">
+          </div>
+          <div class="menu-card__body">
+            <span class="menu-card__tag">★ Especialidade da casa</span>
+            <div class="menu-card__price">13,90€</div>
+            <h3>Arroz de Pato</h3>
+            <p>Arroz cremoso com pato assado e rodelas de chouriço, gratinado no forno.</p>
+          </div>
         </div>
         <div class="menu-card">
-          <span class="menu-card__tag">Sobremesa</span>
-          <div class="menu-card__price">2,50€</div>
-          <h3>Pastel de Nata</h3>
-          <p>Pastel de nata crocante com recheio cremoso, polvilhado com canela.</p>
+          <div class="menu-card__img">
+            <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600&auto=format&fit=crop" alt="Pastel de Nata" loading="lazy">
+          </div>
+          <div class="menu-card__body">
+            <span class="menu-card__tag">Sobremesa</span>
+            <div class="menu-card__price">2,50€</div>
+            <h3>Pastel de Nata</h3>
+            <p>Pastel de nata crocante com recheio cremoso, polvilhado com canela.</p>
+          </div>
         </div>
       </div>
       <div style="text-align: center;">
@@ -219,7 +310,9 @@
           <div class="test-card__stars">★★★★★</div>
           <p>"A melhor cozinha portuguesa de Lisboa! O bacalhau é simplesmente incrível e o ambiente é muito acolhedor. Voltamos sempre que temos visitas de fora."</p>
           <div class="test-card__author">
-            <div class="test-card__avatar">MC</div>
+            <div class="test-card__avatar">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&crop=face" alt="Foto de Miguel Costa" loading="lazy">
+            </div>
             <div>
               <strong>Miguel Costa</strong>
               <span>Lisboa · Cliente desde 2015</span>
@@ -230,12 +323,48 @@
           <div class="test-card__stars">★★★★★</div>
           <p>"Vim celebrar o meu aniversário e foi uma noite memorável. O arroz de pato é de outro mundo. Serviço atencioso e preços muito justos para a qualidade."</p>
           <div class="test-card__author">
-            <div class="test-card__avatar">SM</div>
+            <div class="test-card__avatar">
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&crop=face" alt="Foto de Sara Mendes" loading="lazy">
+            </div>
             <div>
               <strong>Sara Mendes</strong>
               <span>Porto · Visitante frequente</span>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIA -->
+  <section class="galeria">
+    <div class="container">
+      <h2>A nossa galeria</h2>
+      <p class="section-sub">Momentos, sabores e o ambiente que nos define.</p>
+      <div class="galeria__grid">
+        <div class="galeria__item">
+          <img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=800&auto=format&fit=crop" alt="Sala de jantar do Tasqueiro" loading="lazy">
+          <div class="galeria__item-overlay"><span class="galeria__item-label">Sala de Jantar</span></div>
+        </div>
+        <div class="galeria__item">
+          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&auto=format&fit=crop" alt="Pratos tradicionais portugueses" loading="lazy">
+          <div class="galeria__item-overlay"><span class="galeria__item-label">Pratos da Casa</span></div>
+        </div>
+        <div class="galeria__item">
+          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&auto=format&fit=crop" alt="Interior acolhedor do restaurante" loading="lazy">
+          <div class="galeria__item-overlay"><span class="galeria__item-label">O Nosso Espaço</span></div>
+        </div>
+        <div class="galeria__item">
+          <img src="https://images.unsplash.com/photo-1498654896293-37aacf113fd9?w=800&auto=format&fit=crop" alt="Mesa posta com elegância" loading="lazy">
+          <div class="galeria__item-overlay"><span class="galeria__item-label">Mesa Posta</span></div>
+        </div>
+        <div class="galeria__item">
+          <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=800&auto=format&fit=crop" alt="Pratos coloridos e apetitosos" loading="lazy">
+          <div class="galeria__item-overlay"><span class="galeria__item-label">Gastronomia</span></div>
+        </div>
+        <div class="galeria__item">
+          <img src="https://images.unsplash.com/photo-1560717845-968823efbee1?w=800&auto=format&fit=crop" alt="Ambiente do restaurante à noite" loading="lazy">
+          <div class="galeria__item-overlay"><span class="galeria__item-label">Atmosfera Única</span></div>
         </div>
       </div>
     </div>

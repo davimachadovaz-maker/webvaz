@@ -151,6 +151,7 @@
     /* ── PAGE HERO ── */
     .page-hero {
       padding: calc(var(--nav-height) + 3.5rem) 5% 3.5rem;
+      background: linear-gradient(180deg, rgba(18,8,15,0.88) 0%, rgba(18,8,15,0.75) 100%), url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1600&auto=format&fit=crop') center/cover no-repeat;
       border-bottom: 1px solid rgba(232, 160, 176, 0.08);
       position: relative;
       overflow: hidden;
@@ -423,6 +424,11 @@
     }
     .confirmation-note strong { color: var(--accent); }
 
+    .salon-gallery { display: grid; grid-template-columns: repeat(3, 1fr); height: 200px; overflow: hidden; border-bottom: 1px solid rgba(232, 160, 176, 0.08); }
+    .salon-gallery img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s; }
+    .salon-gallery img:hover { transform: scale(1.04); }
+    @media(max-width:640px){ .salon-gallery { grid-template-columns:1fr; height:auto; } .salon-gallery img { height:150px; } }
+
     /* ── FOOTER ── */
     footer {
       background: #0D060B;
@@ -573,6 +579,12 @@
       <h1>Marcar Consulta</h1>
       <p>Preencha o formulário abaixo e confirmamos a sua marcação por email ou SMS em até 24 horas.</p>
     </div>
+  </div>
+
+  <div class="salon-gallery">
+    <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&auto=format&fit=crop" alt="Salão de beleza moderno" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=800&auto=format&fit=crop" alt="Estilista a trabalhar" loading="lazy">
+    <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=800&auto=format&fit=crop" alt="Tratamento de cabelo" loading="lazy">
   </div>
 
   <!-- BOOKING LAYOUT -->

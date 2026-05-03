@@ -125,7 +125,8 @@
     /* ─── HERO ─── */
     .hero {
       min-height: 100vh;
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       align-items: center;
       padding: calc(var(--nav-h) + 4rem) 5% 5rem;
       background: radial-gradient(ellipse at 60% 50%, rgba(200, 160, 80, 0.07) 0%, transparent 70%),
@@ -133,6 +134,7 @@
                   var(--bg);
       position: relative;
       overflow: hidden;
+      gap: 4rem;
     }
     .hero::before {
       content: '';
@@ -141,7 +143,7 @@
       background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C8A050' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
       pointer-events: none;
     }
-    .hero-inner { max-width: 680px; position: relative; }
+    .hero-inner { max-width: 600px; position: relative; }
     .hero-tag {
       display: inline-block;
       background: rgba(200, 160, 80, 0.12);
@@ -203,6 +205,49 @@
     .hero-stat::before { content: ''; display: block; width: 32px; height: 2px; background: var(--accent); border-radius: 2px; }
     .hero-stat strong { color: var(--accent); font-size: 1.1rem; }
 
+    /* Hero image side */
+    .hero-image-side {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .hero-img-main {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+    }
+    .hero-img-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .hero-img-small {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .hero-img-badge {
+      position: absolute;
+      top: 1.2rem;
+      left: 1.2rem;
+      background: rgba(26,18,8,0.85);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+      border-radius: 8px;
+      padding: 0.5rem 0.9rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.5px;
+    }
+
     /* ─── SECTIONS ─── */
     section { padding: 5rem 5%; }
     .section-label {
@@ -241,21 +286,26 @@
       box-shadow: 0 12px 40px rgba(0,0,0,0.4);
     }
     .product-img {
-      height: 200px;
+      height: 220px;
       width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.8rem;
       position: relative;
+      overflow: hidden;
     }
+    .product-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s;
+    }
+    .product-card:hover .product-img img { transform: scale(1.06); }
     .product-img .img-label {
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      background: rgba(0,0,0,0.35);
-      padding: 0.3rem 0.7rem;
+      background: linear-gradient(transparent, rgba(0,0,0,0.6));
+      padding: 1.2rem 0.7rem 0.4rem;
       font-size: 0.7rem;
-      color: rgba(255,255,255,0.6);
+      color: rgba(255,255,255,0.75);
       letter-spacing: 0.5px;
     }
     .product-body { padding: 1.2rem; }
@@ -289,13 +339,18 @@
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 2rem 1.5rem;
-      text-align: center;
+      overflow: hidden;
       transition: border-color 0.2s, transform 0.2s;
       cursor: default;
     }
     .cat-card:hover { border-color: var(--accent); transform: translateY(-3px); }
-    .cat-emoji { font-size: 2.4rem; margin-bottom: 0.8rem; display: block; }
+    .cat-img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      display: block;
+    }
+    .cat-body { padding: 1.2rem 1.5rem; text-align: center; }
     .cat-name { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
     .cat-count { font-size: 0.82rem; color: var(--muted); }
 
@@ -314,6 +369,78 @@
     .why-icon { font-size: 2rem; margin-bottom: 1rem; }
     .why-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--accent); }
     .why-text { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+
+    /* ─── TESTIMONIALS ─── */
+    .testimonials-section { background: var(--card-bg); border-top: 1px solid var(--border); }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .testimonial-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.8rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .testimonial-card:hover { border-color: rgba(200,160,80,0.4); transform: translateY(-3px); }
+    .testimonial-stars { color: var(--accent); font-size: 1rem; margin-bottom: 1rem; letter-spacing: 2px; }
+    .testimonial-text { color: var(--muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.5rem; font-style: italic; }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .testimonial-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--border);
+    }
+    .testimonial-name { font-size: 0.88rem; font-weight: 700; }
+    .testimonial-location { font-size: 0.75rem; color: var(--muted); }
+
+    /* ─── GALLERY ─── */
+    .gallery-section { padding: 5rem 5%; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      aspect-ratio: 4/3;
+    }
+    .gallery-item:nth-child(1) { grid-column: span 2; aspect-ratio: auto; height: 300px; }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s;
+    }
+    .gallery-item:hover img { transform: scale(1.06); }
+    .gallery-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(transparent 50%, rgba(0,0,0,0.55));
+      opacity: 0;
+      transition: opacity 0.3s;
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem;
+    }
+    .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+    .gallery-item-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: 0.5px;
+    }
 
     /* ─── CTA BAND ─── */
     .cta-band {
@@ -358,10 +485,17 @@
     .footer-bottom a:hover { color: #d9b060; }
 
     /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .hero { grid-template-columns: 1fr; gap: 3rem; min-height: auto; padding-top: calc(var(--nav-h) + 3rem); }
+      .hero-image-side { display: none; }
+    }
     @media (max-width: 900px) {
       .products-grid { grid-template-columns: repeat(2, 1fr); }
       .categories-grid { grid-template-columns: repeat(2, 1fr); }
       .why-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item:nth-child(1) { grid-column: span 2; }
       .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
     }
     @media (max-width: 640px) {
@@ -371,6 +505,8 @@
       .categories-grid { grid-template-columns: repeat(2, 1fr); }
       .hero-btns { flex-direction: column; }
       .hero-btns a { text-align: center; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item:nth-child(1) { grid-column: span 1; height: 220px; }
     }
   </style>
 </head>
@@ -413,6 +549,33 @@
       </div>
       <div class="hero-stat"><strong>200+</strong> peças únicas disponíveis</div>
     </div>
+
+    <!-- Hero imagem lateral -->
+    <div class="hero-image-side">
+      <div style="position:relative;">
+        <img
+          class="hero-img-main"
+          src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&auto=format&fit=crop"
+          alt="Cerâmica portuguesa artesanal — peça pintada à mão"
+          loading="eager"
+        />
+        <div class="hero-img-badge">✦ Feito em Portugal</div>
+      </div>
+      <div class="hero-img-row">
+        <img
+          class="hero-img-small"
+          src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&auto=format&fit=crop"
+          alt="Azulejos portugueses pintados à mão"
+          loading="lazy"
+        />
+        <img
+          class="hero-img-small"
+          src="https://images.unsplash.com/photo-1612194209922-26bcc82ffa8b?w=800&auto=format&fit=crop"
+          alt="Artesão português a trabalhar na oficina"
+          loading="lazy"
+        />
+      </div>
+    </div>
   </section>
 
   <!-- FEATURED PRODUCTS -->
@@ -426,8 +589,12 @@
 
       <!-- 1 -->
       <div class="product-card">
-        <div class="product-img" style="background: linear-gradient(135deg, #1a3a6e 0%, #2a5aa0 50%, #1e4080 100%);">
-          🏛️
+        <div class="product-img">
+          <img
+            src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&auto=format&fit=crop"
+            alt="Azulejo hand-painted Lisboa — motivos tradicionais"
+            loading="lazy"
+          />
           <div class="img-label">Azulejaria · Lisboa</div>
         </div>
         <div class="product-body">
@@ -442,8 +609,12 @@
 
       <!-- 2 -->
       <div class="product-card">
-        <div class="product-img" style="background: linear-gradient(135deg, #6e2a1a 0%, #a04030 50%, #7a2e1e 100%);">
-          🐓
+        <div class="product-img">
+          <img
+            src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&auto=format&fit=crop"
+            alt="Cerâmica de Barcelos — Galo pintado à mão"
+            loading="lazy"
+          />
           <div class="img-label">Cerâmica · Barcelos</div>
         </div>
         <div class="product-body">
@@ -458,8 +629,12 @@
 
       <!-- 3 -->
       <div class="product-card">
-        <div class="product-img" style="background: linear-gradient(135deg, #6e1a1a 0%, #a03028 50%, #2a6e2a 100%);">
-          🧶
+        <div class="product-img">
+          <img
+            src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&auto=format&fit=crop"
+            alt="Bordado de Viana — lenço bordado à mão com padrões florais"
+            loading="lazy"
+          />
           <div class="img-label">Bordado · Viana do Castelo</div>
         </div>
         <div class="product-body">
@@ -474,8 +649,12 @@
 
       <!-- 4 -->
       <div class="product-card">
-        <div class="product-img" style="background: linear-gradient(135deg, #5a3a1a 0%, #8a5a2a 50%, #6a4420 100%);">
-          🧺
+        <div class="product-img">
+          <img
+            src="https://images.unsplash.com/photo-1615529179037-9e2817c9b9e8?w=800&auto=format&fit=crop"
+            alt="Cesto em vime artesanal — trançado à mão no Alentejo"
+            loading="lazy"
+          />
           <div class="img-label">Vimaria · Alentejo</div>
         </div>
         <div class="product-body">
@@ -490,8 +669,12 @@
 
       <!-- 5 -->
       <div class="product-card">
-        <div class="product-img" style="background: linear-gradient(135deg, #7a6040 0%, #a08050 50%, #8a6a38 100%);">
-          🏺
+        <div class="product-img">
+          <img
+            src="https://images.unsplash.com/photo-1567225557594-88d73e55f2cb?w=800&auto=format&fit=crop"
+            alt="Boneco de barro alentejano — cerâmica pintada à mão"
+            loading="lazy"
+          />
           <div class="img-label">Olaria · Alentejo</div>
         </div>
         <div class="product-body">
@@ -506,8 +689,12 @@
 
       <!-- 6 -->
       <div class="product-card">
-        <div class="product-img" style="background: linear-gradient(135deg, #6e1a2a 0%, #9a2e40 50%, #7a5010 100%);">
-          🎨
+        <div class="product-img">
+          <img
+            src="https://images.unsplash.com/photo-1603513492128-ba7bc9b3e143?w=800&auto=format&fit=crop"
+            alt="Tapete de Arraiolos bordado à mão — padrões tradicionais"
+            loading="lazy"
+          />
           <div class="img-label">Bordado · Arraiolos</div>
         </div>
         <div class="product-body">
@@ -534,24 +721,52 @@
     </div>
     <div class="categories-grid">
       <div class="cat-card">
-        <span class="cat-emoji">🏺</span>
-        <div class="cat-name">Cerâmica</div>
-        <div class="cat-count">45 peças disponíveis</div>
+        <img
+          class="cat-img"
+          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop"
+          alt="Cerâmica colorida portuguesa"
+          loading="lazy"
+        />
+        <div class="cat-body">
+          <div class="cat-name">Cerâmica</div>
+          <div class="cat-count">45 peças disponíveis</div>
+        </div>
       </div>
       <div class="cat-card">
-        <span class="cat-emoji">🖼️</span>
-        <div class="cat-name">Azulejos</div>
-        <div class="cat-count">38 peças disponíveis</div>
+        <img
+          class="cat-img"
+          src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&auto=format&fit=crop"
+          alt="Azulejos decorativos portugueses"
+          loading="lazy"
+        />
+        <div class="cat-body">
+          <div class="cat-name">Azulejos</div>
+          <div class="cat-count">38 peças disponíveis</div>
+        </div>
       </div>
       <div class="cat-card">
-        <span class="cat-emoji">🧶</span>
-        <div class="cat-name">Têxteis</div>
-        <div class="cat-count">62 peças disponíveis</div>
+        <img
+          class="cat-img"
+          src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&auto=format&fit=crop"
+          alt="Bordados e têxteis artesanais portugueses"
+          loading="lazy"
+        />
+        <div class="cat-body">
+          <div class="cat-name">Têxteis</div>
+          <div class="cat-count">62 peças disponíveis</div>
+        </div>
       </div>
       <div class="cat-card">
-        <span class="cat-emoji">🪵</span>
-        <div class="cat-name">Madeira</div>
-        <div class="cat-count">29 peças disponíveis</div>
+        <img
+          class="cat-img"
+          src="https://images.unsplash.com/photo-1544967082-d9d25d867d66?w=800&auto=format&fit=crop"
+          alt="Produtos decorativos artesanais em madeira"
+          loading="lazy"
+        />
+        <div class="cat-body">
+          <div class="cat-name">Madeira</div>
+          <div class="cat-count">29 peças disponíveis</div>
+        </div>
       </div>
     </div>
   </section>
@@ -578,6 +793,146 @@
         <div class="why-icon">📦</div>
         <div class="why-title">Envio Seguro</div>
         <div class="why-text">Embalagem cuidada e reforçada para entregar a tua peça em perfeito estado, onde quer que estejas em Portugal.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section">
+    <div class="section-head">
+      <p class="section-label">Clientes</p>
+      <h2 class="section-title">O que dizem os nossos clientes</h2>
+      <p class="section-sub">Mais de 500 clientes satisfeitos em todo Portugal.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Comprei um tapete de Arraiolos para oferecer à minha mãe. A qualidade é impressionante — notava-se logo que era feito com amor e dedicação. Chegou com embalagem linda. Voltarei com certeza!"</p>
+        <div class="testimonial-author">
+          <img
+            class="testimonial-avatar"
+            src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&auto=format&fit=crop&crop=face"
+            alt="Foto de Ana Martins — cliente satisfeita"
+            loading="lazy"
+          />
+          <div>
+            <div class="testimonial-name">Ana Martins</div>
+            <div class="testimonial-location">Porto, Portugal</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Já comprei azulejos pintados à mão duas vezes. São perfeitos para decorar a casa com autenticidade portuguesa. O atendimento é sempre excelente e a entrega super rápida."</p>
+        <div class="testimonial-author">
+          <img
+            class="testimonial-avatar"
+            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&auto=format&fit=crop&crop=face"
+            alt="Foto de João Silva — cliente satisfeito"
+            loading="lazy"
+          />
+          <div>
+            <div class="testimonial-name">João Silva</div>
+            <div class="testimonial-location">Lisboa, Portugal</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Encomendei uma jarra de cerâmica algarvia. Ficou linda na sala! Além disso adorei saber a história do artesão que a criou — isso faz toda a diferença. Loja única em Portugal."</p>
+        <div class="testimonial-author">
+          <img
+            class="testimonial-avatar"
+            src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&auto=format&fit=crop&crop=face"
+            alt="Foto de Sofia Carvalho — cliente satisfeita"
+            loading="lazy"
+          />
+          <div>
+            <div class="testimonial-name">Sofia Carvalho</div>
+            <div class="testimonial-location">Faro, Portugal</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery-section">
+    <div class="section-head">
+      <p class="section-label">Galeria</p>
+      <h2 class="section-title">Artesanato em destaque</h2>
+      <p class="section-sub">Uma janela para o universo das artes tradicionais portuguesas — beleza em cada detalhe.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=800&auto=format&fit=crop"
+          alt="Artesanato português — peças de decoração únicas"
+          loading="lazy"
+        />
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-label">Arte Tradicional Portuguesa</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&auto=format&fit=crop"
+          alt="Loja de artesanato com produtos expostos"
+          loading="lazy"
+        />
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-label">Produtos em Loja</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop"
+          alt="Cerâmica colorida artesanal portuguesa"
+          loading="lazy"
+        />
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-label">Cerâmica Colorida</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1612194209922-26bcc82ffa8b?w=800&auto=format&fit=crop"
+          alt="Artesão português a trabalhar na oficina com argila"
+          loading="lazy"
+        />
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-label">Artesão a Trabalhar</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1603513492128-ba7bc9b3e143?w=800&auto=format&fit=crop"
+          alt="Tapete artesanal bordado à mão"
+          loading="lazy"
+        />
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-label">Tapetes Artesanais</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1551845728-6820a30c64e2?w=800&auto=format&fit=crop"
+          alt="Interior de loja de artesanato português"
+          loading="lazy"
+        />
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-label">A Nossa Loja</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <img
+          src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop"
+          alt="Produto artesanal premium — detalhe de qualidade"
+          loading="lazy"
+        />
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-label">Qualidade Premium</span>
+        </div>
       </div>
     </div>
   </section>
