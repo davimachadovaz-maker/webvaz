@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Café Pastelaria Aurora — Desde 1952, Lisboa</title>
+  <meta name="description" content="O café mais querido de Lisboa. Pastéis de nata, bolos artesanais e um ambiente único desde 1952.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Nunito:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --amarelo: #E8A838;
+      --amarelo-light: #F2C060;
+      --castanho: #3D1F0D;
+      --castanho-mid: #6B3C1E;
+      --creme: #FDF6E3;
+      --creme-dark: #F5E9C8;
+      --vermelho: #C0392B;
+      --vermelho-light: #E74C3C;
+      --text: #2C1105;
+      --text-soft: #7A5230;
+      --serif: 'Abril Fatface', cursive;
+      --sans: 'Nunito', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--creme); color: var(--text); overflow-x: hidden; }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+
+    /* NAV */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(61,31,13,0.97); backdrop-filter: blur(8px);
+      padding: 18px 0; transition: padding 0.3s;
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-family: var(--serif); font-size: 1.5rem; color: var(--amarelo); letter-spacing: -0.01em; }
+    .nav-logo em { color: rgba(255,255,255,0.4); font-style: normal; font-family: var(--sans); font-size: 0.65rem; display: block; letter-spacing: 0.2em; font-weight: 300; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
+    .nav-links a { font-size: 0.88rem; font-weight: 600; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--amarelo); }
+    .nav-cta {
+      background: var(--vermelho) !important; color: #fff !important;
+      padding: 10px 22px; border-radius: 100px; font-size: 0.82rem !important;
+      font-weight: 700 !important; letter-spacing: 0.06em !important; transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--vermelho-light) !important; }
+    .nav-ham { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
+    .nav-ham span { width: 24px; height: 2px; background: var(--amarelo); border-radius: 2px; display: block; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; position: relative; display: flex; align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: var(--castanho);
+    }
+    .hero-bg img {
+      width: 100%; height: 100%; object-fit: cover; opacity: 0.35;
+    }
+    .hero-texture {
+      position: absolute; inset: 0; z-index: 1; opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FDF6E3' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-vignette {
+      position: absolute; inset: 0; z-index: 2;
+      background: radial-gradient(ellipse at center, transparent 30%, rgba(61,31,13,0.8) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 3; max-width: 1200px; margin: 0 auto;
+      padding: 120px 24px 80px; text-align: center;
+    }
+    .hero-stamp {
+      display: inline-block; width: 100px; height: 100px; border-radius: 50%;
+      border: 2px dashed var(--amarelo); display: flex; flex-direction: column;
+      align-items: center; justify-content: center; margin: 0 auto 36px;
+      position: relative;
+    }
+    .hero-stamp-year { font-family: var(--serif); font-size: 1.8rem; color: var(--amarelo); line-height: 1; }
+    .hero-stamp-since { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(255,255,255,0.5); margin-top: 2px; }
+    .hero-tag { font-size: 0.78rem; font-weight: 700; color: var(--amarelo); text-transform: uppercase; letter-spacing: 0.25em; margin-bottom: 20px; display: block; }
+    .hero-title { font-family: var(--serif); font-size: clamp(52px, 8vw, 108px); color: #fff; line-height: 1; margin-bottom: 28px; text-shadow: 0 4px 32px rgba(0,0,0,0.4); }
+    .hero-title span { color: var(--amarelo); }
+    .hero-sub { font-size: 1.1rem; font-weight: 300; color: rgba(255,255,255,0.8); max-width: 520px; margin: 0 auto 48px; line-height: 1.75; font-style: italic; }
+    .hero-divider { display: flex; align-items: center; gap: 16px; justify-content: center; margin-bottom: 40px; }
+    .hero-divider-line { width: 60px; height: 1px; background: rgba(232,168,56,0.5); }
+    .hero-divider-icon { color: var(--amarelo); font-size: 1.2rem; }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .btn-yellow { background: var(--amarelo); color: var(--castanho); padding: 15px 40px; border-radius: 100px; font-family: var(--sans); font-size: 0.92rem; font-weight: 800; border: none; cursor: pointer; transition: background 0.2s, transform 0.1s; text-transform: uppercase; letter-spacing: 0.08em; }
+    .btn-yellow:hover { background: var(--amarelo-light); transform: translateY(-2px); }
+    .btn-outline-white { background: transparent; color: #fff; padding: 15px 40px; border-radius: 100px; font-family: var(--sans); font-size: 0.92rem; font-weight: 600; border: 1.5px solid rgba(255,255,255,0.4); cursor: pointer; transition: border-color 0.2s, color 0.2s; text-transform: uppercase; letter-spacing: 0.08em; }
+    .btn-outline-white:hover { border-color: var(--amarelo); color: var(--amarelo); }
+    .hero-scroll { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .hero-scroll span { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(255,255,255,0.4); }
+    .scroll-arrow { width: 24px; height: 24px; border-bottom: 2px solid rgba(255,255,255,0.3); border-right: 2px solid rgba(255,255,255,0.3); transform: rotate(45deg); margin-top: -4px; animation: scrollBounce 1.5s ease infinite; }
+    @keyframes scrollBounce { 0%,100%{transform:rotate(45deg) translateY(0)} 50%{transform:rotate(45deg) translateY(6px)} }
+
+    /* STRIP */
+    .strip { background: var(--amarelo); padding: 14px 0; overflow: hidden; }
+    .strip-inner { display: flex; gap: 48px; white-space: nowrap; animation: marquee 20s linear infinite; }
+    .strip-item { display: flex; align-items: center; gap: 12px; font-size: 0.82rem; font-weight: 700; color: var(--castanho); text-transform: uppercase; letter-spacing: 0.1em; flex-shrink: 0; }
+    .strip-icon { font-size: 1rem; }
+    @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* MENU */
+    .ementa { padding: 100px 0; background: var(--castanho); position: relative; overflow: hidden; }
+    .ementa::before { content: ''; position: absolute; top: -80px; right: -80px; width: 400px; height: 400px; border-radius: 50%; background: rgba(232,168,56,0.06); }
+    .ementa::after { content: ''; position: absolute; bottom: -80px; left: -80px; width: 300px; height: 300px; border-radius: 50%; background: rgba(192,57,43,0.08); }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section-label { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: var(--amarelo); margin-bottom: 16px; display: block; text-align: center; }
+    .section-title-serif { font-family: var(--serif); font-size: clamp(32px, 4vw, 56px); text-align: center; margin-bottom: 12px; }
+    .ementa .section-title-serif { color: #fff; }
+    .section-sub { text-align: center; font-size: 0.95rem; color: rgba(255,255,255,0.55); font-style: italic; margin-bottom: 52px; }
+
+    .menu-tabs { display: flex; gap: 8px; justify-content: center; margin-bottom: 48px; flex-wrap: wrap; }
+    .menu-tab { padding: 10px 26px; border-radius: 100px; font-family: var(--sans); font-size: 0.85rem; font-weight: 700; border: 1.5px solid rgba(255,255,255,0.15); background: transparent; color: rgba(255,255,255,0.6); cursor: pointer; transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.08em; }
+    .menu-tab.active, .menu-tab:hover { background: var(--amarelo); color: var(--castanho); border-color: var(--amarelo); }
+
+    .menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .menu-item {
+      background: rgba(255,255,255,0.05); padding: 28px 24px; position: relative;
+      transition: background 0.25s; cursor: default;
+    }
+    .menu-item:hover { background: rgba(255,255,255,0.1); }
+    .menu-item-cat { font-size: 0.68rem; font-weight: 700; color: var(--amarelo-light); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 6px; }
+    .menu-item-name { font-family: var(--serif); font-size: 1.1rem; color: #fff; margin-bottom: 6px; }
+    .menu-item-desc { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.55; font-style: italic; }
+    .menu-item-price { position: absolute; top: 28px; right: 24px; font-family: var(--serif); font-size: 1.1rem; color: var(--amarelo); }
+    .menu-item.featured { background: rgba(232,168,56,0.14); border: 1px solid rgba(232,168,56,0.3); }
+    .menu-item.featured .menu-item-name { color: var(--amarelo-light); }
+
+    /* GALLERY */
+    .galeria { padding: 100px 0; }
+    .galeria .section-title-serif { color: var(--castanho); }
+    .galeria .section-sub { color: var(--text-soft); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 12px; margin-top: 52px;
+    }
+    .gallery-item { overflow: hidden; border-radius: 4px; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .gallery-item:hover img { transform: scale(1.06); }
+    .gallery-item.big { grid-column: span 2; }
+    .gallery-item img.tall { height: 440px; }
+    .gallery-item.big img { height: 440px; }
+    .gallery-item:not(.big) img { height: 214px; }
+
+    /* RESERVAS */
+    .reservas { padding: 100px 0; background: var(--creme-dark); }
+    .reservas-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .reservas-info {}
+    .reservas-info .section-label { text-align: left; color: var(--vermelho); }
+    .reservas-info .section-title-serif { text-align: left; color: var(--castanho); font-size: clamp(28px, 3vw, 48px); }
+    .reservas-info-sub { font-size: 0.97rem; color: var(--text-soft); line-height: 1.8; margin-bottom: 40px; font-style: italic; }
+    .reservas-detail { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+    .reservas-detail-icon { width: 46px; height: 46px; border-radius: 10px; background: var(--castanho); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .reservas-detail-icon svg { stroke: var(--amarelo); }
+    .reservas-detail-title { font-weight: 800; font-size: 0.92rem; color: var(--castanho); margin-bottom: 3px; }
+    .reservas-detail-text { font-size: 0.87rem; color: var(--text-soft); line-height: 1.5; }
+
+    .reservas-form { background: var(--castanho); border-radius: 16px; padding: 40px; }
+    .form-title { font-family: var(--serif); font-size: 1.6rem; color: var(--amarelo); margin-bottom: 8px; }
+    .form-sub { font-size: 0.88rem; color: rgba(255,255,255,0.55); margin-bottom: 28px; font-style: italic; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { font-size: 0.78rem; font-weight: 700; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 8px; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 13px 16px; border-radius: 8px;
+      border: 1.5px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.08);
+      color: #fff; font-family: var(--sans); font-size: 0.92rem; outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.3); }
+    .form-group select option { background: var(--castanho); color: #fff; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--amarelo); }
+    .form-group textarea { height: 90px; resize: none; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-submit { width: 100%; background: var(--amarelo); color: var(--castanho); padding: 15px; border-radius: 8px; border: none; font-family: var(--sans); font-size: 0.95rem; font-weight: 800; cursor: pointer; text-transform: uppercase; letter-spacing: 0.1em; transition: background 0.2s; margin-top: 8px; }
+    .form-submit:hover { background: var(--amarelo-light); }
+
+    /* ONLINE ORDERS */
+    .pedidos { padding: 100px 0; background: var(--vermelho); position: relative; overflow: hidden; }
+    .pedidos::before { content: ''; position: absolute; top: -100px; right: -100px; width: 500px; height: 500px; border-radius: 50%; background: rgba(255,255,255,0.04); }
+    .pedidos-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .pedidos-text .section-label { color: rgba(255,255,255,0.6); text-align: left; }
+    .pedidos-title { font-family: var(--serif); font-size: clamp(32px, 3.5vw, 52px); color: #fff; margin-bottom: 20px; line-height: 1.1; }
+    .pedidos-desc { font-size: 0.97rem; color: rgba(255,255,255,0.75); line-height: 1.8; margin-bottom: 36px; font-style: italic; }
+    .pedidos-steps { display: flex; flex-direction: column; gap: 20px; }
+    .pedido-step { display: flex; align-items: flex-start; gap: 16px; }
+    .step-num { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 1rem; color: #fff; flex-shrink: 0; }
+    .step-title { font-weight: 700; color: #fff; font-size: 0.92rem; margin-bottom: 3px; }
+    .step-desc { font-size: 0.84rem; color: rgba(255,255,255,0.6); }
+    .pedidos-cta { margin-top: 36px; display: flex; gap: 14px; }
+    .btn-white { background: #fff; color: var(--vermelho); padding: 14px 32px; border-radius: 100px; font-size: 0.9rem; font-weight: 800; border: none; cursor: pointer; transition: background 0.2s; text-transform: uppercase; letter-spacing: 0.08em; }
+    .btn-white:hover { background: var(--creme); }
+
+    .pedidos-img-wrap { position: relative; }
+    .pedidos-img { width: 100%; border-radius: 16px; height: 460px; object-fit: cover; box-shadow: 0 24px 60px rgba(0,0,0,0.3); }
+    .pedidos-badge {
+      position: absolute; top: 24px; right: 24px;
+      background: var(--amarelo); color: var(--castanho);
+      border-radius: 12px; padding: 16px 20px; text-align: center;
+    }
+    .pedidos-badge-time { font-family: var(--serif); font-size: 1.6rem; color: var(--castanho); line-height: 1; }
+    .pedidos-badge-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; color: var(--castanho-mid); }
+
+    /* EVENTS */
+    .eventos { padding: 100px 0; }
+    .eventos .section-title-serif { color: var(--castanho); }
+    .eventos .section-sub { color: var(--text-soft); }
+    .events-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 52px; }
+    .event-card { background: var(--castanho); border-radius: 12px; overflow: hidden; transition: transform 0.25s; }
+    .event-card:hover { transform: translateY(-5px); }
+    .event-img { width: 100%; height: 200px; object-fit: cover; }
+    .event-body { padding: 26px; }
+    .event-date { display: inline-flex; align-items: center; gap: 8px; background: var(--amarelo); color: var(--castanho); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; padding: 5px 14px; border-radius: 100px; margin-bottom: 14px; }
+    .event-title { font-family: var(--serif); font-size: 1.1rem; color: #fff; margin-bottom: 8px; line-height: 1.3; }
+    .event-desc { font-size: 0.85rem; color: rgba(255,255,255,0.55); line-height: 1.6; font-style: italic; }
+    .event-price { margin-top: 16px; display: flex; align-items: center; justify-content: space-between; }
+    .event-price-num { font-family: var(--serif); font-size: 1.2rem; color: var(--amarelo); }
+    .event-reserve { background: var(--vermelho); color: #fff; padding: 9px 18px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; border: none; cursor: pointer; transition: background 0.2s; }
+    .event-reserve:hover { background: var(--vermelho-light); }
+
+    /* FOOTER */
+    .footer { background: var(--castanho); color: rgba(255,255,255,0.6); padding: 64px 0 32px; }
+    .footer-deco { text-align: center; margin-bottom: 48px; }
+    .footer-deco-line { width: 80px; height: 2px; background: var(--amarelo); margin: 0 auto 20px; }
+    .footer-logo-big { font-family: var(--serif); font-size: 3rem; color: var(--amarelo); }
+    .footer-tagline { font-size: 0.85rem; font-style: italic; color: rgba(255,255,255,0.4); margin-top: 6px; }
+    .footer-top { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-col-title { font-size: 0.78rem; font-weight: 800; color: var(--amarelo-light); text-transform: uppercase; letter-spacing: 0.18em; margin-bottom: 20px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { font-size: 0.88rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--amarelo); }
+    .footer-hours { font-size: 0.88rem; line-height: 2; }
+    .footer-hours strong { color: rgba(255,255,255,0.85); font-weight: 700; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; text-align: center; font-size: 0.8rem; }
+
+    .back-link {
+      position: fixed; top: 50%; left: 20px; transform: translateY(-50%) rotate(-90deg);
+      background: var(--amarelo); color: var(--castanho); padding: 8px 16px; border-radius: 100px;
+      font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em;
+      z-index: 200;
+    }
+    .back-link:hover { background: var(--amarelo-light); }
+
+    @media (max-width: 1024px) {
+      .menu-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item.big { grid-column: span 2; }
+      .reservas-wrap { grid-template-columns: 1fr; }
+      .pedidos-inner { grid-template-columns: 1fr; }
+      .events-grid { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: fixed; top: 68px; left: 0; right: 0; background: var(--castanho); padding: 24px; border-bottom: 1px solid rgba(255,255,255,0.1); gap: 16px; }
+      .nav-links.open { display: flex; }
+      .nav-ham { display: flex; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item.big { grid-column: span 1; }
+      .gallery-item.big img, .gallery-item img.tall { height: 240px !important; }
+      .gallery-item:not(.big) img { height: 200px; }
+      .events-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .form-row { grid-template-columns: 1fr; }
+      .back-link { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="../../portfolio.html" class="back-link">← Portfólio</a>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      Aurora
+      <em>Café & Pastelaria · Desde 1952</em>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#ementa">Ementa</a></li>
+      <li><a href="#galeria">Galeria</a></li>
+      <li><a href="#pedidos">Encomendas</a></li>
+      <li><a href="#eventos">Eventos</a></li>
+      <li><a href="#reservas" class="nav-cta">Reservar Mesa</a></li>
+    </ul>
+    <button class="nav-ham" id="ham" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1600&auto=format&fit=crop" alt="">
+  </div>
+  <div class="hero-texture"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-content">
+    <div class="hero-stamp" style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:100px;height:100px;border-radius:50%;border:2px dashed rgba(232,168,56,0.6);margin:0 auto 36px;">
+      <div class="hero-stamp-year">1952</div>
+      <div class="hero-stamp-since">Desde</div>
+    </div>
+    <span class="hero-tag">Lisboa · Intendente · Tradição</span>
+    <h1 class="hero-title">Café<br>Pastelaria<br><span>Aurora</span></h1>
+    <div class="hero-divider">
+      <div class="hero-divider-line"></div>
+      <div class="hero-divider-icon">☕</div>
+      <div class="hero-divider-line"></div>
+    </div>
+    <p class="hero-sub">"O lugar onde Lisboa sabe a café, a pastel de nata, e a conversa de vizinhos."</p>
+    <div class="hero-btns">
+      <a href="#ementa" class="btn-yellow">Ver Ementa</a>
+      <a href="#reservas" class="btn-outline-white">Reservar Mesa</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Descobrir</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-inner" id="stripInner">
+    <span class="strip-item"><span class="strip-icon">☕</span> Café da manhã todos os dias <span class="strip-icon">·</span></span>
+    <span class="strip-item"><span class="strip-icon">🥐</span> Pastelaria artesanal <span class="strip-icon">·</span></span>
+    <span class="strip-item"><span class="strip-icon">🎂</span> Bolos de aniversário por encomenda <span class="strip-icon">·</span></span>
+    <span class="strip-item"><span class="strip-icon">🍷</span> Esplanada com vista para o jardim <span class="strip-icon">·</span></span>
+    <span class="strip-item"><span class="strip-icon">📞</span> Reservas: +351 21 800 0000 <span class="strip-icon">·</span></span>
+    <span class="strip-item"><span class="strip-icon">☕</span> Café da manhã todos os dias <span class="strip-icon">·</span></span>
+    <span class="strip-item"><span class="strip-icon">🥐</span> Pastelaria artesanal <span class="strip-icon">·</span></span>
+    <span class="strip-item"><span class="strip-icon">🎂</span> Bolos de aniversário por encomenda <span class="strip-icon">·</span></span>
+    <span class="strip-item"><span class="strip-icon">🍷</span> Esplanada com vista para o jardim <span class="strip-icon">·</span></span>
+    <span class="strip-item"><span class="strip-icon">📞</span> Reservas: +351 21 800 0000 <span class="strip-icon">·</span></span>
+  </div>
+</div>
+
+<!-- EMENTA -->
+<section class="ementa" id="ementa">
+  <div class="container">
+    <span class="section-label">O que servimos</span>
+    <h2 class="section-title-serif" style="color:#fff;">A nossa ementa</h2>
+    <p class="section-sub">Feito de manhã, todos os dias, com ingredientes locais e receitas da Aurora.</p>
+
+    <div class="menu-tabs">
+      <button class="menu-tab active" data-tab="pastelaria">Pastelaria</button>
+      <button class="menu-tab" data-tab="cafes">Cafés</button>
+      <button class="menu-tab" data-tab="pequeno">Pequeno-Almoço</button>
+      <button class="menu-tab" data-tab="almoco">Almoço</button>
+    </div>
+
+    <div class="menu-grid" id="menuGrid">
+      <div class="menu-item featured" data-tab="pastelaria">
+        <div class="menu-item-cat">Clássico</div>
+        <div class="menu-item-name">Pastel de Nata da Aurora</div>
+        <div class="menu-item-desc">A receita original de 1952. Massa folhada crocante com creme de ovos perfumado com canela e limão.</div>
+        <div class="menu-item-price">1,40€</div>
+      </div>
+      <div class="menu-item" data-tab="pastelaria">
+        <div class="menu-item-cat">Pastelaria</div>
+        <div class="menu-item-name">Bolo de Mel da Madeira</div>
+        <div class="menu-item-desc">Receita tradicional madeirense com melaço, especiarias e frutos secos.</div>
+        <div class="menu-item-price">2,80€</div>
+      </div>
+      <div class="menu-item" data-tab="pastelaria">
+        <div class="menu-item-cat">Pastelaria</div>
+        <div class="menu-item-name">Queijada de Sintra</div>
+        <div class="menu-item-desc">Queijadas artesanais com queijo fresco e canela, receita tradicional da região.</div>
+        <div class="menu-item-price">2,20€</div>
+      </div>
+      <div class="menu-item" data-tab="pastelaria">
+        <div class="menu-item-cat">Especial</div>
+        <div class="menu-item-name">Tarte de Amêndoa</div>
+        <div class="menu-item-desc">Base de massa amanteigada com recheio de amêndoa torrada e mel do Alentejo.</div>
+        <div class="menu-item-price">3,50€</div>
+      </div>
+      <div class="menu-item" data-tab="pastelaria">
+        <div class="menu-item-cat">Pastelaria</div>
+        <div class="menu-item-name">Berlinde de Doce de Leite</div>
+        <div class="menu-item-desc">Massa leve e fofa recheada com doce de leite artesanal e polvilhada com açúcar.</div>
+        <div class="menu-item-price">2,60€</div>
+      </div>
+      <div class="menu-item" data-tab="pastelaria">
+        <div class="menu-item-cat">Pastelaria</div>
+        <div class="menu-item-name">Bolo de Cenoura com Laranja</div>
+        <div class="menu-item-desc">Bolo húmido de cenoura com cobertura de cream cheese e raspa de laranja.</div>
+        <div class="menu-item-price">3,20€</div>
+      </div>
+      <!-- Cafés tab items (hidden by default) -->
+      <div class="menu-item featured" data-tab="cafes" style="display:none;">
+        <div class="menu-item-cat">Café</div>
+        <div class="menu-item-name">Bica da Aurora</div>
+        <div class="menu-item-desc">Blend exclusivo torrado para o Café Aurora. Notas de chocolate negro e frutos vermelhos.</div>
+        <div class="menu-item-price">0,90€</div>
+      </div>
+      <div class="menu-item" data-tab="cafes" style="display:none;">
+        <div class="menu-item-cat">Café</div>
+        <div class="menu-item-name">Galão</div>
+        <div class="menu-item-desc">Espresso com leite vaporizado numa proporção perfeita de 1:3.</div>
+        <div class="menu-item-price">1,40€</div>
+      </div>
+      <div class="menu-item" data-tab="cafes" style="display:none;">
+        <div class="menu-item-cat">Café</div>
+        <div class="menu-item-name">Cappuccino da Casa</div>
+        <div class="menu-item-desc">Duplo espresso com leite vaporizado e crème de leite. Opcional com canela.</div>
+        <div class="menu-item-price">2,00€</div>
+      </div>
+      <div class="menu-item" data-tab="cafes" style="display:none;">
+        <div class="menu-item-cat">Bebidas Quentes</div>
+        <div class="menu-item-name">Chocolate Quente</div>
+        <div class="menu-item-desc">Chocolate negro 70% com leite integral. Espessura à escolha: fino ou cremoso.</div>
+        <div class="menu-item-price">2,50€</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="galeria" id="galeria">
+  <div class="container">
+    <span class="section-label">O nosso espaço</span>
+    <h2 class="section-title-serif" style="color:var(--castanho);">Um lugar com <em style="color:var(--vermelho);">alma</em></h2>
+    <p class="section-sub" style="color:var(--text-soft);">Cada canto da Aurora tem uma história. Venha conhecer.</p>
+  </div>
+  <div class="container">
+    <div class="gallery-grid">
+      <div class="gallery-item big">
+        <img style="height:440px;" src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=900&auto=format&fit=crop" alt="">
+      </div>
+      <div class="gallery-item">
+        <img class="tall" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&auto=format&fit=crop" alt="">
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&auto=format&fit=crop" alt="">
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1528137871618-79d2761e3fd5?w=600&auto=format&fit=crop" alt="">
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1519996529931-28324d5a630e?w=600&auto=format&fit=crop" alt="">
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1442975631134-77fd7f82ddba?w=600&auto=format&fit=crop" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVAS -->
+<section class="reservas" id="reservas">
+  <div class="container">
+    <div class="reservas-wrap">
+      <div class="reservas-info">
+        <span class="section-label">Reserve a sua mesa</span>
+        <h2 class="section-title-serif">Venha visitar<br>a <em style="color:var(--vermelho);">Aurora</em></h2>
+        <p class="reservas-info-sub">Reserve a sua mesa com antecedência e garanta o seu canto favorito. Aceitamos grupos até 20 pessoas.</p>
+
+        <div class="reservas-detail">
+          <div class="reservas-detail-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="reservas-detail-title">Localização</div>
+            <div class="reservas-detail-text">Rua do Intendente, 42, Lisboa<br>Metro: Intendente (Linha Verde)</div>
+          </div>
+        </div>
+        <div class="reservas-detail">
+          <div class="reservas-detail-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <div class="reservas-detail-title">Horário</div>
+            <div class="reservas-detail-text">Segunda a Sexta: 7h30 – 20h00<br>Sábado: 8h00 – 22h00 · Domingo: 9h00 – 18h00</div>
+          </div>
+        </div>
+        <div class="reservas-detail">
+          <div class="reservas-detail-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.64 2.5h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 17z"/></svg>
+          </div>
+          <div>
+            <div class="reservas-detail-title">Contactos</div>
+            <div class="reservas-detail-text">+351 21 800 0000<br>reservas@cafeaurora.pt</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reservas-form">
+        <div class="form-title">Reservar Mesa</div>
+        <div class="form-sub">Resposta de confirmação em menos de 2 horas.</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nome</label>
+            <input type="text" placeholder="O seu nome">
+          </div>
+          <div class="form-group">
+            <label>Telefone</label>
+            <input type="tel" placeholder="+351 9xx xxx xxx">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Data</label>
+            <input type="date">
+          </div>
+          <div class="form-group">
+            <label>Hora</label>
+            <select>
+              <option>08:00</option>
+              <option>09:00</option>
+              <option>10:00</option>
+              <option selected>12:30</option>
+              <option>13:00</option>
+              <option>14:00</option>
+              <option>19:00</option>
+              <option>19:30</option>
+              <option>20:00</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nº de pessoas</label>
+            <select>
+              <option>1 pessoa</option>
+              <option selected>2 pessoas</option>
+              <option>3–4 pessoas</option>
+              <option>5–8 pessoas</option>
+              <option>9–12 pessoas</option>
+              <option>+12 pessoas</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Ocasião</label>
+            <select>
+              <option>Almoço/Jantar</option>
+              <option>Aniversário</option>
+              <option>Reunião</option>
+              <option>Brunch</option>
+              <option>Outro</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Observações</label>
+          <textarea placeholder="Alergias, preferências de lugar, necessidades especiais..."></textarea>
+        </div>
+        <button class="form-submit" id="reservaBtn">Confirmar Reserva</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PEDIDOS -->
+<section class="pedidos" id="pedidos">
+  <div class="container">
+    <div class="pedidos-inner">
+      <div class="pedidos-text">
+        <span class="section-label">Encomendas online</span>
+        <h2 class="pedidos-title">Bolos e doces entregues em sua casa</h2>
+        <p class="pedidos-desc">Encomende bolos de aniversário, tabuleiros de pastéis ou o bolo da avó para qualquer ocasião. Entregas em Lisboa e área metropolitana.</p>
+        <div class="pedidos-steps">
+          <div class="pedido-step">
+            <div class="step-num">1</div>
+            <div>
+              <div class="step-title">Escolha o seu bolo</div>
+              <div class="step-desc">Catálogo com mais de 30 criações da Aurora disponíveis para encomenda.</div>
+            </div>
+          </div>
+          <div class="pedido-step">
+            <div class="step-num">2</div>
+            <div>
+              <div class="step-title">Personalize ao seu gosto</div>
+              <div class="step-desc">Mensagem, decoração, sabor do recheio e número de doses à sua escolha.</div>
+            </div>
+          </div>
+          <div class="pedido-step">
+            <div class="step-num">3</div>
+            <div>
+              <div class="step-title">Receba em casa</div>
+              <div class="step-desc">Entrega em 48–72 horas em Lisboa e concelhos vizinhos. Levantamento na loja disponível.</div>
+            </div>
+          </div>
+        </div>
+        <div class="pedidos-cta">
+          <a href="#reservas" class="btn-white">Fazer Encomenda</a>
+        </div>
+      </div>
+      <div class="pedidos-img-wrap">
+        <img class="pedidos-img" src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=700&auto=format&fit=crop" alt="Bolos Aurora">
+        <div class="pedidos-badge">
+          <div class="pedidos-badge-time">48h</div>
+          <div class="pedidos-badge-label">Entrega</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section class="eventos" id="eventos">
+  <div class="container">
+    <span class="section-label" style="color:var(--vermelho);">Próximos eventos</span>
+    <h2 class="section-title-serif" style="color:var(--castanho);">Acontecimentos<br>especiais</h2>
+    <p class="section-sub" style="color:var(--text-soft);">Workshops, noites de fado, provas de café e muito mais.</p>
+    <div class="events-grid">
+      <div class="event-card">
+        <img class="event-img" src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=600&auto=format&fit=crop" alt="">
+        <div class="event-body">
+          <div class="event-date">17 Mai · 18h30</div>
+          <div class="event-title">Workshop de Pastéis de Nata com a Chef Aurora</div>
+          <div class="event-desc">Aprenda a fazer os pastéis de nata originais com a chef que guarda a receita da casa desde 1989.</div>
+          <div class="event-price">
+            <div class="event-price-num">35€ <span style="font-size:0.8rem;font-weight:300;color:rgba(255,255,255,0.4);">por pessoa</span></div>
+            <button class="event-reserve">Reservar</button>
+          </div>
+        </div>
+      </div>
+      <div class="event-card">
+        <img class="event-img" src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=600&auto=format&fit=crop" alt="">
+        <div class="event-body">
+          <div class="event-date">24 Mai · 21h00</div>
+          <div class="event-title">Noite de Fado — Vozes de Lisboa no Café Aurora</div>
+          <div class="event-desc">Uma noite íntima de fado tradicional com petiscos e vinho do Douro. Lugares muito limitados.</div>
+          <div class="event-price">
+            <div class="event-price-num">45€ <span style="font-size:0.8rem;font-weight:300;color:rgba(255,255,255,0.4);">por pessoa</span></div>
+            <button class="event-reserve">Reservar</button>
+          </div>
+        </div>
+      </div>
+      <div class="event-card">
+        <img class="event-img" src="https://images.unsplash.com/photo-1498804103079-a6351b050096?w=600&auto=format&fit=crop" alt="">
+        <div class="event-body">
+          <div class="event-date">31 Mai · 10h00</div>
+          <div class="event-title">Brunch de Domingo Especial — Dia da Família</div>
+          <div class="event-desc">Mesa corrida com toda a pastelaria da Aurora, sumos naturais, ovos e frios portugueses.</div>
+          <div class="event-price">
+            <div class="event-price-num">22€ <span style="font-size:0.8rem;font-weight:300;color:rgba(255,255,255,0.4);">por pessoa</span></div>
+            <button class="event-reserve">Reservar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-deco">
+      <div class="footer-deco-line"></div>
+      <div class="footer-logo-big">Aurora</div>
+      <div class="footer-tagline">"Desde 1952, o sabor de Lisboa."</div>
+    </div>
+    <div class="footer-top">
+      <div class="footer-col">
+        <div class="footer-col-title">Informação</div>
+        <ul>
+          <li><a href="#">A nossa história</a></li>
+          <li><a href="#">Ementa completa</a></li>
+          <li><a href="#">Galeria</a></li>
+          <li><a href="#">Eventos</a></li>
+          <li><a href="#">Encomendas</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Horário</div>
+        <div class="footer-hours">
+          <strong>Segunda a Sexta</strong><br>7h30 – 20h00<br>
+          <strong>Sábado</strong><br>8h00 – 22h00<br>
+          <strong>Domingo</strong><br>9h00 – 18h00
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Contacto</div>
+        <ul>
+          <li><a href="#">Rua do Intendente, 42, Lisboa</a></li>
+          <li><a href="#">+351 21 800 0000</a></li>
+          <li><a href="#">reservas@cafeaurora.pt</a></li>
+          <li style="margin-top:16px;display:flex;gap:10px;">
+            <a href="#" style="background:rgba(255,255,255,0.08);padding:8px;border-radius:6px;display:flex;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="#" style="background:rgba(255,255,255,0.08);padding:8px;border-radius:6px;display:flex;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Café Pastelaria Aurora. Todos os direitos reservados. · Rua do Intendente, 42, Lisboa
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').style.padding = window.scrollY > 60 ? '12px 0' : '18px 0';
+  });
+
+  // Mobile menu
+  document.getElementById('ham').addEventListener('click', () => {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+  document.querySelectorAll('#navLinks a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+  });
+
+  // Menu tabs
+  document.querySelectorAll('.menu-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const filter = tab.dataset.tab;
+
+      const items = document.querySelectorAll('#menuGrid .menu-item');
+      let shown = 0;
+      items.forEach(item => {
+        if (item.dataset.tab === filter && shown < 6) {
+          item.style.display = '';
+          shown++;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+      // Show generic items if none for tab
+      if (shown === 0) {
+        items.forEach((item, i) => { if (i < 6) { item.style.display = ''; } });
+      }
+    });
+  });
+
+  // Reserve form
+  document.getElementById('reservaBtn').addEventListener('click', function() {
+    this.textContent = '✓ Reserva enviada! Confirmaremos em breve.';
+    this.style.background = 'var(--musgo, #4A6741)';
+    this.style.background = '#4A6741';
+  });
+
+  // Event reserve buttons
+  document.querySelectorAll('.event-reserve').forEach(btn => {
+    btn.addEventListener('click', function() {
+      this.textContent = '✓ Reservado!';
+      this.style.background = '#27AE60';
+    });
+  });
+</script>
+</body>
+</html>
